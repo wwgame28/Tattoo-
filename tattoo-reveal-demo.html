@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Tattoo Reveal Demo</title>
+<style>
+  :root {
+    --bg:#0b0b0d;
+    --panel:#141417;
+    --line:rgba(255,255,255,.12);
+    --text:#f2f2ef;
+    --muted:#a5a6ab;
+    --accent:#f0ede6;
+    --accentText:#101113;
+    --radius:26px;
+    --shadow:0 18px 50px rgba(0,0,0,.35);
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; font-family:Inter,Arial,sans-serif; background:radial-gradient(circle at top,#1d1e22 0,#0b0b0d 55%); color:var(--text); }
+  .wrap { width:min(1200px,calc(100% - 32px)); margin:0 auto; }
+  .hero { padding:32px 0 12px; }
+  .eyebrow { font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-bottom:14px; }
+  h1 { margin:0; font-size:clamp(42px,8vw,86px); line-height:.9; letter-spacing:-.05em; max-width:10ch; }
+  .lead { max-width:48ch; color:#d2d4d8; font-size:18px; line-height:1.55; margin:18px 0 0; }
+  .toolbar { display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin:22px 0 0; }
+  .btn { appearance:none; border:1px solid var(--line); background:#ffffff08; color:var(--text); padding:14px 18px; border-radius:999px; font:inherit; font-size:13px; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; transition:.25s ease; }
+  .btn.primary { background:var(--accent); color:var(--accentText); border-color:transparent; font-weight:700; }
+  .btn:hover { transform:translateY(-1px); }
+  .note { color:var(--muted); font-size:13px; line-height:1.5; }
+  .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; padding:26px 0 40px; }
+  .card { background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.025)); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); }
+  .reveal { position:relative; aspect-ratio:4/5; background:#080808; overflow:hidden; isolation:isolate; }
+  .reveal img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; user-select:none; -webkit-user-drag:none; }
+  .reveal .after { opacity:var(--reveal,0); transition:opacity .14s linear; }
+  .reveal::after { content:""; position:absolute; inset:auto 0 0 0; height:38%; background:linear-gradient(180deg,transparent,rgba(0,0,0,.18)); pointer-events:none; }
+  .card-copy { padding:16px 18px 18px; display:grid; gap:10px; }
+  .card-top { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
+  .card h2 { margin:0; font-size:24px; line-height:1; letter-spacing:-.03em; }
+  .badge { border:1px solid var(--line); border-radius:999px; padding:8px 10px; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#d6d7db; white-space:nowrap; }
+  .meter { height:8px; border-radius:999px; background:#ffffff10; overflow:hidden; }
+  .fill { width:calc(var(--reveal,0) * 100%); height:100%; background:linear-gradient(90deg,#7f8cff,#f0ede6); transition:width .14s linear; }
+  .hint { color:var(--muted); font-size:13px; line-height:1.5; }
+  .tips { padding:0 0 50px; color:#c8cad0; }
+  .tips ul { margin:12px 0 0; padding-left:18px; }
+  .permission { display:none; margin-top:10px; }
+  .permission.show { display:block; }
+  .status { margin-left:auto; font-size:12px; color:var(--muted); }
+  .fallback { display:flex; gap:8px; flex-wrap:wrap; }
+  @media (hover:hover) and (pointer:fine) {
+    .reveal:hover .after { opacity:1; }
+    .reveal:hover { --reveal:1; }
+  }
+  @media (max-width:780px) {
+    .wrap { width:min(100% - 24px,1200px); }
+    .grid { grid-template-columns:1fr; gap:16px; }
+    .lead { font-size:16px; }
+    .toolbar { align-items:stretch; }
+    .status { width:100%; margin-left:0; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Tattoo Reveal / Motion Demo</div>
+      <h1>Наклони телефон — тату проявится</h1>
+      <p class="lead">Если держать телефон ровно, видно чистую кожу. При наклоне влево или вправо тату плавно проявляется. На компьютере работает hover, на телефоне без датчиков — тап по карточке.</p>
+      <div class="toolbar">
+        <button class="btn primary" id="enableMotion">Включить motion-эффект</button>
+        <button class="btn" id="toggleAll">Показать все тату</button>
+        <span class="status" id="statusText">Статус: ожидает разрешение</span>
+      </div>
+      <button class="btn permission" id="retryPermission">Разрешить доступ к наклону ещё раз</button>
+      <p class="note">Лучше всего работает на iPhone / Android после разрешения доступа к датчикам. Для iPhone появится системный запрос.</p>
+    </section>
+
+    <section class="grid" id="revealGrid">
+      <article class="card" data-label="Шея / бабочки">
+        <div class="reveal" data-card>
+          <img src="assets/tattoo-reveal/neck-clean.webp" alt="Шея и ключицы без тату" class="before" />
+          <img src="assets/tattoo-reveal/neck-tattoo.webp" alt="Шея и ключицы с татуировкой" class="after" />
+        </div>
+        <div class="card-copy">
+          <div class="card-top"><h2>Шея / бабочки</h2><span class="badge">Clean → Ink</span></div>
+          <div class="meter"><div class="fill"></div></div>
+          <div class="hint">Ровно — чистая версия. Наклон — тату проявляется плавно.</div>
+        </div>
+      </article>
+
+      <article class="card" data-label="Рукав / mask">
+        <div class="reveal" data-card>
+          <img src="assets/tattoo-reveal/sleeve-clean.webp" alt="Мужская рука без тату" class="before" />
+          <img src="assets/tattoo-reveal/sleeve-tattoo.webp" alt="Мужская рука с большим рукавом" class="after" />
+        </div>
+        <div class="card-copy">
+          <div class="card-top"><h2>Рукав / mask</h2><span class="badge">Black & grey</span></div>
+          <div class="meter"><div class="fill"></div></div>
+          <div class="hint">Хороший пример для больших работ: эффект читается очень заметно.</div>
+        </div>
+      </article>
+
+      <article class="card" data-label="Плечо / anime color">
+        <div class="reveal" data-card>
+          <img src="assets/tattoo-reveal/anime-clean.webp" alt="Плечо без тату" class="before" />
+          <img src="assets/tattoo-reveal/anime-tattoo.webp" alt="Плечо с цветной аниме татуировкой" class="after" />
+        </div>
+        <div class="card-copy">
+          <div class="card-top"><h2>Плечо / anime color</h2><span class="badge">Color</span></div>
+          <div class="meter"><div class="fill"></div></div>
+          <div class="hint">Для цветных работ проявление ощущается особенно живо.</div>
+        </div>
+      </article>
+
+      <article class="card" data-label="Плечо / nordic">
+        <div class="reveal" data-card>
+          <img src="assets/tattoo-reveal/nordic-clean.webp" alt="Рука без тату" class="before" />
+          <img src="assets/tattoo-reveal/nordic-tattoo.webp" alt="Рука с северной татуировкой" class="after" />
+        </div>
+        <div class="card-copy">
+          <div class="card-top"><h2>Плечо / nordic</h2><span class="badge">Pattern</span></div>
+          <div class="meter"><div class="fill"></div></div>
+          <div class="hint">Подходит для контрастных паттернов и орнаментов.</div>
+        </div>
+      </article>
+    </section>
+
+    <section class="tips">
+      <div class="eyebrow">Как это использовать на сайте</div>
+      <ul>
+        <li>Оставить 1 большую featured-карточку на первом экране и 3–4 такие карточки в портфолио.</li>
+        <li>На десктопе — hover, на телефоне — гироскоп, а если его не дали — обычный tap.</li>
+        <li>Сильнее всего эффект смотрится там, где ракурс clean/tattoo почти совпадает.</li>
+      </ul>
+    </section>
+  </div>
+
+<script>
+(() => {
+  const cards = [...document.querySelectorAll('[data-card]')];
+  const statusText = document.getElementById('statusText');
+  const enableMotionBtn = document.getElementById('enableMotion');
+  const retryPermissionBtn = document.getElementById('retryPermission');
+  const toggleAllBtn = document.getElementById('toggleAll');
+  let motionEnabled = false;
+  let forceShown = false;
+  let lastAmount = 0;
+
+  const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
+  const setReveal = (amount) => {
+    lastAmount = clamp(amount, 0, 1);
+    cards.forEach(card => card.style.setProperty('--reveal', String(forceShown ? 1 : lastAmount)));
+  };
+
+  const setStatus = (text) => statusText.textContent = 'Статус: ' + text;
+  setReveal(0);
+
+  function mapGammaToReveal(gamma) {
+    const safe = clamp(Math.abs(gamma), 0, 35);
+    return safe / 35;
+  }
+
+  function handleOrientation(event) {
+    const gamma = typeof event.gamma === 'number' ? event.gamma : 0;
+    const amount = mapGammaToReveal(gamma);
+    setReveal(amount);
+    setStatus('наклон активен (' + Math.round(amount * 100) + '%)');
+  }
+
+  async function enableMotion() {
+    try {
+      if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+        const result = await DeviceOrientationEvent.requestPermission();
+        if (result !== 'granted') {
+          setStatus('доступ к наклону не разрешён');
+          retryPermissionBtn.classList.add('show');
+          return;
+        }
+      }
+      window.addEventListener('deviceorientation', handleOrientation, true);
+      motionEnabled = true;
+      retryPermissionBtn.classList.remove('show');
+      setStatus('разрешение получено');
+      enableMotionBtn.textContent = 'Motion включён';
+    } catch (error) {
+      setStatus('не удалось включить наклон');
+      retryPermissionBtn.classList.add('show');
+      console.error(error);
+    }
+  }
+
+  enableMotionBtn.addEventListener('click', enableMotion);
+  retryPermissionBtn.addEventListener('click', enableMotion);
+
+  toggleAllBtn.addEventListener('click', () => {
+    forceShown = !forceShown;
+    toggleAllBtn.textContent = forceShown ? 'Скрыть все тату' : 'Показать все тату';
+    setReveal(lastAmount);
+  });
+
+  cards.forEach(card => {
+    let touchStartX = 0;
+    const toggleTap = () => {
+      if (motionEnabled) return;
+      const current = parseFloat(getComputedStyle(card).getPropertyValue('--reveal')) || 0;
+      card.style.setProperty('--reveal', current > .5 ? '0' : '1');
+      setStatus('tap fallback');
+    };
+    card.addEventListener('click', toggleTap);
+    card.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].clientX;
+    }, {passive:true});
+    card.addEventListener('touchmove', (e) => {
+      if (motionEnabled) return;
+      const delta = e.changedTouches[0].clientX - touchStartX;
+      const amount = clamp(Math.abs(delta) / 140, 0, 1);
+      card.style.setProperty('--reveal', amount.toFixed(3));
+      setStatus('swipe fallback (' + Math.round(amount * 100) + '%)');
+    }, {passive:true});
+    card.addEventListener('touchend', () => {
+      if (motionEnabled || forceShown) return;
+      card.style.setProperty('--reveal', '0');
+    }, {passive:true});
+  });
+
+  if (!('DeviceOrientationEvent' in window)) {
+    setStatus('гироскоп не найден, доступен tap/hover');
+  } else {
+    setStatus('нажми «Включить motion-эффект»');
+  }
+})();
+</script>
+</body>
+</html>
