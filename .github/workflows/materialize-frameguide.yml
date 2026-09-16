@@ -1,0 +1,42 @@
+name: Materialize FrameGuide source
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [frameguide-app]
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: frameguide-app
+          fetch-depth: 0
+
+      - name: Expand full project source
+        shell: bash
+        run: |
+          set -e
+          if [ ! -f frameguide-full.tar.gz ]; then
+            echo "Archive already materialized; nothing to do."
+            exit 0
+          fi
+
+          tar -xzf frameguide-full.tar.gz -C .
+          rm -f frameguide-full.tar.gz scripts/unpack.mjs
+          rmdir scripts 2>/dev/null || true
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No source changes."
+            exit 0
+          fi
+          git commit -m "Materialize FrameGuide source"
+          git push origin HEAD:frameguide-app
