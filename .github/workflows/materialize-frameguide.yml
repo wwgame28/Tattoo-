@@ -21,15 +21,21 @@ jobs:
       - name: Expand full project source
         shell: bash
         run: |
-          set -e
-          if [ ! -f frameguide-full.tar.gz ]; then
-            echo "Archive already materialized; nothing to do."
-            exit 0
-          fi
+          set -euo pipefail
 
-          tar -xzf frameguide-full.tar.gz -C .
-          rm -f frameguide-full.tar.gz scripts/unpack.mjs
-          rmdir scripts 2>/dev/null || true
+          for part in archive/part-00 archive/part-01 archive/part-02 archive/part-03 archive/part-04; do
+            if [ ! -f "$part" ]; then
+              echo "Waiting for all archive parts; missing $part"
+              exit 0
+            fi
+          done
+
+          cat archive/part-00 archive/part-01 archive/part-02 archive/part-03 archive/part-04 > frameguide-full.tar.gz.b64
+          base64 --decode frameguide-full.tar.gz.b64 > frameguide-full.tar.gz.new
+          tar -tzf frameguide-full.tar.gz.new >/dev/null
+          tar -xzf frameguide-full.tar.gz.new -C .
+
+          rm -rf archive frameguide-full.tar.gz frameguide-full.tar.gz.new frameguide-full.tar.gz.b64 scripts
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
