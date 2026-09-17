@@ -1,0 +1,70 @@
+name: Apply ORLICA V7
+
+on:
+  push:
+    paths:
+      - '.github/workflows/orlica-v7.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Patch main site
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('index.html')
+          html = p.read_text(encoding='utf-8')
+
+          css_tag = '<link rel="stylesheet" href="./orlica-v7.css?v=1">'
+          js_tag = '<script defer src="./orlica-v7.js?v=1"></script>'
+          if css_tag not in html:
+              html = html.replace('</head>', css_tag + '</head>', 1)
+          if js_tag not in html:
+              html = html.replace('</body>', js_tag + '</body>', 1)
+
+          replacements = {
+              '<section aria-label="Стиль Светы" class="manifesto">': '<section aria-label="Стиль Светы" class="manifesto" data-section-label="02 / ПОЧЕРК">',
+              '<section class="work" id="works">': '<section class="work" id="works" data-section-label="03 / РАБОТЫ">',
+              '<section class="about" id="about">': '<section class="about" id="about" data-section-label="04 / СВЕТА">',
+              '<section class="process" id="process">': '<section class="process" id="process" data-section-label="05 / ПРОЦЕСС">',
+              '<section class="faq" id="questions">': '<section class="faq" id="questions" data-section-label="06 / FAQ">',
+              '<section class="booking" id="book">': '<section class="booking" id="book" data-section-label="07 / ЗАПИСЬ">',
+          }
+          for old, new in replacements.items():
+              if 'data-section-label' not in old and new not in html:
+                  html = html.replace(old, new, 1)
+              elif new not in html:
+                  html = html.replace(old, new, 1)
+
+          for i in range(1, 7):
+              old = f'<figure class="card placeholder-card" style="--i:{i}"><div aria-hidden="true" class="empty-work-square"></div></figure>'
+              new = f'<figure class="card placeholder-card" data-slot="{i:02d}" style="--i:{i}"><div aria-hidden="true" class="empty-work-square"><span class="empty-index">{i:02d}</span><span aria-hidden="true" class="empty-cross"></span></div></figure>'
+              html = html.replace(old, new, 1)
+
+          if '<meta content="#101010" name="theme-color"' not in html and '<meta name="theme-color"' not in html:
+              html = html.replace('</head>', '<meta name="theme-color" content="#101010"></head>', 1)
+
+          p.write_text(html, encoding='utf-8')
+          PY
+
+          git rm -r --ignore-unmatch tattoo-reveal-demo.html assets/tattoo-reveal || true
+          git add index.html
+          git config user.name 'Danil Director Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          if git diff --cached --quiet; then
+            echo 'No patch needed'
+            exit 0
+          fi
+          git commit -m 'Apply ORLICA V7 consensus pass'
+          git push
