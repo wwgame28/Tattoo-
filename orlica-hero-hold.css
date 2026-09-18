@@ -1,0 +1,34 @@
+/* ORLICA HERO — press & hold top-to-bottom tattoo reveal */
+#ink-portrait.ink-portrait{
+  --ink-cut:100%;
+  cursor:pointer;
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
+#ink-portrait .ink-layer{
+  opacity:1!important;
+  clip-path:inset(0 0 var(--ink-cut) 0);
+  -webkit-clip-path:inset(0 0 var(--ink-cut) 0);
+  transition:none!important;
+  will-change:clip-path;
+}
+#ink-portrait.is-ink .ink-layer{opacity:1!important}
+#ink-portrait .ink-badge,
+.hero-visual .ink-controls{display:none!important}
+#ink-portrait::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;
+  top:calc(100% - var(--ink-cut));
+  height:1px;
+  background:rgba(255,255,255,.58);
+  box-shadow:0 0 18px rgba(255,255,255,.35);
+  opacity:var(--ink-line-opacity,0);
+  pointer-events:none;
+  z-index:4;
+  transform:translateY(-.5px);
+}
+#ink-portrait.is-holding{cursor:grabbing}
+@media (hover:hover) and (pointer:fine){#ink-portrait:hover{transform:translateY(-1px)}}
+@media (prefers-reduced-motion:reduce){#ink-portrait::after{display:none}}
