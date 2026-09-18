@@ -7,17 +7,28 @@
 
   document.documentElement.classList.add('orlica-v101');
 
+  const isCompareText=value=>{
+    const text=String(value||'').replace(/\s+/g,' ').trim().toLowerCase();
+    return text.includes('сравнить до')||text.includes('до / после')||text.includes('до/после');
+  };
+
   function cleanHero(){
-    const root=document.querySelector('.hero-visual');
+    const root=document.querySelector('.hero');
     if(!root)return;
-    [...root.querySelectorAll('figcaption a,figcaption button,figcaption span,.ink-controls a,.ink-controls button,.ink-controls span')].forEach(el=>{
-      const text=(el.textContent||'').replace(/\s+/g,' ').trim().toLowerCase();
-      if(text.includes('сравнить до')||text.includes('до / после')||text.includes('до/после')){
-        const target=el.closest('a,button')||el;
-        target.classList.add('v101-remove');
-        target.setAttribute('aria-hidden','true');
-      }
+    [...root.querySelectorAll('a,button,[role="button"]')].forEach(el=>{
+      if(isCompareText(el.textContent)) el.remove();
     });
+    [...root.querySelectorAll('span,p,div')].forEach(el=>{
+      if(el.children.length===0&&isCompareText(el.textContent)) el.remove();
+    });
+  }
+
+  function watchHeroCleanup(){
+    const root=document.querySelector('.hero');
+    if(!root)return;
+    cleanHero();
+    const observer=new MutationObserver(()=>cleanHero());
+    observer.observe(root,{childList:true,subtree:true});
   }
 
   function markByHeading(needle,cls){
@@ -143,6 +154,7 @@
 
   function boot(){
     polishRecordedIssues();
+    watchHeroCleanup();
     loadBoard();
     watchBooking();
     setTimeout(polishRecordedIssues,900);
