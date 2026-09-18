@@ -1,0 +1,33 @@
+name: Apply ORLICA V11.3 buttons
+
+on:
+  push:
+    paths:
+      - 'scripts/apply-v113-buttons.py'
+      - '.github/workflows/orlica-v113-buttons.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply V11.3
+        run: python scripts/apply-v113-buttons.py
+      - name: Validate files
+        run: |
+          test -s index.html
+          test -s orlica-v11.css
+          grep -q 'ORLICA V11.3 unified buttons' orlica-v11.css
+          ! grep -qi '01 / СВЕТА' index.html
+      - name: Commit changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html orlica-v11.css
+          git diff --cached --quiet && exit 0
+          git commit -m 'Unify ORLICA buttons and remove hero label'
+          git push
