@@ -748,3 +748,208 @@
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initSoftSpotlight,{once:true});else initSoftSpotlight();
   let n=0;const t=setInterval(()=>{initSoftSpotlight();if(document.querySelector('#ink-portrait[data-v111-spotlight="1"]')||++n>30)clearInterval(t)},180);
 })();
+
+/* ORLICA V11.4 conversion runtime */
+(() => {
+  const TG_USER = 'Sveta_orel09';
+  const TG_URL = `https://t.me/${TG_USER}`;
+
+  const ready = (fn) => document.readyState === 'loading'
+    ? document.addEventListener('DOMContentLoaded', fn, {once:true})
+    : fn();
+
+  function mountPortfolioFilters(){
+    const grid = document.querySelector('#works .orlica-gallery');
+    if (!grid || document.querySelector('.v114-portfolio-tools')) return;
+    const pieces = [...grid.querySelectorAll('.portfolio-piece')];
+    if (!pieces.length) return;
+
+    const tools = document.createElement('div');
+    tools.className = 'v114-portfolio-tools';
+    tools.innerHTML = `<span class="v114-filter-label">Фильтр работ</span><div class="v114-filters" role="group" aria-label="Фильтр портфолио">
+      <button class="v114-filter is-active" type="button" data-filter="all">Все</button>
+      <button class="v114-filter" type="button" data-filter="graphic">Графика</button>
+      <button class="v114-filter" type="button" data-filter="tender">Нежнятина</button>
+      <button class="v114-filter" type="button" data-filter="creatures">Странные звери</button>
+      <button class="v114-filter" type="button" data-filter="color">Цвет</button>
+    </div>`;
+    grid.before(tools);
+
+    const belongs = (piece, index, key) => {
+      if (key === 'all') return true;
+      const title = (piece.querySelector('.piece-title')?.textContent || '').toLowerCase();
+      const tag = (piece.querySelector('.piece-tag')?.textContent || '').toLowerCase();
+      if (key === 'graphic') return /graphic|manga|blackwork/.test(tag) || /ornament|geometry/.test(title);
+      if (key === 'tender') return /fine line/.test(tag) || /floral/.test(title) || index === 8;
+      if (key === 'creatures') return /rabbit|character|anime|fantasy/.test(title) || [2,4,5,6,7].includes(index);
+      if (key === 'color') return /color/.test(tag) || /red/.test(title);
+      return true;
+    };
+
+    tools.querySelectorAll('.v114-filter').forEach(btn => btn.addEventListener('click', () => {
+      tools.querySelectorAll('.v114-filter').forEach(x => x.classList.toggle('is-active', x === btn));
+      const key = btn.dataset.filter;
+      pieces.forEach((piece, index) => {
+        const show = belongs(piece, index, key);
+        piece.classList.toggle('v114-hidden', !show);
+        if (show) {
+          piece.classList.remove('v114-enter');
+          void piece.offsetWidth;
+          piece.classList.add('v114-enter');
+        }
+      });
+    }));
+
+    const viewer = document.querySelector('.orlica-viewer-shell');
+    if (viewer && !viewer.dataset.v114Swipe) {
+      viewer.dataset.v114Swipe = '1';
+      let startX = 0, startY = 0;
+      viewer.addEventListener('touchstart', e => {
+        const t = e.changedTouches[0]; startX = t.clientX; startY = t.clientY;
+      }, {passive:true});
+      viewer.addEventListener('touchend', e => {
+        const t = e.changedTouches[0];
+        const dx = t.clientX - startX, dy = t.clientY - startY;
+        if (Math.abs(dx) < 55 || Math.abs(dx) < Math.abs(dy) * 1.25) return;
+        const selector = dx < 0 ? '.orlica-viewer-next' : '.orlica-viewer-prev';
+        viewer.querySelector(selector)?.click();
+      }, {passive:true});
+    }
+  }
+
+  const silhouette = () => `<svg class="v114-silhouette" viewBox="0 0 180 480" aria-hidden="true">
+    <circle cx="90" cy="42" r="27"/>
+    <path d="M70 72 C58 92 54 122 56 160 L40 250 C37 268 48 275 57 258 L72 190 L72 292 L58 452 C57 466 72 468 76 454 L90 320 L104 454 C108 468 123 466 122 452 L108 292 L108 190 L123 258 C132 275 143 268 140 250 L124 160 C126 122 122 92 110 72 Z"/>
+  </svg>`;
+
+  function mountBodyMap(){
+    const works = document.querySelector('#works');
+    const book = document.querySelector('#book');
+    if (!works || !book || document.querySelector('#tattoo-map')) return;
+    const sec = document.createElement('section');
+    sec.id = 'tattoo-map';
+    sec.className = 'v114-body-map';
+    sec.innerHTML = `<div class="v114-body-head">
+      <div><p class="v114-kicker">ORLICA / выбор места</p><h2 class="v114-section-title">КУДА<br>НАБИТЬ?</h2></div>
+      <p class="v114-section-copy">Тапни по зоне — подскажу ориентир по размеру и сразу подставлю место в запись.</p>
+    </div>
+    <div class="v114-body-shell">
+      <div class="v114-figures">
+        <div class="v114-figure front"><span class="v114-figure-label">Спереди</span>${silhouette()}
+          <button class="v114-zone" type="button" data-place="Плечо" data-size="8–14 см" data-tip="Хорошо работает для графики, символов и компактных сюжетов." aria-label="Плечо"></button>
+          <button class="v114-zone" type="button" data-place="Грудь" data-size="10–20 см" data-tip="Подходит для более цельной композиции и симметричных работ." aria-label="Грудь"></button>
+          <button class="v114-zone" type="button" data-place="Предплечье" data-size="8–18 см" data-tip="Универсальная зона: графика, fine line и вертикальные композиции." aria-label="Предплечье"></button>
+          <button class="v114-zone" type="button" data-place="Бедро" data-size="12–25 см" data-tip="Много пространства для деталей и более крупного сюжета." aria-label="Бедро"></button>
+          <button class="v114-zone" type="button" data-place="Голень" data-size="10–22 см" data-tip="Хорошо смотрятся вытянутые композиции и графичные формы." aria-label="Голень"></button>
+        </div>
+        <div class="v114-figure back"><span class="v114-figure-label">Сзади</span>${silhouette()}
+          <button class="v114-zone" type="button" data-place="Лопатка" data-size="10–18 см" data-tip="Подходит для самостоятельного акцента или начала большой композиции." aria-label="Лопатка"></button>
+          <button class="v114-zone" type="button" data-place="Спина" data-size="18–40+ см" data-tip="Большое полотно: можно делать сложный сюжет с большим количеством деталей." aria-label="Спина"></button>
+          <button class="v114-zone" type="button" data-place="Икра" data-size="10–20 см" data-tip="Удобная зона для вертикальных рисунков и графики." aria-label="Икра"></button>
+        </div>
+      </div>
+      <aside class="v114-body-result">
+        <div><small>Выбранная зона</small><h3 class="v114-place-current">ВЫБЕРИ<br>МЕСТО</h3><p class="v114-place-tip">Можно начать с любой точки на схеме. Размер — ориентир, финально Света подберёт его под эскиз и анатомию.</p></div>
+        <div><div class="v114-body-meta"><div><span>Размер</span><strong class="v114-place-size">—</strong></div><div><span>Дальше</span><strong>Подставим в запись</strong></div></div><button class="cta v114-use-place" type="button" disabled>Добавить к записи</button></div>
+      </aside>
+    </div>`;
+    book.before(sec);
+
+    let selection = null;
+    const current = sec.querySelector('.v114-place-current');
+    const tip = sec.querySelector('.v114-place-tip');
+    const size = sec.querySelector('.v114-place-size');
+    const use = sec.querySelector('.v114-use-place');
+
+    sec.querySelectorAll('.v114-zone').forEach(btn => btn.addEventListener('click', () => {
+      sec.querySelectorAll('.v114-zone').forEach(x => x.classList.toggle('is-active', x === btn));
+      selection = {place:btn.dataset.place, size:btn.dataset.size};
+      current.textContent = selection.place.toUpperCase();
+      tip.textContent = btn.dataset.tip;
+      size.textContent = selection.size;
+      use.disabled = false;
+      document.dispatchEvent(new CustomEvent('orlica:place', {detail:selection}));
+    }));
+
+    use.addEventListener('click', () => {
+      if (!selection) return;
+      const placeInput = document.querySelector('#book [name="place"]');
+      const sizeInput = document.querySelector('#book [name="size"]');
+      if (placeInput) { placeInput.value = selection.place; placeInput.dispatchEvent(new Event('input',{bubbles:true})); }
+      if (sizeInput) { sizeInput.value = selection.size; sizeInput.dispatchEvent(new Event('input',{bubbles:true})); }
+      book.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'});
+      setTimeout(() => placeInput?.focus({preventScroll:true}), 550);
+    });
+  }
+
+  function mountTelegramBuilder(){
+    const book = document.querySelector('#book');
+    if (!book || document.querySelector('#telegram-brief')) return;
+    const sec = document.createElement('section');
+    sec.id = 'telegram-brief';
+    sec.className = 'v114-telegram';
+    sec.innerHTML = `<div><p class="v114-kicker">ORLICA / быстрый бриф</p><h2 class="v114-section-title">СОБЕРИ<br>СООБЩЕНИЕ.</h2><p class="v114-section-copy">Заполни пару пунктов — сайт соберёт нормальное сообщение Свете. Оно скопируется, а Telegram откроется сам.</p></div>
+      <div class="v114-telegram-grid">
+        <form class="v114-brief" onsubmit="return false">
+          <label class="v114-field"><span>Место</span><select name="place"><option>Предплечье</option><option>Плечо</option><option>Грудь</option><option>Лопатка</option><option>Спина</option><option>Бедро</option><option>Голень</option><option>Икра</option><option>Другое</option></select></label>
+          <label class="v114-field"><span>Размер</span><select name="size"><option>3–7 см</option><option selected>8–15 см</option><option>15–25 см</option><option>25+ см / большой проект</option><option>Не знаю — подскажите</option></select></label>
+          <label class="v114-field"><span>Стиль</span><select name="style"><option>Графика</option><option>Нежнятина / fine line</option><option>Странные звери</option><option>Blackwork</option><option>Цвет</option><option>Своя идея</option></select></label>
+          <label class="v114-field"><span>Цвет</span><select name="color"><option>Ч/Б</option><option>Цветная</option><option>Не определился(ась)</option></select></label>
+          <label class="v114-field wide"><span>Бюджет</span><select name="budget"><option>Хочу сначала узнать стоимость</option><option>До 10 000 ₽</option><option>10 000–20 000 ₽</option><option>20 000 ₽+</option><option>Бюджет обсудим</option></select></label>
+          <label class="v114-field wide"><span>Идея</span><textarea name="idea" maxlength="700" placeholder="Например: хочу странного зверя, немного крипового, но без жести…"></textarea></label>
+        </form>
+        <aside class="v114-preview"><div class="v114-preview-top"><span>Готовое сообщение</span><b>@${TG_USER}</b></div><div class="v114-message"></div><div class="v114-actions"><button class="cta v114-open-tg" type="button">Скопировать + Telegram</button><button class="cta v114-copy" type="button">Только скопировать</button></div><div class="v114-status" aria-live="polite"></div></aside>
+      </div>`;
+    book.before(sec);
+
+    const form = sec.querySelector('.v114-brief');
+    const preview = sec.querySelector('.v114-message');
+    const status = sec.querySelector('.v114-status');
+    const field = name => form.elements[name];
+    const getMessage = () => {
+      const idea = field('idea').value.trim();
+      return `Привет, Света! Хочу записаться на тату.\n\nМесто: ${field('place').value}\nРазмер: ${field('size').value}\nСтиль: ${field('style').value}\nЦвет: ${field('color').value}\nБюджет: ${field('budget').value}\nИдея: ${idea || 'Пока хочу обсудить вместе с тобой.'}`;
+    };
+    const render = () => { preview.textContent = getMessage(); };
+    form.addEventListener('input', render);
+    form.addEventListener('change', render);
+    render();
+
+    document.addEventListener('orlica:place', e => {
+      const {place,size} = e.detail || {};
+      if (place && [...field('place').options].some(o => o.value === place)) field('place').value = place;
+      if (size) {
+        const options = [...field('size').options];
+        const target = options.find(o => o.value.includes('8–15')) || options[0];
+        const nums = String(size).match(/\d+/g)?.map(Number) || [];
+        if (nums[0] >= 25) field('size').value = '25+ см / большой проект';
+        else if (nums[0] >= 15) field('size').value = '15–25 см';
+        else if (nums[0] <= 7) field('size').value = '3–7 см';
+        else field('size').value = target.value;
+      }
+      render();
+    });
+
+    async function copyMessage(){
+      const text = getMessage();
+      try { await navigator.clipboard.writeText(text); status.textContent = 'Сообщение скопировано.'; return true; }
+      catch (_) {
+        const ta = document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+        const ok = document.execCommand('copy'); ta.remove(); status.textContent = ok ? 'Сообщение скопировано.' : 'Не удалось скопировать — выдели текст выше.'; return ok;
+      }
+    }
+    sec.querySelector('.v114-copy').addEventListener('click', copyMessage);
+    sec.querySelector('.v114-open-tg').addEventListener('click', async () => {
+      await copyMessage();
+      const text = encodeURIComponent(getMessage());
+      const win = window.open(`${TG_URL}?text=${text}`, '_blank', 'noopener');
+      if (!win) location.href = TG_URL;
+    });
+  }
+
+  ready(() => {
+    mountPortfolioFilters();
+    mountBodyMap();
+    mountTelegramBuilder();
+  });
+})();
