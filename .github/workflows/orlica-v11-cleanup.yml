@@ -1,0 +1,227 @@
+name: Build ORLICA V11 Cleanup
+on:
+  push:
+    paths:
+      - '.github/workflows/orlica-v11-cleanup.yml'
+permissions:
+  contents: write
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Consolidate site assets and polish UX
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          css_sources = [
+            'director-v5.css','orlica-v7.css','orlica-v8.css','orlica-v81.css',
+            'orlica-v9.css','orlica-v10.css','orlica-hero-hold.css',
+            'orlica-hero-clean.css','orlica-v101.css'
+          ]
+          js_sources = [
+            'director-v5.js','orlica-v7.js','orlica-v8.js','orlica-v9.js',
+            'orlica-v10.js','orlica-hero-hold.js','orlica-v101.js'
+          ]
+
+          cleanup_css = r'''
+/* ORLICA V11 — final cleanup */
+:root{
+  --v11-bg:#020202;
+  --v11-wine:#2a070b;
+  --v11-red:#b8182e;
+  --v11-cream:#f4ede8;
+  --v11-muted:#aa9791;
+  --v11-line:rgba(244,237,232,.10);
+  --v11-green:#62d58a;
+}
+html.orlica-v11,html.orlica-v11 body{background:#020202!important;color:var(--v11-cream)!important}
+html.orlica-v11 body{
+  background:
+    radial-gradient(900px 760px at 72% 2%,rgba(163,15,33,.28),transparent 58%),
+    linear-gradient(180deg,#4a0710 0%,#210609 13%,#0d0506 30%,#050303 48%,#020202 66%,#000 100%) fixed!important;
+}
+html.orlica-v11 body::before{background:radial-gradient(circle at 74% 5%,rgba(255,62,83,.07),transparent 25%)!important}
+html.orlica-v11 header{background:rgba(4,3,3,.84)!important;border-bottom:1px solid var(--v11-line)!important;backdrop-filter:blur(18px) saturate(120%)}
+html.orlica-v11 .hero{min-height:auto!important;background:linear-gradient(180deg,rgba(94,8,20,.16),rgba(22,6,8,.12) 55%,rgba(0,0,0,0))!important;border-bottom:1px solid var(--v11-line)!important;padding-bottom:clamp(40px,6vw,70px)!important}
+html.orlica-v11 .hero::before{opacity:.55!important}
+html.orlica-v11 .hero-visual figcaption{display:none!important}
+html.orlica-v11 #ink-portrait.ink-portrait{aspect-ratio:3/4!important;max-height:min(72svh,760px)!important;width:100%!important;border-color:rgba(255,205,208,.12)!important;border-radius:18px!important;box-shadow:0 24px 66px rgba(0,0,0,.42),0 0 70px rgba(137,8,25,.10)!important}
+html.orlica-v11 #ink-portrait img{width:100%!important;height:100%!important;object-fit:cover!important;object-position:center 44%!important}
+html.orlica-v11 .v10-hold-note{margin:10px 0 0!important;color:#c8aaa5!important;font-size:9px!important;letter-spacing:.16em!important;opacity:.88}
+html.orlica-v11 .hero-note{font-size:clamp(15px,1.2vw,17px)!important;line-height:1.58!important;max-width:31ch!important;color:#d4c2bd!important}
+html.orlica-v11 .hero-tags{gap:7px!important}
+html.orlica-v11 .hero-tags span{font-size:9px!important;padding:8px 11px!important;border-color:var(--v11-line)!important;background:rgba(255,255,255,.018)!important}
+html.orlica-v11 .hero .cta{min-height:58px!important;border-radius:12px!important;background:linear-gradient(135deg,#cf2039,#81101d)!important;box-shadow:0 16px 38px rgba(123,8,24,.24)!important}
+
+html.orlica-v11 .ticker{background:#150507!important;border-color:var(--v11-line)!important;min-height:auto!important;padding:12px 0!important;overflow:hidden!important}
+html.orlica-v11 .ticker *{animation-duration:34s!important}
+
+html.orlica-v11 .manifesto,
+html.orlica-v11 #works,
+html.orlica-v11 .about,
+html.orlica-v11 .process,
+html.orlica-v11 .faq,
+html.orlica-v11 #book.orlica-booking-live{background:linear-gradient(180deg,rgba(8,4,5,.78),rgba(1,1,1,.96))!important;border-color:var(--v11-line)!important}
+html.orlica-v11 .manifesto{background:linear-gradient(180deg,rgba(18,5,7,.78),rgba(5,3,3,.92))!important}
+html.orlica-v11 #works{background:linear-gradient(180deg,#060303,#020202)!important}
+html.orlica-v11 .about,html.orlica-v11 .process,html.orlica-v11 .faq{background:#020202!important}
+html.orlica-v11 #book.orlica-booking-live{background:linear-gradient(180deg,#090405,#020202)!important}
+html.orlica-v11 section{border-color:var(--v11-line)!important}
+html.orlica-v11 .manifesto p,
+html.orlica-v11 .about p,
+html.orlica-v11 .process p,
+html.orlica-v11 .faq p,
+html.orlica-v11 .booking-live-head p{font-size:clamp(14px,1.15vw,17px)!important;line-height:1.6!important;color:var(--v11-muted)!important}
+
+html.orlica-v11 .v101-board{background:linear-gradient(180deg,rgba(31,6,10,.62),rgba(3,2,2,.96))!important;border-color:var(--v11-line)!important}
+html.orlica-v11 .v101-board:has(.v101-board-empty){display:none!important}
+html.orlica-v11 .v101-notice{border-color:var(--v11-line)!important;background:rgba(255,255,255,.018)!important;box-shadow:none!important}
+
+html.orlica-v11 #works .piece-media{border-color:rgba(255,255,255,.055)!important;box-shadow:0 16px 44px rgba(0,0,0,.28)!important}
+html.orlica-v11 #works .piece-meta{background:transparent!important;border-color:var(--v11-line)!important;padding-top:9px!important;margin-top:8px!important}
+html.orlica-v11 #works .piece-title{font-size:11px!important;letter-spacing:.05em!important}
+html.orlica-v11 #works .piece-tag{font-size:8px!important;color:#766866!important}
+html.orlica-v11 .works-channel{border-color:var(--v11-line)!important;padding-top:22px!important;padding-bottom:22px!important}
+
+html.orlica-v11 .smooth-faq,html.orlica-v11 .smooth-faq-item{border-color:var(--v11-line)!important}
+html.orlica-v11 .smooth-faq{background:transparent!important}
+html.orlica-v11 .smooth-faq-item:has(.smooth-faq-trigger[aria-expanded="true"]){background:rgba(255,255,255,.025)!important}
+
+html.orlica-v11 .booking-form-wrap{border-color:var(--v11-line)!important;background:rgba(255,255,255,.018)!important;box-shadow:none!important}
+html.orlica-v11 .booking-calendar{border-color:var(--v11-line)!important}
+html.orlica-v11 .v101-calendar-shell{border-color:var(--v11-line)!important;background:rgba(255,255,255,.012)!important}
+html.orlica-v11 .v101-day{border-color:rgba(255,255,255,.05)!important;background:rgba(255,255,255,.01)!important}
+html.orlica-v11 .v101-day.busy{color:#5e5052!important;opacity:.62}
+html.orlica-v11 .v101-day.busy::after{background:rgba(146,42,56,.5)!important}
+html.orlica-v11 .v101-day.open{color:#dcf8e6!important;border-color:rgba(98,213,138,.42)!important;background:rgba(98,213,138,.09)!important}
+html.orlica-v11 .v101-day.open .num{color:var(--v11-green)!important}
+html.orlica-v11 .v101-day.open.is-selected{background:rgba(98,213,138,.17)!important;border-color:var(--v11-green)!important}
+html.orlica-v11 .booking-time{border-color:var(--v11-line)!important;background:rgba(255,255,255,.015)!important}
+html.orlica-v11 .booking-time.is-active{background:#c52139!important;border-color:#c52139!important}
+html.orlica-v11 .booking-legal{font-size:10px!important;line-height:1.5!important;color:#8b7975!important}
+html.orlica-v11 .booking-submit:not(:disabled){background:linear-gradient(135deg,#cf2039,#7d0f1b)!important}
+html.orlica-v11 .booking-submit:disabled{background:#211a1b!important;color:#695c5e!important}
+
+html.orlica-v11 .v101-studio-section,html.orlica-v11 .v101-studio-light{background:#050303!important;border-color:var(--v11-line)!important;box-shadow:none!important}
+html.orlica-v11 .v101-scroll-row{padding-inline:0 18px!important}
+
+html.orlica-v11 footer{background:#000!important;border-color:var(--v11-line)!important}
+
+@media(max-width:800px){
+  html.orlica-v11 .hero{padding-top:68px!important;padding-bottom:34px!important}
+  html.orlica-v11 .hero-copy{gap:12px!important}
+  html.orlica-v11 .hero-visual{margin-top:14px!important}
+  html.orlica-v11 #ink-portrait.ink-portrait{max-height:68svh!important}
+  html.orlica-v11 .hero-note{font-size:15px!important;line-height:1.56!important}
+  html.orlica-v11 .hero-tags{margin-top:4px!important}
+  html.orlica-v11 .ticker{padding:9px 0!important}
+  html.orlica-v11 .ticker *{font-size:clamp(24px,8vw,42px)!important}
+  html.orlica-v11 .manifesto p,html.orlica-v11 .about p,html.orlica-v11 .process p,html.orlica-v11 .faq p,html.orlica-v11 .booking-live-head p{font-size:15px!important}
+  html.orlica-v11 .v101-board{padding:48px 18px!important}
+  html.orlica-v11 .booking-form-wrap{padding:18px 14px!important}
+}
+@media(max-width:430px){
+  html.orlica-v11 #ink-portrait.ink-portrait{max-height:64svh!important;border-radius:15px!important}
+  html.orlica-v11 .hero h1{font-size:clamp(52px,17vw,72px)!important;line-height:.86!important}
+  html.orlica-v11 .hero-note{font-size:14px!important;max-width:29ch!important}
+  html.orlica-v11 .hero-tags span{font-size:8px!important;padding:7px 9px!important}
+  html.orlica-v11 .hero .cta{min-height:56px!important;padding:15px 18px!important}
+  html.orlica-v11 .v101-day{min-height:47px!important}
+  html.orlica-v11 .v101-day .num{font-size:18px!important}
+  html.orlica-v11 .v101-day .mini{font-size:6px!important}
+}
+@media(prefers-reduced-motion:reduce){html.orlica-v11 *{scroll-behavior:auto!important}}
+'''
+
+          cleanup_js = r'''
+/* ORLICA V11 — final cleanup runtime */
+(() => {
+  document.documentElement.classList.add('orlica-v11');
+
+  const isCompare = v => {
+    const t = String(v || '').replace(/\s+/g,' ').trim().toLowerCase();
+    return t.includes('сравнить до') || t.includes('до / после') || t.includes('до/после');
+  };
+
+  function cleanHero(){
+    const hero = document.querySelector('.hero');
+    if(!hero) return;
+    hero.querySelectorAll('a,button,[role="button"],span,p,div').forEach(el => {
+      if(el.children.length===0 && isCompare(el.textContent)) el.remove();
+    });
+    hero.querySelector('.hero-visual figcaption')?.remove();
+    const visual = hero.querySelector('.hero-visual');
+    if(visual && !visual.querySelector('.v10-hold-note')){
+      const note = document.createElement('div');
+      note.className='v10-hold-note';
+      note.innerHTML='<span></span> удерживай фото';
+      visual.append(note);
+    }
+  }
+
+  function syncBoard(){
+    const board = document.querySelector('.v101-board');
+    if(!board) return;
+    const empty = !!board.querySelector('.v101-board-empty');
+    board.hidden = empty;
+    board.style.display = empty ? 'none' : '';
+  }
+
+  function polishTicker(){
+    const ticker = document.querySelector('.ticker');
+    if(!ticker) return;
+    ticker.querySelectorAll('*').forEach(el => {
+      const cs = getComputedStyle(el);
+      if(cs.animationName && cs.animationName !== 'none') el.style.animationDuration='34s';
+    });
+  }
+
+  function boot(){
+    cleanHero();
+    syncBoard();
+    polishTicker();
+    const mo = new MutationObserver(() => { cleanHero(); syncBoard(); });
+    mo.observe(document.body,{childList:true,subtree:true});
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot,{once:true});
+  else boot();
+})();
+'''
+
+          css = ['/* ORLICA V11 consolidated bundle */']
+          for name in css_sources:
+            p=Path(name)
+            if p.exists(): css += [f'\n/* source: {name} */\n',p.read_text(encoding='utf-8')]
+          css.append(cleanup_css)
+          Path('orlica-v11.css').write_text('\n'.join(css),encoding='utf-8')
+
+          js = ['/* ORLICA V11 consolidated runtime */']
+          for name in js_sources:
+            p=Path(name)
+            if p.exists(): js += [f'\n/* source: {name} */\n',p.read_text(encoding='utf-8')]
+          js.append(cleanup_js)
+          Path('orlica-v11.js').write_text('\n'.join(js),encoding='utf-8')
+
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          names = r'(?:director-v5|orlica-(?:v7|v8|v81|v9|v10|v101|hero-clean|hero-hold))'
+          s=re.sub(r'<link[^>]+href=["\'][^"\']*'+names+r'\.css(?:\?[^"\']*)?["\'][^>]*>\s*','',s,flags=re.I)
+          s=re.sub(r'<script[^>]+src=["\'][^"\']*'+names+r'\.js(?:\?[^"\']*)?["\'][^>]*>\s*</script>\s*','',s,flags=re.I)
+          s=re.sub(r'<link[^>]+href=["\'][^"\']*orlica-v11\.css(?:\?[^"\']*)?["\'][^>]*>\s*','',s,flags=re.I)
+          s=re.sub(r'<script[^>]+src=["\'][^"\']*orlica-v11\.js(?:\?[^"\']*)?["\'][^>]*>\s*</script>\s*','',s,flags=re.I)
+          s=s.replace('</head>','<link rel="stylesheet" href="orlica-v11.css?v=1100"></head>')
+          s=s.replace('</body>','<script defer src="orlica-v11.js?v=1100"></script></body>')
+          p.write_text(s,encoding='utf-8')
+
+          for name in css_sources + js_sources:
+            Path(name).unlink(missing_ok=True)
+          PY
+          git config user.name "Danil Director Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -m "ORLICA V11 cleanup and consolidation"
+          git push
