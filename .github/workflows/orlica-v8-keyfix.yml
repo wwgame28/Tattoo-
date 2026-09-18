@@ -1,0 +1,38 @@
+name: Fix ORLICA V8 Supabase key
+on:
+  push:
+    paths:
+      - ".github/workflows/orlica-v8-keyfix.yml"
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch exact Supabase key and bump cache
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRid252YmZkcGhxbWZqemJwcW53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2ODYxNzIsImV4cCI6MjEwNTI2MjE3Mn0.3fxOPVcWuVCMmACMCkRR9vjt2SLMts-DjI2SSuYof5A"
+          js = Path('orlica-v8.js')
+          s = js.read_text(encoding='utf-8')
+          s, n = re.subn(r"const ANON_KEY = '[^']+';", f"const ANON_KEY = '{key}';", s, count=1)
+          if n != 1:
+              raise SystemExit('ANON_KEY replacement failed')
+          js.write_text(s, encoding='utf-8')
+          index = Path('index.html')
+          h = index.read_text(encoding='utf-8')
+          h = re.sub(r'orlica-v8\.css\?v=\d+', 'orlica-v8.css?v=3', h)
+          h = re.sub(r'orlica-v8\.js\?v=\d+', 'orlica-v8.js?v=3', h)
+          index.write_text(h, encoding='utf-8')
+          PY
+          node --check orlica-v8.js
+          git config user.name "Danil Director Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add orlica-v8.js index.html
+          git commit -m "Fix ORLICA V8 Supabase key and cache" || exit 0
+          git push
