@@ -1,6 +1,6 @@
 (() => {
   const API_URL = 'https://dbwnvbfdphqmfjzbpqnw.supabase.co';
-  const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYXNlIiwicmVmIjoiZGJ3bnZiZmRwaHFtZmp6YnBxbnciLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc4OTY4NjE3MiwiZXhwIjoyMTA1MjYyMTcyfQ.3fxOPVcWuVCMmACMCkRR9vjt2SLMts-DjI2SSuYof5A';
+  const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRid252YmZkcGhxbWZqemJwcW53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2ODYxNzIsImV4cCI6MjEwNTI2MjE3Mn0.3fxOPVcWuVCMmACMCkRR9vjt2SLMts-DjI2SSuYof5A';
   const TZ = 'Asia/Yakutsk';
 
   const works = [
