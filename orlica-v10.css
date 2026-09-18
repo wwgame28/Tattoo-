@@ -1,0 +1,90 @@
+/* ORLICA V10 — Dark Red Editorial system */
+:root{
+  --v10-bg:#090506;--v10-bg2:#110708;--v10-panel:#16090b;--v10-wine:#29090d;
+  --v10-red:#8f111c;--v10-red2:#c21d31;--v10-red3:#ee4357;
+  --v10-text:#f6efe9;--v10-muted:#bfaea7;--v10-dim:#887773;
+  --v10-line:rgba(236,177,177,.20);--v10-soft:rgba(194,29,49,.13);
+}
+html.orlica-v10{background:var(--v10-bg);color-scheme:dark}
+html.orlica-v10 body{background:radial-gradient(900px 620px at 78% -8%,rgba(151,15,27,.24),transparent 64%),radial-gradient(760px 560px at 6% 18%,rgba(95,8,17,.18),transparent 70%),var(--v10-bg)!important;color:var(--v10-text)!important}
+html.orlica-v10 body::selection{background:var(--v10-red2);color:#fff}
+html.orlica-v10 a{color:inherit}
+html.orlica-v10 header{background:linear-gradient(180deg,rgba(9,5,6,.91),rgba(9,5,6,.68))!important;border-bottom:1px solid var(--v10-line)!important;backdrop-filter:blur(18px) saturate(130%)}
+html.orlica-v10 header .logo,html.orlica-v10 header a{color:var(--v10-text)!important}
+html.orlica-v10 header nav a{opacity:.72}html.orlica-v10 header nav a:hover,html.orlica-v10 header nav a.is-active{opacity:1;color:#fff!important}
+html.orlica-v10 header .navbook{background:var(--v10-red2)!important;border-color:var(--v10-red2)!important;color:#fff!important;box-shadow:0 8px 30px rgba(194,29,49,.2)}
+html.orlica-v10 .hero{position:relative;min-height:100svh;padding-top:clamp(92px,10vw,136px)!important;padding-bottom:clamp(42px,7vw,92px)!important;background:linear-gradient(90deg,rgba(9,5,6,.96) 0%,rgba(15,6,8,.90) 38%,rgba(30,7,10,.60) 72%,rgba(78,6,14,.20) 100%)!important;border-bottom:1px solid var(--v10-line)!important;overflow:hidden}
+html.orlica-v10 .hero::before{content:"";position:absolute;inset:-20% -10%;pointer-events:none;background:radial-gradient(circle at 78% 42%,rgba(202,26,46,.19),transparent 38%),radial-gradient(circle at 83% 42%,rgba(255,55,72,.10),transparent 22%);filter:blur(18px)}
+html.orlica-v10 .hero>*{position:relative;z-index:1}
+html.orlica-v10 .hero .eyebrow{color:#d6b8b3!important;border-color:var(--v10-line)!important}
+html.orlica-v10 .hero h1{color:var(--v10-text)!important;text-shadow:0 2px 0 rgba(255,255,255,.02),0 24px 80px rgba(0,0,0,.34)}
+html.orlica-v10 .hero h1 span{color:var(--v10-red3)!important}
+html.orlica-v10 .hero-note{color:var(--v10-muted)!important;max-width:36ch!important;font-size:clamp(15px,1.3vw,19px)!important;line-height:1.55!important}
+html.orlica-v10 .hero-tags span{border-color:var(--v10-line)!important;color:#d9c4be!important;background:rgba(255,255,255,.025)!important}
+html.orlica-v10 .hero .cta{background:linear-gradient(135deg,#d42138,#8d101b)!important;color:#fff!important;border:1px solid rgba(255,255,255,.12)!important;box-shadow:0 16px 44px rgba(154,13,29,.32),inset 0 1px rgba(255,255,255,.12)!important;text-shadow:none!important}
+html.orlica-v10 .hero .cta:hover{transform:translateY(-2px)!important;box-shadow:0 22px 60px rgba(188,18,38,.38)!important}
+html.orlica-v10 .hero-visual{position:relative!important;filter:drop-shadow(0 26px 75px rgba(0,0,0,.52))}
+html.orlica-v10 #ink-portrait.ink-portrait{border-radius:22px!important;background:#17080a!important;border:1px solid rgba(255,173,178,.24)!important;box-shadow:0 30px 90px rgba(0,0,0,.56),0 0 80px rgba(173,13,29,.16)!important;overflow:hidden!important}
+html.orlica-v10 #ink-portrait img{aspect-ratio:720/980!important;object-fit:cover!important;object-position:center 50%!important}
+html.orlica-v10 #ink-portrait::before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.04),transparent 22%,transparent 76%,rgba(50,0,8,.18));mix-blend-mode:screen;opacity:.5}
+html.orlica-v10 #ink-portrait::after{background:linear-gradient(90deg,transparent 0%,#f15b69 22%,#fff0ee 50%,#f15b69 78%,transparent 100%)!important;height:2px!important;box-shadow:0 0 14px rgba(233,47,68,.85),0 0 34px rgba(194,29,49,.44)!important}
+html.orlica-v10 #ink-portrait.is-holding{box-shadow:0 32px 110px rgba(0,0,0,.58),0 0 110px rgba(194,29,49,.24)!important}
+html.orlica-v10 .hero-visual figcaption{border-color:var(--v10-line)!important;color:var(--v10-muted)!important}
+html.orlica-v10 .hero-visual figcaption a{color:var(--v10-text)!important}
+.v10-hold-note{display:flex;align-items:center;gap:9px;margin-top:12px;color:#b99f99;font-size:9px;letter-spacing:.18em;text-transform:uppercase;pointer-events:none}
+.v10-hold-note span{width:7px;height:7px;border-radius:50%;background:var(--v10-red2);box-shadow:0 0 0 5px rgba(194,29,49,.12),0 0 18px rgba(194,29,49,.46)}
+html.orlica-v10 .ticker{background:#21070b!important;color:#f7e7e3!important;border-color:var(--v10-line)!important}
+html.orlica-v10 .manifesto{background:linear-gradient(180deg,#120709,#0b0506)!important;color:var(--v10-text)!important;border-color:var(--v10-line)!important}
+html.orlica-v10 .manifesto-index,html.orlica-v10 .manifesto-kicker,html.orlica-v10 .manifesto-note{color:var(--v10-muted)!important}
+html.orlica-v10 .manifesto h2{color:var(--v10-text)!important}html.orlica-v10 .manifesto h2 span{color:var(--v10-red3)!important}
+html.orlica-v10 #works{background:#0b0506!important;color:var(--v10-text)!important}
+html.orlica-v10 #works .sectionhead h2{color:var(--v10-text)!important}
+html.orlica-v10 #works .sectionhead::after{color:#9f8582!important}
+html.orlica-v10 #works .piece-media{background:#16090b!important;border:1px solid rgba(255,255,255,.06);box-shadow:0 22px 60px rgba(0,0,0,.36)!important}
+html.orlica-v10 #works .piece-media::after{background:linear-gradient(180deg,transparent 55%,rgba(20,1,5,.72))!important}
+html.orlica-v10 #works .piece-meta{border-color:var(--v10-line)!important}
+html.orlica-v10 #works .piece-title{color:#f4e8e4!important}html.orlica-v10 #works .piece-tag{color:#9b7f7b!important}
+html.orlica-v10 #works .piece-number{color:#fff4ef!important;text-shadow:0 4px 24px rgba(0,0,0,.5)!important}
+html.orlica-v10 #works .piece-open{display:none!important}
+html.orlica-v10 .orlica-viewer{background:rgba(7,2,3,.97)!important}
+html.orlica-v10 .orlica-viewer-copy p{color:#a98e89!important}
+html.orlica-v10 .orlica-viewer-close,html.orlica-v10 .orlica-viewer-nav{border-color:var(--v10-line)!important;background:rgba(45,6,11,.5)!important}
+html.orlica-v10 .about,html.orlica-v10 .process,html.orlica-v10 .faq{background:linear-gradient(180deg,#100608,#0b0506)!important;color:var(--v10-text)!important;border-color:var(--v10-line)!important}
+html.orlica-v10 .about h2,html.orlica-v10 .process h2,html.orlica-v10 .faq h2{color:var(--v10-text)!important}
+html.orlica-v10 .about p,html.orlica-v10 .process p,html.orlica-v10 .faq p{color:var(--v10-muted)!important}
+html.orlica-v10 .about .portrait img{filter:saturate(.92) contrast(1.04)}
+html.orlica-v10 .smooth-faq{border-color:var(--v10-line)!important;background:rgba(255,255,255,.018)!important}
+html.orlica-v10 .smooth-faq-item+ .smooth-faq-item{border-color:var(--v10-line)!important}
+html.orlica-v10 .smooth-faq-trigger{color:var(--v10-text)!important}
+html.orlica-v10 #book.orlica-booking-live{background:linear-gradient(180deg,#17090b,#0e0607)!important;color:var(--v10-text)!important;border-top:1px solid var(--v10-line)!important}
+html.orlica-v10 #book.orlica-booking-live::after{color:rgba(255,255,255,.018)!important}
+html.orlica-v10 .booking-live-head p,html.orlica-v10 .availability-status{color:var(--v10-muted)!important}
+html.orlica-v10 .availability-dot{background:var(--v10-red2)!important;box-shadow:0 0 0 5px rgba(194,29,49,.12),0 0 18px rgba(194,29,49,.3)!important}
+html.orlica-v10 .booking-calendar{border-color:var(--v10-line)!important}
+html.orlica-v10 .booking-calendar-top span,html.orlica-v10 .booking-day .dow,html.orlica-v10 .booking-day .count{color:#a78e89!important}
+html.orlica-v10 .booking-day,html.orlica-v10 .booking-time{border-color:var(--v10-line)!important;color:var(--v10-text)!important;background:rgba(255,255,255,.025)!important}
+html.orlica-v10 .booking-day.is-active,html.orlica-v10 .booking-time:hover,html.orlica-v10 .booking-time.is-active{background:var(--v10-red2)!important;color:#fff!important;border-color:var(--v10-red2)!important}
+html.orlica-v10 .booking-form-wrap{border-color:var(--v10-line)!important;background:rgba(255,255,255,.025)!important;box-shadow:0 26px 70px rgba(0,0,0,.22)!important}
+html.orlica-v10 .booking-selected{border-color:var(--v10-line)!important}html.orlica-v10 .booking-selected span{color:#a98f89!important}
+html.orlica-v10 .booking-form label{color:#b99f99!important}
+html.orlica-v10 .booking-form input,html.orlica-v10 .booking-form textarea{color:var(--v10-text)!important;border-bottom-color:rgba(237,190,190,.25)!important}
+html.orlica-v10 .booking-form input::placeholder,html.orlica-v10 .booking-form textarea::placeholder{color:#725f5c!important}
+html.orlica-v10 .booking-form input:focus,html.orlica-v10 .booking-form textarea:focus{border-bottom-color:var(--v10-red3)!important}
+html.orlica-v10 .booking-submit{background:linear-gradient(135deg,#c91c32,#83101a)!important;color:#fff!important;box-shadow:0 14px 38px rgba(173,13,30,.24)!important}
+html.orlica-v10 .booking-legal{color:#9d8580!important}
+html.orlica-v10 .booking-empty{border-color:var(--v10-line)!important;color:var(--v10-muted)!important;background:rgba(255,255,255,.015)!important}html.orlica-v10 .booking-empty a{color:#fff!important}
+html.orlica-v10 .booking-success{background:#16090b!important;color:var(--v10-text)!important;border-color:var(--v10-line)!important}html.orlica-v10 .booking-success p{color:var(--v10-muted)!important}html.orlica-v10 .booking-success a{color:#fff!important}
+html.orlica-v10 .orlica-waitlist{border-color:var(--v10-line)!important}
+html.orlica-v10 .orlica-waitlist-head p{color:var(--v10-muted)!important}
+html.orlica-v10 .waitlist-toggle,html.orlica-v10 .waitlist-submit{background:#f1e6e1!important;color:#17080a!important;border-color:#f1e6e1!important}
+html.orlica-v10 .waitlist-panel{border-color:var(--v10-line)!important;background:rgba(255,255,255,.025)!important}
+html.orlica-v10 .waitlist-form label{color:#b79d97!important}
+html.orlica-v10 .waitlist-form input,html.orlica-v10 .waitlist-form textarea{color:var(--v10-text)!important;border-bottom-color:rgba(237,190,190,.24)!important}
+html.orlica-v10 .waitlist-form input::placeholder,html.orlica-v10 .waitlist-form textarea::placeholder{color:#725f5c!important}
+html.orlica-v10 .waitlist-message{color:var(--v10-muted)!important}.orlica-v10 .waitlist-message.ok{color:#b8d3b8!important}.orlica-v10 .waitlist-message.err{color:#ff9da9!important}
+html.orlica-v10 footer{background:#070304!important;color:#bba6a0!important;border-color:var(--v10-line)!important}
+html.orlica-v10 footer .logo,html.orlica-v10 footer strong{color:var(--v10-text)!important}
+html.orlica-v10 .mobile-book{background:linear-gradient(135deg,#c91c32,#83101a)!important;color:#fff!important;box-shadow:0 14px 42px rgba(128,7,19,.38)!important}
+@media(max-width:760px){html.orlica-v10 .hero{min-height:auto!important;padding-top:84px!important;background:linear-gradient(180deg,#0b0506 0%,#16080a 64%,#0b0506 100%)!important}html.orlica-v10 .hero-copy{position:relative;z-index:2}html.orlica-v10 .hero h1{font-size:clamp(58px,20vw,92px)!important;line-height:.82!important}html.orlica-v10 .hero-note{font-size:15px!important;color:#d0bbb5!important}html.orlica-v10 .hero-visual{margin-top:26px!important}html.orlica-v10 #ink-portrait.ink-portrait{border-radius:18px!important}.v10-hold-note{margin-left:3px}html.orlica-v10 #works .portfolio-piece:nth-child(3n+2){transform:none!important}html.orlica-v10 #works .orlica-gallery{gap:26px 10px!important}html.orlica-v10 .booking-form-wrap{padding:20px 16px!important}}
+@media(max-width:430px){html.orlica-v10 #works .orlica-gallery{grid-template-columns:1fr!important;gap:34px!important}html.orlica-v10 #works .portfolio-piece:nth-child(n){grid-column:1!important}html.orlica-v10 #works .piece-media{aspect-ratio:4/5!important}html.orlica-v10 #works .piece-meta{padding-top:9px!important;margin-top:9px!important}}
+@media(prefers-reduced-motion:reduce){html.orlica-v10 .hero .cta,html.orlica-v10 #ink-portrait{transition:none!important}}
