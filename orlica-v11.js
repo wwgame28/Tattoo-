@@ -704,3 +704,47 @@
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded',boot,{once:true});
   else boot();
 })();
+
+
+/* ORLICA V11.1 — soft touch spotlight reveal */
+(() => {
+  function initSoftSpotlight(){
+    const portrait=document.getElementById('ink-portrait');
+    if(!portrait || portrait.dataset.v111Spotlight==='1') return;
+    portrait.dataset.v111Spotlight='1';
+    let active=false,pointerId=null,radius=0,target=0,raf=0;
+    const radiusTarget=()=>Math.min(200,Math.max(155,portrait.clientWidth*.29));
+    const setPoint=e=>{
+      const r=portrait.getBoundingClientRect();
+      const x=Math.max(0,Math.min(r.width,e.clientX-r.left));
+      const y=Math.max(0,Math.min(r.height,e.clientY-r.top));
+      portrait.style.setProperty('--ink-x',`${x.toFixed(1)}px`);
+      portrait.style.setProperty('--ink-y',`${y.toFixed(1)}px`);
+    };
+    const animate=()=>{
+      radius+=(target-radius)*.18;
+      if(Math.abs(target-radius)<.35)radius=target;
+      portrait.style.setProperty('--ink-radius',`${radius.toFixed(1)}px`);
+      if(radius!==target)raf=requestAnimationFrame(animate);else raf=0;
+    };
+    const moveTarget=v=>{target=v;if(!raf)raf=requestAnimationFrame(animate)};
+    const down=e=>{
+      if(e.pointerType==='mouse'&&e.button!==0)return;
+      active=true;pointerId=e.pointerId;setPoint(e);
+      portrait.classList.add('is-spotlight');moveTarget(radiusTarget());
+    };
+    const move=e=>{if(active&&(pointerId===null||e.pointerId===pointerId))setPoint(e)};
+    const up=e=>{
+      if(pointerId!==null&&e?.pointerId!=null&&e.pointerId!==pointerId)return;
+      active=false;pointerId=null;moveTarget(0);
+      setTimeout(()=>{if(!active&&target===0)portrait.classList.remove('is-spotlight')},300);
+    };
+    portrait.addEventListener('pointerdown',down,{passive:true});
+    portrait.addEventListener('pointermove',move,{passive:true});
+    portrait.addEventListener('pointerup',up,{passive:true});
+    portrait.addEventListener('pointercancel',up,{passive:true});
+    portrait.addEventListener('lostpointercapture',up,{passive:true});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initSoftSpotlight,{once:true});else initSoftSpotlight();
+  let n=0;const t=setInterval(()=>{initSoftSpotlight();if(document.querySelector('#ink-portrait[data-v111-spotlight="1"]')||++n>30)clearInterval(t)},180);
+})();
