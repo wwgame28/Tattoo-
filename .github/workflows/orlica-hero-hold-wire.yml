@@ -1,0 +1,35 @@
+name: Wire ORLICA hero hold reveal
+on:
+  push:
+    paths:
+      - 'orlica-hero-hold.css'
+      - 'orlica-hero-hold.js'
+      - '.github/workflows/orlica-hero-hold-wire.yml'
+permissions:
+  contents: write
+jobs:
+  wire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wire hold reveal and clean temp files
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          css='<link rel="stylesheet" href="orlica-hero-hold.css?v=1">'
+          js='<script defer src="orlica-hero-hold.js?v=1"></script>'
+          if css not in s:
+              s=s.replace('</head>',css+'\n</head>')
+          if js not in s:
+              s=s.replace('</body>',js+'\n</body>')
+          s=s.replace('orlica-v9.js?v=9','orlica-v9.js?v=9.1')
+          p.write_text(s,encoding='utf-8')
+          PY
+          rm -f hero-snippet.txt .github/workflows/extract-hero-snippet.yml
+          git config user.name 'Danil Director Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add -A
+          git diff --cached --quiet || git commit -m 'Add hold-to-reveal hero interaction'
+          git push
