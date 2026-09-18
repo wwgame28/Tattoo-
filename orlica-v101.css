@@ -1,0 +1,139 @@
+/* ORLICA V10.1 — gradient system, mobile polish, full calendar, announcement board */
+:root{
+  --v101-photo:#5b0810;
+  --v101-wine:#26070b;
+  --v101-black:#030303;
+  --v101-ink:#090506;
+  --v101-red:#c51e34;
+  --v101-red-soft:#8e1423;
+  --v101-cream:#f6efe9;
+  --v101-muted:#bea9a3;
+  --v101-line:rgba(244,205,202,.16);
+  --v101-green:#58d184;
+  --v101-green-bg:rgba(88,209,132,.12);
+  --v101-busy:#755d60;
+}
+html.orlica-v101,html.orlica-v101 body{background:#030303!important;color:var(--v101-cream)!important}
+html.orlica-v101 body{
+  background:
+    radial-gradient(760px 640px at 72% 5%,rgba(155,13,29,.31),transparent 66%),
+    linear-gradient(180deg,#5a0710 0%,#2b070b 11%,#160608 27%,#0b0506 48%,#050303 68%,#000 100%) fixed!important;
+}
+html.orlica-v101 body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background:radial-gradient(circle at 72% 9%,rgba(255,57,79,.09),transparent 24%),linear-gradient(180deg,rgba(72,0,10,.12),transparent 34%);
+}
+html.orlica-v101 header{background:linear-gradient(180deg,rgba(8,3,4,.94),rgba(8,3,4,.68))!important;border-bottom-color:var(--v101-line)!important}
+html.orlica-v101 .hero,
+html.orlica-v101 .manifesto,
+html.orlica-v101 #works,
+html.orlica-v101 .about,
+html.orlica-v101 .process,
+html.orlica-v101 .faq,
+html.orlica-v101 #book.orlica-booking-live,
+html.orlica-v101 footer{background:transparent!important}
+html.orlica-v101 .hero{border-bottom:1px solid var(--v101-line)!important;background:linear-gradient(180deg,rgba(74,6,14,.28),rgba(15,5,7,.24) 58%,rgba(2,2,2,.04))!important}
+html.orlica-v101 .hero::before{background:radial-gradient(circle at 78% 36%,rgba(255,47,67,.18),transparent 32%),radial-gradient(circle at 82% 32%,rgba(113,4,14,.23),transparent 54%)!important}
+html.orlica-v101 .manifesto{background:linear-gradient(180deg,rgba(23,6,9,.72),rgba(8,4,5,.48))!important}
+html.orlica-v101 #works{background:linear-gradient(180deg,rgba(8,4,5,.5),rgba(3,3,3,.18))!important}
+html.orlica-v101 .about,html.orlica-v101 .process,html.orlica-v101 .faq{background:linear-gradient(180deg,rgba(8,4,5,.2),rgba(0,0,0,.18))!important}
+html.orlica-v101 #book.orlica-booking-live{background:linear-gradient(180deg,rgba(24,6,9,.78),rgba(5,3,3,.94))!important}
+html.orlica-v101 footer{background:rgba(0,0,0,.76)!important}
+
+/* Hero cleanup seen in the mobile recording */
+html.orlica-v101 .hero-visual figcaption .v101-remove,
+html.orlica-v101 .hero-visual .compare,
+html.orlica-v101 .hero-visual [data-compare]{display:none!important}
+html.orlica-v101 .v10-hold-note{margin-top:9px!important;color:#d0afa9!important}
+html.orlica-v101 #ink-portrait.ink-portrait{background:#180608!important;border-color:rgba(255,165,172,.20)!important;box-shadow:0 28px 78px rgba(0,0,0,.5),0 0 90px rgba(153,11,25,.14)!important}
+html.orlica-v101 #ink-portrait img{display:block!important;width:100%!important;height:auto!important;object-fit:cover!important}
+
+/* Give each section room without looking like isolated cards */
+html.orlica-v101 section{scroll-margin-top:82px}
+html.orlica-v101 .sectionhead{max-width:1200px}
+html.orlica-v101 .ticker{background:rgba(50,7,12,.72)!important;border-color:var(--v101-line)!important}
+
+/* White studio block from the recording becomes part of the same visual language */
+html.orlica-v101 .v101-studio-section{background:linear-gradient(180deg,rgba(28,7,10,.64),rgba(5,3,3,.24))!important;color:var(--v101-cream)!important}
+html.orlica-v101 .v101-studio-light{
+  background:linear-gradient(145deg,rgba(49,8,14,.96),rgba(16,6,8,.97))!important;
+  color:var(--v101-cream)!important;
+  border:1px solid rgba(243,185,186,.17)!important;
+  box-shadow:0 26px 70px rgba(0,0,0,.3)!important;
+}
+html.orlica-v101 .v101-studio-light *{color:inherit!important}
+html.orlica-v101 .v101-studio-light p,html.orlica-v101 .v101-studio-light small{color:var(--v101-muted)!important}
+
+/* Review carousels: no accidental edge clipping, better touch behaviour */
+html.orlica-v101 .v101-scroll-row{overflow-x:auto!important;overflow-y:visible!important;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;padding-right:18px!important;scroll-padding-inline:16px}
+html.orlica-v101 .v101-scroll-row>*{scroll-snap-align:start}
+html.orlica-v101 .v101-scroll-row::-webkit-scrollbar{display:none}
+
+/* ANNOUNCEMENTS */
+.v101-board{position:relative;padding:clamp(58px,9vw,118px) max(18px,4vw);border-top:1px solid var(--v101-line);border-bottom:1px solid var(--v101-line);background:linear-gradient(135deg,rgba(88,7,16,.45),rgba(11,5,6,.70) 48%,rgba(0,0,0,.88))}
+.v101-board-inner{width:min(1240px,100%);margin:auto}
+.v101-board-head{display:grid;grid-template-columns:1fr minmax(220px,420px);gap:24px;align-items:end;margin-bottom:32px}
+.v101-board-kicker{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#d4aaa4;margin-bottom:10px}
+.v101-board h2{margin:0;font-family:Later,Impact,sans-serif;font-size:clamp(54px,10vw,136px);line-height:.78;letter-spacing:-.035em;color:var(--v101-cream)}
+.v101-board-head p{margin:0;color:var(--v101-muted);line-height:1.55;max-width:34ch}
+.v101-board-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px}
+.v101-notice{grid-column:span 4;min-height:210px;padding:22px;border:1px solid var(--v101-line);background:linear-gradient(155deg,rgba(255,255,255,.045),rgba(255,255,255,.015));display:flex;flex-direction:column;justify-content:space-between;gap:24px;box-shadow:0 18px 50px rgba(0,0,0,.18)}
+.v101-notice:first-child{grid-column:span 6}.v101-notice:nth-child(2){grid-column:span 6}
+.v101-notice-label{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#ff9cab}
+.v101-notice h3{margin:0 0 10px;font-size:clamp(24px,3vw,38px);line-height:.95;color:#fff}
+.v101-notice p{margin:0;color:var(--v101-muted);line-height:1.48;font-size:14px;white-space:pre-line}
+.v101-notice a{margin-top:18px;display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.35);padding-bottom:4px;width:max-content}
+.v101-board-empty{padding:22px;border:1px dashed rgba(255,255,255,.18);color:#ad9490;font-size:14px;line-height:1.5;grid-column:1/-1}
+
+/* FULL MONTH CALENDAR */
+.v101-calendar{margin-top:4px}
+.v101-calendar-shell{border:1px solid var(--v101-line);background:rgba(255,255,255,.018);padding:16px}
+.v101-calendar-nav{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:8px;margin-bottom:14px}
+.v101-calendar-nav button{appearance:none;border:1px solid var(--v101-line);background:rgba(255,255,255,.025);color:#fff;width:44px;height:40px;cursor:pointer;font-size:19px}
+.v101-calendar-nav button:disabled{opacity:.28;cursor:default}
+.v101-calendar-title{text-align:center;font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#f3e6e0}
+.v101-weekdays,.v101-month-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.v101-weekdays{margin-bottom:6px}
+.v101-weekdays span{text-align:center;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:#876f70;padding:6px 0}
+.v101-day{position:relative;appearance:none;min-height:58px;border:1px solid rgba(255,255,255,.075);background:rgba(255,255,255,.02);color:#7f696b;padding:7px 5px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font:inherit;border-radius:0}
+.v101-day .num{font-family:Later,Impact,sans-serif;font-size:24px;line-height:.9}
+.v101-day .mini{font-size:7px;letter-spacing:.08em;text-transform:uppercase}
+.v101-day.blank{border:0;background:transparent;visibility:hidden}
+.v101-day.busy{cursor:not-allowed;color:#69575a;background:rgba(255,255,255,.01)}
+.v101-day.busy .num{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:#9b2938}
+.v101-day.busy::after{content:"";position:absolute;left:18%;right:18%;top:50%;height:1px;background:rgba(164,46,62,.42);transform:rotate(-11deg)}
+.v101-day.past{opacity:.3;cursor:default}.v101-day.past .num{text-decoration:line-through}
+.v101-day.open{cursor:pointer;color:#dff8e8;border-color:rgba(88,209,132,.45);background:var(--v101-green-bg);box-shadow:inset 0 0 0 1px rgba(88,209,132,.06)}
+.v101-day.open .num{color:var(--v101-green)}
+.v101-day.open:hover,.v101-day.open.is-selected{background:rgba(88,209,132,.22);border-color:var(--v101-green);box-shadow:0 0 24px rgba(88,209,132,.10)}
+.v101-calendar-legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:12px;color:#9d8682;font-size:9px;letter-spacing:.09em;text-transform:uppercase}
+.v101-calendar-legend span{display:inline-flex;align-items:center;gap:7px}.v101-calendar-legend i{width:8px;height:8px;border-radius:50%;display:inline-block}.v101-calendar-legend .free{background:var(--v101-green)}.v101-calendar-legend .busy{background:#8b3441}
+html.orlica-v101 #booking-days{display:none!important}
+html.orlica-v101 .booking-calendar-top{margin-bottom:12px!important}
+html.orlica-v101 .booking-calendar-top strong::after{content:" · весь календарь";color:#8f7672;font-weight:400}
+html.orlica-v101 .booking-times{margin-top:16px!important}
+
+/* Form polish */
+html.orlica-v101 .booking-form-wrap{background:linear-gradient(155deg,rgba(255,255,255,.035),rgba(255,255,255,.015))!important;border-color:var(--v101-line)!important}
+html.orlica-v101 .booking-submit:not(:disabled){background:linear-gradient(135deg,#d7253e,#7c0e18)!important}
+html.orlica-v101 .booking-submit:disabled{background:#2e2527!important;color:#827274!important;opacity:1!important}
+html.orlica-v101 .booking-legal{max-width:52ch}
+
+@media(max-width:800px){
+  html.orlica-v101 .hero{padding-top:72px!important;padding-bottom:44px!important}
+  html.orlica-v101 .hero .eyebrow{margin-bottom:18px!important}
+  html.orlica-v101 .hero-copy{gap:14px!important}
+  html.orlica-v101 .hero-visual{margin-top:18px!important}
+  html.orlica-v101 .hero h1{margin-bottom:4px!important}
+  .v101-board{padding:58px 18px}.v101-board-head{grid-template-columns:1fr;gap:14px}.v101-board-grid{grid-template-columns:1fr}.v101-notice,.v101-notice:first-child,.v101-notice:nth-child(2){grid-column:1;min-height:0}
+  .v101-calendar-shell{padding:12px}.v101-weekdays,.v101-month-grid{gap:4px}.v101-day{min-height:54px;padding:6px 2px}.v101-day .num{font-size:21px}.v101-calendar-nav{grid-template-columns:40px 1fr 40px}.v101-calendar-nav button{width:40px;height:38px}
+  html.orlica-v101 .booking-live-grid{gap:22px!important}
+}
+@media(max-width:430px){
+  html.orlica-v101 .hero h1{font-size:clamp(54px,18vw,78px)!important;line-height:.84!important}
+  html.orlica-v101 #ink-portrait.ink-portrait{border-radius:16px!important}
+  .v101-day{min-height:49px}.v101-day .num{font-size:19px}.v101-day .mini{font-size:6px}
+  .v101-weekdays span{font-size:7px}.v101-calendar-shell{padding:10px}
+  .v101-board h2{font-size:clamp(52px,17vw,78px)}
+}
+@media(prefers-reduced-motion:reduce){.v101-day,.v101-notice{transition:none!important}}
