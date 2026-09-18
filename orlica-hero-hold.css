@@ -16,19 +16,22 @@
 #ink-portrait.is-ink .ink-layer{opacity:1!important}
 #ink-portrait .ink-badge,
 .hero-visual .ink-controls{display:none!important}
+
+/* Clean reveal: no scanner line, ring, progress cursor or overlay chrome */
+#ink-portrait::before,
 #ink-portrait::after{
-  content:"";
-  position:absolute;
-  left:0;right:0;
-  top:calc(100% - var(--ink-cut));
-  height:1px;
-  background:rgba(255,255,255,.58);
-  box-shadow:0 0 18px rgba(255,255,255,.35);
-  opacity:var(--ink-line-opacity,0);
-  pointer-events:none;
-  z-index:4;
-  transform:translateY(-.5px);
+  content:none!important;
+  display:none!important;
 }
+#ink-portrait .hold-ring,
+#ink-portrait .hold-progress,
+#ink-portrait .press-ring,
+#ink-portrait .ink-progress,
+#ink-portrait .ink-scan,
+#ink-portrait .scan-line,
+#ink-portrait [class*="cursor"],
+#ink-portrait [class*="progress"],
+#ink-portrait [class*="hold"]:not(img){display:none!important}
+
 #ink-portrait.is-holding{cursor:grabbing}
 @media (hover:hover) and (pointer:fine){#ink-portrait:hover{transform:translateY(-1px)}}
-@media (prefers-reduced-motion:reduce){#ink-portrait::after{display:none}}
