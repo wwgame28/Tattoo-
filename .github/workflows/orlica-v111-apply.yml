@@ -1,0 +1,27 @@
+name: Apply ORLICA V11.1
+on:
+  push:
+    paths:
+      - '.github/workflows/orlica-v111-apply.yml'
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply patch
+        run: python3 scripts/apply_v111.py
+      - name: Validate
+        run: |
+          grep -q 'ORLICA V11.1 — mobile readability' orlica-v11.css
+          grep -q 'ORLICA V11.1 — soft touch spotlight' orlica-v11.js
+          grep -q 'orlica-v11.css?v=1110' index.html
+          grep -q 'orlica-v11.js?v=1110' index.html
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html orlica-v11.css orlica-v11.js
+          git commit -m 'Apply ORLICA V11.1 visual polish'
+          git push
