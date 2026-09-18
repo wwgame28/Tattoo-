@@ -1,0 +1,15 @@
+/* ORLICA V9 — waitlist */
+.orlica-waitlist{margin:28px 0 0;border-top:1px solid rgba(0,0,0,.18);padding-top:24px}
+.orlica-waitlist-head{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:end}
+.orlica-waitlist-head h3{margin:0;font-size:clamp(32px,6vw,68px);line-height:.9;letter-spacing:-.04em}
+.orlica-waitlist-head p{margin:0;color:#6f6f72;max-width:38ch;line-height:1.5}
+.waitlist-toggle{margin-top:18px;width:100%;border:1px solid #111;background:#111;color:#fff;padding:17px 18px;text-align:left;font:inherit;font-weight:800;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.waitlist-panel{display:none;margin-top:14px;border:1px solid rgba(0,0,0,.2);padding:18px;background:rgba(255,255,255,.22)}
+.waitlist-panel.show{display:block}
+.waitlist-form{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.waitlist-form label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#59595d}
+.waitlist-form input,.waitlist-form textarea{display:block;width:100%;border:0;border-bottom:1px solid rgba(0,0,0,.35);background:transparent;padding:12px 0;font:inherit;font-size:16px;color:#111;outline:none;border-radius:0}
+.waitlist-form textarea{min-height:110px;resize:vertical}.waitlist-form .wide{grid-column:1/-1}
+.waitlist-submit{grid-column:1/-1;border:0;background:#111;color:#fff;padding:16px 18px;font:inherit;font-weight:800;text-transform:uppercase;letter-spacing:.08em;cursor:pointer}
+.waitlist-message{grid-column:1/-1;font-size:13px;line-height:1.45;color:#555}.waitlist-message.ok{color:#244e2e}.waitlist-message.err{color:#9b3030}
+@media(max-width:620px){.orlica-waitlist-head{grid-template-columns:1fr}.waitlist-form{grid-template-columns:1fr}.waitlist-form .wide,.waitlist-submit{grid-column:1}.orlica-waitlist{padding-top:20px}.waitlist-panel{padding:14px}}
