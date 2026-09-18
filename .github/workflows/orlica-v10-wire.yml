@@ -1,0 +1,48 @@
+name: Wire ORLICA V10
+on:
+  push:
+    paths:
+      - '.github/workflows/orlica-v10-wire.yml'
+permissions:
+  contents: write
+jobs:
+  wire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build V10 hero assets and wire theme
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/hero
+          curl -L --fail --retry 3 'https://at.adobe.com/oYdwL3VKCjOTc9X0' -o /tmp/sveta-clean
+          curl -L --fail --retry 3 'https://at.adobe.com/8MZ8ikT9uASXwNqM' -o /tmp/sveta-ink
+          python -m pip install --quiet pillow
+          python - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          for src,dst,target_h in [('/tmp/sveta-clean','assets/hero/sveta-clean.webp',980),('/tmp/sveta-ink','assets/hero/sveta-ink.webp',978)]:
+              im=Image.open(src).convert('RGB')
+              w,h=im.size
+              nw=720
+              nh=round(h*nw/w)
+              im=im.resize((nw,nh),Image.Resampling.LANCZOS)
+              im.save(dst,'WEBP',quality=86,method=6)
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          head='''<script>document.documentElement.classList.add("orlica-v10")</script>\n<link rel="preload" as="image" href="assets/hero/sveta-clean.webp">\n<link rel="preload" as="image" href="assets/hero/sveta-ink.webp">\n<link rel="stylesheet" href="orlica-v10.css?v=10">\n'''
+          if 'orlica-v10.css' not in s:
+              s=s.replace('</head>',head+'</head>')
+          if 'orlica-v10.js' not in s:
+              s=s.replace('</body>','<script src="orlica-v10.js?v=10"></script>\n</body>')
+          p.write_text(s,encoding='utf-8')
+          PY
+          rm -rf assets/hero-src
+          git config user.name 'Danil Director Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add index.html orlica-v10.css orlica-v10.js assets/hero
+          git add -u assets/hero-src || true
+          if ! git diff --cached --quiet; then
+            git commit -m 'Apply ORLICA V10 dark red editorial redesign'
+            git push
+          fi
