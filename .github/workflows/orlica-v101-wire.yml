@@ -14,38 +14,54 @@ jobs:
         run: |
           python3 - <<'PY'
           from pathlib import Path
+          import re
+
           p=Path('index.html')
           s=p.read_text(encoding='utf-8')
-          css='<link rel="stylesheet" href="orlica-v101.css?v=1011">'
-          js='<script defer src="orlica-v101.js?v=1011"></script>'
-          if 'orlica-v101.css' not in s:
-              s=s.replace('</head>',css+'</head>')
-          else:
-              s=s.replace('orlica-v101.css?v=101','orlica-v101.css?v=1011')
-          if 'orlica-v101.js' not in s:
-              s=s.replace('</body>',js+'</body>')
-          else:
-              s=s.replace('orlica-v101.js?v=101','orlica-v101.js?v=1011')
+
+          def wire_css(name, version):
+              global s
+              tag=f'<link rel="stylesheet" href="{name}?v={version}">'
+              pattern=rf'{re.escape(name)}(?:\?v=[^"\']+)?'
+              if name in s:
+                  s=re.sub(pattern,f'{name}?v={version}',s)
+              else:
+                  s=s.replace('</head>',tag+'</head>')
+
+          def wire_js(name, version):
+              global s
+              tag=f'<script defer src="{name}?v={version}"></script>'
+              pattern=rf'{re.escape(name)}(?:\?v=[^"\']+)?'
+              if name in s:
+                  s=re.sub(pattern,f'{name}?v={version}',s)
+              else:
+                  s=s.replace('</body>',tag+'</body>')
+
+          wire_css('orlica-v101.css','1012')
+          wire_css('orlica-hero-hold.css','4')
+          wire_css('orlica-hero-clean.css','2')
+          wire_js('orlica-hero-hold.js','4')
+          wire_js('orlica-v101.js','1012')
           p.write_text(s,encoding='utf-8')
 
           p=Path('admin.html')
           s=p.read_text(encoding='utf-8')
-          css='<link rel="stylesheet" href="admin-v101.css?v=1011">'
-          js='<script defer src="admin-v101.js?v=1011"></script>'
-          if 'admin-v101.css' not in s:
+          css='<link rel="stylesheet" href="admin-v101.css?v=1012">'
+          js='<script defer src="admin-v101.js?v=1012"></script>'
+          if 'admin-v101.css' in s:
+              s=re.sub(r'admin-v101\.css(?:\?v=[^"\']+)?','admin-v101.css?v=1012',s)
+          else:
               s=s.replace('</head>',css+'</head>')
+          if 'admin-v101.js' in s:
+              s=re.sub(r'admin-v101\.js(?:\?v=[^"\']+)?','admin-v101.js?v=1012',s)
           else:
-              s=s.replace('admin-v101.css?v=101','admin-v101.css?v=1011')
-          if 'admin-v101.js' not in s:
               s=s.replace('</body>',js+'</body>')
-          else:
-              s=s.replace('admin-v101.js?v=101','admin-v101.js?v=1011')
           p.write_text(s,encoding='utf-8')
           PY
           git config user.name "Danil Director Bot"
           git config user.email "actions@users.noreply.github.com"
           git add index.html admin.html
           if ! git diff --cached --quiet; then
-            git commit -m "Refresh ORLICA V10.1 assets"
+            git commit -m "Remove hero compare and hold scanner UI"
             git push
           fi
