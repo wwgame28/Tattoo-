@@ -10,7 +10,7 @@
   function cleanHero(){
     const root=document.querySelector('.hero-visual');
     if(!root)return;
-    [...root.querySelectorAll('a,button,span,div')].forEach(el=>{
+    [...root.querySelectorAll('figcaption a,figcaption button,figcaption span,.ink-controls a,.ink-controls button,.ink-controls span')].forEach(el=>{
       const text=(el.textContent||'').replace(/\s+/g,' ').trim().toLowerCase();
       if(text.includes('сравнить до')||text.includes('до / после')||text.includes('до/после')){
         const target=el.closest('a,button')||el;
@@ -69,7 +69,11 @@
 
   async function loadBoard(){try{mountBoard(await fetchAnnouncements())}catch{mountBoard([])}}
 
-  const isoLocalDate=(d=new Date())=>new Intl.DateTimeFormat('en-CA',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit'}).format(d);
+  const isoLocalDate=(d=new Date())=>{
+    const parts=new Intl.DateTimeFormat('en-US',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d);
+    const get=t=>parts.find(p=>p.type===t)?.value||'';
+    return `${get('year')}-${get('month')}-${get('day')}`;
+  };
   const keyForLegacyDay=iso=>new Intl.DateTimeFormat('ru-RU',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(`${iso}T12:00:00+09:00`));
   const monthLabel=key=>new Intl.DateTimeFormat('ru-RU',{timeZone:TZ,month:'long',year:'numeric'}).format(new Date(`${key}-01T12:00:00+09:00`));
 
@@ -89,6 +93,7 @@
     if(!shell){shell=document.createElement('div');shell.className='v101-calendar';legacy.insertAdjacentElement('beforebegin',shell)}
     const today=isoLocalDate();
     const months=[...new Set(rows.map(r=>String(r.day).slice(0,7)))];
+    if(!months.length)return false;
     let current=shell.dataset.month && months.includes(shell.dataset.month)?shell.dataset.month:months[0];
     const render=()=>{
       shell.dataset.month=current;
@@ -112,8 +117,8 @@
       shell.querySelectorAll('.v101-day.open').forEach(btn=>btn.addEventListener('click',async()=>{
         shell.querySelectorAll('.v101-day').forEach(x=>x.classList.remove('is-selected'));btn.classList.add('is-selected');
         const key=keyForLegacyDay(btn.dataset.date);
-        let legacyBtn=legacy.querySelector(`.booking-day[data-day="${CSS.escape(key)}"]`);
-        for(let i=0;!legacyBtn&&i<10;i++){await new Promise(r=>setTimeout(r,120));legacyBtn=legacy.querySelector(`.booking-day[data-day="${CSS.escape(key)}"]`)}
+        let legacyBtn=[...legacy.querySelectorAll('.booking-day')].find(x=>x.dataset.day===key);
+        for(let i=0;!legacyBtn&&i<10;i++){await new Promise(r=>setTimeout(r,120));legacyBtn=[...legacy.querySelectorAll('.booking-day')].find(x=>x.dataset.day===key)}
         if(legacyBtn){legacyBtn.click();document.querySelector('#booking-times')?.scrollIntoView({behavior:'smooth',block:'nearest'})}
       }));
     };
