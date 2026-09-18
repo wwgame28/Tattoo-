@@ -1,0 +1,38 @@
+name: Wire ORLICA V8.1
+on:
+  push:
+    paths:
+      - '.github/workflows/orlica-v81-wire.yml'
+permissions:
+  contents: write
+jobs:
+  wire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wire V8.1 CSS and refresh JS cache
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          if 'orlica-v81.css' not in s:
+              s = s.replace('</head>', '<link rel="stylesheet" href="orlica-v81.css?v=1"></head>', 1)
+          if re.search(r'orlica-v8\.js(?:\?v=\d+)?', s):
+              s = re.sub(r'orlica-v8\.js(?:\?v=\d+)?', 'orlica-v8.js?v=5', s)
+          else:
+              s = s.replace('</body>', '<script src="orlica-v8.js?v=5"></script></body>', 1)
+          assert 'orlica-v81.css?v=1' in s
+          assert 'orlica-v8.js?v=5' in s
+          p.write_text(s, encoding='utf-8')
+          PY
+          git config user.name "Danil Director Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "No index changes needed"
+          else
+            git commit -m "Wire ORLICA V8.1 gallery and booking fixes"
+            git push
+          fi
