@@ -1,0 +1,38 @@
+name: ORLICA V8.2 mobile form fix
+on:
+  push:
+    paths:
+      - '.github/workflows/orlica-v82-mobilefix.yml'
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch copy and bust mobile cache
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          js = Path('orlica-v8.js')
+          s = js.read_text(encoding='utf-8')
+          s = s.replace(
+              'После отправки слот станет недоступен другим клиентам. Эскиз хранится приватно и доступен только в админке Светы.',
+              'После отправки слот станет недоступен другим клиентам. Эскиз хранится приватно и доступен только Свете.'
+          )
+          s = s.replace('Отправить заявку <b>↗</b>', 'Отправить заявку')
+          js.write_text(s, encoding='utf-8')
+
+          idx = Path('index.html')
+          h = idx.read_text(encoding='utf-8')
+          h = re.sub(r'orlica-v81\.css(?:\?v=[^\"\']*)?', 'orlica-v81.css?v=82', h)
+          h = re.sub(r'orlica-v8\.js(?:\?v=[^\"\']*)?', 'orlica-v8.js?v=82', h)
+          idx.write_text(h, encoding='utf-8')
+          PY
+          git config user.name "Danil Director Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add index.html orlica-v8.js
+          git commit -m "Fix ORLICA mobile booking form" || exit 0
+          git push
