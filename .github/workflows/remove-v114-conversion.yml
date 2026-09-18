@@ -1,0 +1,38 @@
+name: Remove embedded ORLICA V11.4 conversion
+
+on:
+  push:
+    paths:
+      - 'scripts/remove-v114-conversion.py'
+      - '.github/workflows/remove-v114-conversion.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Remove embedded V11.4
+        run: python scripts/remove-v114-conversion.py
+      - name: Validate cleanup
+        run: |
+          test -s index.html
+          test -s orlica-v11.css
+          test -s orlica-v11.js
+          ! grep -q 'ORLICA V11.4 conversion layer' orlica-v11.css
+          ! grep -q 'ORLICA V11.4 conversion runtime' orlica-v11.js
+          ! grep -q 'orlica-v114.css' index.html
+          ! grep -q 'orlica-v114.js' index.html
+          grep -q 'orlica-v11.css?v=1150' index.html
+          grep -q 'orlica-v11.js?v=1150' index.html
+      - name: Commit cleanup
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html orlica-v11.css orlica-v11.js
+          git diff --cached --quiet && exit 0
+          git commit -m 'Remove embedded ORLICA V11.4 conversion blocks'
+          git push
