@@ -1,0 +1,23 @@
+/* ORLICA hero hotfix — clean press/hold reveal */
+html.orlica-v101 #ink-portrait::before,
+html.orlica-v101 #ink-portrait::after{
+  content:none!important;
+  display:none!important;
+  opacity:0!important;
+  box-shadow:none!important;
+  background:none!important;
+}
+html.orlica-v101 #ink-portrait .hold-ring,
+html.orlica-v101 #ink-portrait .hold-progress,
+html.orlica-v101 #ink-portrait .press-ring,
+html.orlica-v101 #ink-portrait .ink-progress,
+html.orlica-v101 #ink-portrait .ink-scan,
+html.orlica-v101 #ink-portrait .scan-line,
+html.orlica-v101 #ink-portrait [class*="cursor"],
+html.orlica-v101 #ink-portrait [class*="progress"],
+html.orlica-v101 #ink-portrait [class*="scanner"],
+html.orlica-v101 #ink-portrait [class*="ring"]:not(img){display:none!important}
+html.orlica-v101 .hero .compare,
+html.orlica-v101 .hero [data-compare],
+html.orlica-v101 .hero .before-after,
+html.orlica-v101 .hero .compare-button{display:none!important}
