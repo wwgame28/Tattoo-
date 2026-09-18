@@ -1,0 +1,26 @@
+name: Apply ORLICA V11.2 photo polish
+on:
+  push:
+    paths:
+      - '.github/scripts/orlica_v112_photo_polish.py'
+      - '.github/workflows/orlica-v112-photo.yml'
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply photo polish
+        run: python3 .github/scripts/orlica_v112_photo_polish.py
+      - name: Validate
+        run: |
+          grep -q 'ORLICA V11.2' orlica-v11.css
+          grep -q 'orlica-v11.css?v=1120' index.html
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html orlica-v11.css
+          git commit -m 'Polish hero photo size and glow'
+          git push
