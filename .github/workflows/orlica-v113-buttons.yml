@@ -15,6 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Apply V11.3
         run: python scripts/apply-v113-buttons.py
       - name: Validate files
@@ -23,6 +25,7 @@ jobs:
           test -s orlica-v11.css
           grep -q 'ORLICA V11.3 unified buttons' orlica-v11.css
           ! grep -qi '01 / СВЕТА' index.html
+          grep -q 'orlica-v11.css?v=1130' index.html
       - name: Commit changes
         run: |
           git config user.name 'github-actions[bot]'
