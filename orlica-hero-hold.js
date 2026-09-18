@@ -25,7 +25,6 @@
     const apply = p => {
       current = Math.max(0, Math.min(1, p));
       portrait.style.setProperty('--ink-cut', `${(100 - current*100).toFixed(3)}%`);
-      portrait.style.setProperty('--ink-line-opacity', current > .015 && current < .985 ? '.9' : '0');
     };
 
     const revealTick = now => {
