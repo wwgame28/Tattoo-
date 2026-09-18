@@ -1,0 +1,37 @@
+name: Apply ORLICA V11
+
+on:
+  push:
+    paths:
+      - '.github/workflows/orlica-v11-apply.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build V11
+        run: python3 scripts/orlica_v11_build.py
+
+      - name: Validate bundle
+        run: |
+          test -s orlica-v11.css
+          test -s orlica-v11.js
+          grep -q 'orlica-v11.css?v=1101' index.html
+          grep -q 'orlica-v11.js?v=1101' index.html
+          ! grep -Eq '(director-v5|orlica-(v7|v8|v81|v9|v10|v101|hero-clean|hero-hold))\.(css|js)' index.html
+
+      - name: Commit V11
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html orlica-v11.css orlica-v11.js
+          git diff --cached --quiet && exit 0
+          git commit -m 'Apply ORLICA V11 cleanup'
+          git push
