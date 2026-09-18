@@ -1,0 +1,774 @@
+/* ORLICA V11 consolidated CSS */
+
+/* source: director-v5.css */
+
+/* Danil Director V5 — visual, motion, mobile UX, accessibility and performance pass */
+:root{--director-ease:cubic-bezier(.22,1,.36,1);--director-hair:#ffffff24;--director-paper:#f2f1ed;--director-ink:#0b0b0b}
+html{scroll-padding-top:88px}
+body{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:98;background:linear-gradient(90deg,transparent 0,transparent calc(50% - .5px),#ffffff05 50%,transparent calc(50% + .5px));opacity:.38}
+header{transition:background-color .35s var(--director-ease),border-color .35s var(--director-ease),box-shadow .35s var(--director-ease)}
+header.director-scrolled{background:#090909f2;border-color:#ffffff2e;box-shadow:0 14px 45px #0005}
+header nav>a:not(.navbook).director-active::after{right:0}
+header nav>a:not(.navbook).director-active{color:#fff}
+:where(a,button,input,textarea,summary):focus-visible{outline:2px solid currentColor;outline-offset:4px}
+button,input,textarea,a{-webkit-tap-highlight-color:transparent}
+.hero{isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,#ffffff03 0 1px,transparent 1px 100%);background-size:18vw 100%;z-index:-1;opacity:.6}
+.hero-visual{position:relative}
+.hero-visual::before{content:"";position:absolute;inset:-12px 12px 12px -12px;border:1px solid #ffffff18;pointer-events:none;z-index:-1;transition:transform .7s var(--director-ease),border-color .35s}
+.hero-visual:hover::before{transform:translate(8px,-8px);border-color:#ffffff38}
+.hero-note{max-width:34ch!important;line-height:1.45}
+.hero-tags span{backdrop-filter:blur(10px)}
+.cta,.navbook,.contact-big,.mobile-book{touch-action:manipulation}
+.cta{box-shadow:0 14px 38px #0003,inset 0 0 0 1px #ffffff70!important}
+.cta:hover{box-shadow:0 20px 55px #0005,inset 0 0 0 1px #fff!important}
+.empty-portfolio-grid{counter-reset:director-card}
+.placeholder-card{counter-increment:director-card;position:relative}
+.empty-work-square{position:relative;overflow:hidden;background:linear-gradient(145deg,#191919,#111);transition:transform .55s var(--director-ease),border-color .35s,background .35s;box-shadow:inset 0 0 0 1px #ffffff04}
+.empty-work-square::before{content:"0" counter(director-card);position:absolute;left:14px;top:12px;color:#777;font-size:10px;letter-spacing:.18em;z-index:2}
+.empty-work-square::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 49.85%,#ffffff10 50%,transparent 50.15%),linear-gradient(0deg,transparent 49.85%,#ffffff10 50%,transparent 50.15%);opacity:.3;transform:scale(.7);transition:transform .65s var(--director-ease),opacity .35s}
+.placeholder-card:hover .empty-work-square{transform:translateY(-5px);border-color:#666;background:#161616}
+.placeholder-card:hover .empty-work-square::after{transform:scale(1);opacity:.8}
+.placeholder-card:nth-child(2n) .empty-work-square::after{transform:rotate(45deg) scale(.72)}
+.placeholder-card:nth-child(2n):hover .empty-work-square::after{transform:rotate(45deg) scale(1)}
+.about .portrait{box-shadow:0 34px 90px #0002;transition:transform .7s var(--director-ease),box-shadow .7s var(--director-ease)}
+.about .portrait:hover{transform:translateY(-4px) rotate(-.4deg);box-shadow:0 44px 110px #0003}
+.step{transition:padding-left .45s var(--director-ease),background-color .35s,border-color .35s}
+.step:hover{padding-left:14px;background:#ffffff03;border-color:#ffffff45}
+.step .n{transition:color .35s,transform .45s var(--director-ease)}
+.step:hover .n{color:#fff;transform:rotate(-5deg)}
+.smooth-faq{box-shadow:inset 0 0 0 1px #ffffff05}
+.smooth-faq-trigger{transition:background-color .25s,color .25s,padding-left .35s var(--director-ease)}
+.smooth-faq-trigger:hover{padding-left:30px}
+#brief{position:relative;overflow:hidden}
+#brief::before{content:"";position:absolute;inset:0 0 auto;height:2px;background:linear-gradient(90deg,#fff,transparent 65%);opacity:.7}
+#brief label{color:#aaa;transition:color .25s}
+#brief label:focus-within{color:#fff}
+#brief input,#brief textarea{transition:border-color .25s,background-color .25s,padding-left .25s}
+#brief input:focus,#brief textarea:focus{border-color:#fff;background:#ffffff05;padding-left:8px;outline:none}
+#brief .submit{min-height:56px}
+dialog{border-radius:10px!important;box-shadow:0 30px 120px #000c!important}
+dialog::backdrop{background:#000e!important}
+dialog .dialogbottom{align-items:center}
+dialog #close{min-height:44px;min-width:44px;border-radius:999px}
+.director-reveal{opacity:0;translate:0 24px;filter:blur(4px)}
+.director-reveal.director-in{opacity:1;translate:0 0;filter:blur(0);transition:opacity .72s var(--director-ease),translate .72s var(--director-ease),filter .72s var(--director-ease)}
+.director-reveal[data-director-delay="1"].director-in{transition-delay:.06s}
+.director-reveal[data-director-delay="2"].director-in{transition-delay:.12s}
+.director-reveal[data-director-delay="3"].director-in{transition-delay:.18s}
+@media(max-width:760px){
+ body::after{display:none}
+ header{padding-inline:16px!important}
+ header .logo{font-size:20px!important;max-width:62vw;overflow:hidden;text-overflow:ellipsis}
+ .navbook{min-height:42px;display:inline-flex;align-items:center;padding-inline:14px!important}
+ .hero{padding-bottom:54px!important}
+ .hero::before{background-size:50vw 100%;opacity:.35}
+ .hero .eyebrow{gap:12px;white-space:normal!important}
+ .hero h1{line-height:.86!important;margin-bottom:26px!important}
+ .hero-visual{margin-top:2px!important}
+ .hero-visual::before{inset:-7px 7px 7px -7px}
+ .ink-portrait{border-radius:8px}
+ .ink-controls{padding-top:14px}
+ .manifesto,.work,.about,.process,.faq,.booking{scroll-margin-top:68px}
+ .empty-portfolio-grid{gap:12px!important}
+ .empty-work-square::before{left:10px;top:9px;font-size:9px}
+ .placeholder-card:hover .empty-work-square{transform:none}
+ .about .portrait:hover{transform:none}
+ .step:hover{padding-left:0;background:transparent}
+ .smooth-faq-trigger:hover{padding-left:20px}
+ #brief{padding:24px 18px!important}
+ #brief input,#brief textarea{font-size:16px}
+ .mobile-book{bottom:max(12px,env(safe-area-inset-bottom))!important;left:12px!important;right:12px!important;min-height:52px}
+ footer{padding-bottom:calc(110px + env(safe-area-inset-bottom))!important}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important}
+ .director-reveal,.director-reveal.director-in{opacity:1!important;translate:none!important;filter:none!important;transition:none!important}
+ .hero-visual::before,.empty-work-square,.empty-work-square::after,.about .portrait,.step,.step .n,.smooth-faq-trigger{transition:none!important}
+}
+.motion-off .director-reveal,.motion-off .director-reveal.director-in{opacity:1!important;translate:none!important;filter:none!important;transition:none!important}
+.motion-off .hero-visual::before,.motion-off .empty-work-square,.motion-off .empty-work-square::after,.motion-off .about .portrait,.motion-off .step,.motion-off .step .n,.motion-off .smooth-faq-trigger{transition:none!important}
+
+
+/* source: orlica-v7.css */
+
+/* ORLICA V7 — consensus visual pass */
+:root{--v7-paper:#f1f0eb;--v7-ink:#0e0e0f;--v7-muted:#a5a49f;--v7-hair:rgba(255,255,255,.14);--v7-ease:cubic-bezier(.22,1,.36,1)}
+body::after{display:none!important}
+header{transition:background .35s var(--v7-ease),border-color .35s var(--v7-ease),transform .35s var(--v7-ease)!important}
+header.is-scrolled{background:rgba(14,14,15,.86)!important;border-bottom-color:rgba(255,255,255,.16)!important;box-shadow:0 10px 30px rgba(0,0,0,.16)}
+header .logo{letter-spacing:.015em}
+.navbook{background:var(--v7-paper)!important;color:#111!important;border-color:var(--v7-paper)!important;font-weight:800!important;box-shadow:0 8px 28px rgba(0,0,0,.22);transition:transform .3s var(--v7-ease),box-shadow .3s var(--v7-ease)!important}
+.navbook:hover{transform:translateY(-2px)!important;box-shadow:0 14px 34px rgba(0,0,0,.32)!important}
+.hero{border-bottom:1px solid var(--v7-hair)!important}
+.hero h1{font-size:clamp(102px,13.8vw,218px)!important;line-height:.8!important;letter-spacing:-.035em!important}
+.hero h1 span{font-size:.385em!important;letter-spacing:.17em!important;margin-top:9px!important}
+.hero-note{color:#d0cfca!important}
+.hero-visual{filter:drop-shadow(0 26px 46px rgba(0,0,0,.22))}
+.hero-visual figcaption{border-top:1px solid rgba(255,255,255,.1);margin-top:12px;padding-top:12px!important}
+.hero-tags span{transition:background .25s,border-color .25s,color .25s,transform .25s var(--v7-ease)}
+.hero-tags span:hover{background:#f1f0eb!important;color:#111!important;border-color:#f1f0eb!important;transform:translateY(-2px)}
+.hero-bottom{margin-top:32px!important}
+.hero-bottom .cta{position:relative!important;isolation:isolate;overflow:hidden!important;min-height:64px!important;padding:18px 28px!important;border-radius:14px!important;background:linear-gradient(135deg,#f7f5f0 0%,#ece7dc 100%)!important;color:#0f0f10!important;border:1px solid rgba(255,255,255,.7)!important;box-shadow:0 18px 50px rgba(0,0,0,.34)!important;transform:rotate(-1deg)!important;transition:transform .28s ease,box-shadow .28s ease,filter .28s ease!important}
+.hero-bottom .cta::before{content:"";position:absolute;inset:-60% auto -60% -35%;width:26%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-18deg);transition:left .75s var(--v7-ease);z-index:-1}
+.hero-bottom .cta:hover::before{left:125%}
+.hero-bottom .cta b{display:grid!important;place-items:center!important;width:38px!important;height:38px!important;border-radius:50%!important;background:#111!important;color:#f7f5f0!important;font-size:20px!important;flex:0 0 auto!important;transition:transform .35s var(--v7-ease)}
+.hero-bottom .cta:hover{transform:rotate(0) translateY(-4px)!important;box-shadow:0 24px 64px rgba(0,0,0,.42)!important;filter:brightness(1.02)}
+.hero-bottom .cta:hover b{transform:rotate(45deg)}
+.manifesto,.work,.about,.process,.faq,.booking{position:relative}
+.work,.process,.faq{border-top:1px solid var(--v7-hair)}
+.work::before,.about::before,.process::before,.faq::before,.booking::before{content:attr(data-section-label);position:absolute;top:24px;left:clamp(20px,5vw,76px);font-size:9px;letter-spacing:.2em;color:#777;text-transform:uppercase;pointer-events:none}
+.about::before,.booking::before{color:#555}
+.manifesto{overflow:hidden!important;isolation:isolate}
+.manifesto::after{content:"02";position:absolute;right:-.03em;bottom:-.28em;font-family:Later,Impact,sans-serif;font-size:clamp(180px,30vw,500px);line-height:1;color:rgba(255,255,255,.025);z-index:-1;pointer-events:none}
+.manifesto h2 span{color:transparent!important;-webkit-text-stroke:1px rgba(255,255,255,.72)!important}
+.manifesto-note{border-left:1px solid rgba(255,255,255,.22);padding-left:18px!important}
+.work{padding-top:118px!important}
+.grid{counter-reset:orlica-work;gap:38px 24px!important}
+.placeholder-card{counter-increment:orlica-work;position:relative!important;min-width:0!important;margin:0!important;transform:none!important}
+.empty-work-square{position:relative!important;aspect-ratio:1/1!important;height:auto!important;width:100%!important;overflow:hidden!important;border:1px solid rgba(255,255,255,.22)!important;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.11),transparent 34%),linear-gradient(135deg,rgba(255,255,255,.045),rgba(255,255,255,.008))!important;transition:border-color .35s,transform .55s var(--v7-ease),background .25s!important}
+.empty-work-square::before,.empty-work-square::after{content:"";position:absolute;pointer-events:none;opacity:.35;transition:opacity .35s,transform .55s var(--v7-ease)}
+.empty-work-square::before{inset:14px;border:1px solid rgba(255,255,255,.11)}
+.empty-work-square::after{width:36%;height:1px;background:rgba(255,255,255,.28);left:32%;top:50%;transform:rotate(-35deg)}
+.empty-index{position:absolute;left:17px;top:15px;font-family:Later,Impact,sans-serif;font-size:clamp(28px,4vw,52px);line-height:1;color:rgba(255,255,255,.26);letter-spacing:.02em}
+.empty-cross{position:absolute;right:17px;bottom:17px;width:22px;height:22px;opacity:.28}
+.empty-cross::before,.empty-cross::after{content:"";position:absolute;background:#fff}.empty-cross::before{width:100%;height:1px;top:50%;left:0}.empty-cross::after{height:100%;width:1px;left:50%;top:0}
+.placeholder-card:nth-child(2),.placeholder-card:nth-child(5){transform:translateY(44px)!important}
+.placeholder-card:hover .empty-work-square{border-color:rgba(255,255,255,.5)!important;transform:translateY(-6px)}
+.placeholder-card:hover .empty-work-square::before{opacity:.7;transform:scale(.975)}
+.placeholder-card:hover .empty-work-square::after{opacity:.75;transform:rotate(-28deg) scaleX(1.25)}
+.about{padding-top:112px!important}
+.about .portrait{isolation:isolate}
+.about .portrait::before{content:"";position:absolute;inset:20px -18px -18px 18px;border:1px solid rgba(0,0,0,.24);z-index:-1;transform:rotate(2deg);transition:transform .6s var(--v7-ease)}
+.about .portrait:hover::before{transform:rotate(-1deg) translate(6px,-4px)}
+.about .portrait img{transition:transform .7s var(--v7-ease),filter .45s!important}
+.about .portrait:hover img{transform:scale(1.018);filter:grayscale(.15)!important}
+.about p{max-width:31ch!important;line-height:1.5!important}
+.life{position:relative;text-decoration:none!important}.life::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:#111;transition:right .4s var(--v7-ease)}.life:hover::after{right:0}
+.process{padding-top:118px!important}
+.steps{border-bottom:1px solid rgba(255,255,255,.18)}
+.step{position:relative;overflow:hidden;transition:padding-left .4s var(--v7-ease),background .3s!important}
+.step::after{content:"";position:absolute;left:0;top:0;width:0;height:100%;background:linear-gradient(90deg,rgba(255,255,255,.055),transparent);transition:width .55s var(--v7-ease);pointer-events:none}
+.step:hover,.step.v7-active{padding-left:14px!important}.step:hover::after,.step.v7-active::after{width:100%}
+.step .n{transition:color .3s,transform .35s var(--v7-ease)}.step:hover .n,.step.v7-active .n{color:#fff!important;transform:rotate(-5deg)}
+.step h3{letter-spacing:-.02em}
+.faq{padding-top:108px!important}
+.smooth-faq-item{transition:background .3s,border-color .3s!important}
+.smooth-faq-item:has(.smooth-faq-trigger[aria-expanded="true"]){background:rgba(255,255,255,.055)!important;border-color:rgba(255,255,255,.35)!important}
+.smooth-faq-trigger{transition:padding-left .35s var(--v7-ease),color .3s!important}.smooth-faq-trigger:hover{padding-left:12px!important;color:#fff!important}.smooth-faq-trigger svg{transition:transform .35s var(--v7-ease)!important}
+.booking{padding-top:112px!important;overflow:hidden}
+.booking::after{content:"✳";position:absolute;right:-.08em;bottom:-.32em;font-family:Later,Impact,sans-serif;font-size:clamp(260px,38vw,620px);line-height:1;color:rgba(0,0,0,.035);pointer-events:none}
+.booking-grid{position:relative;z-index:1}
+#brief label{letter-spacing:.06em;text-transform:uppercase;color:#555}
+#brief input,#brief textarea{transition:border-color .25s,background .25s,padding-left .3s var(--v7-ease)!important}
+#brief input:focus,#brief textarea:focus{border-bottom-color:#111!important;background:rgba(0,0,0,.035)!important;padding-left:10px!important}
+.submit{min-height:62px!important;font-size:14px!important;letter-spacing:.06em;text-transform:uppercase;transition:transform .3s var(--v7-ease),box-shadow .3s!important}.submit:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(0,0,0,.18)}
+.submit span{font-size:22px;transition:transform .35s var(--v7-ease)}.submit:hover span{transform:rotate(45deg)}
+.contact-big{transition:opacity .25s,transform .3s var(--v7-ease)}.contact-big:hover{opacity:.65;transform:translateX(4px)}
+.bottom-bar{z-index:70!important;border-color:rgba(255,255,255,.18)!important;background:rgba(18,18,19,.78)!important;box-shadow:0 12px 40px rgba(0,0,0,.24)!important}.bottom-bar a{font-weight:800!important}
+.progress{height:2px!important;background:linear-gradient(90deg,#fff,#aaa)!important}
+@media(max-width:900px){.placeholder-card:nth-child(n){transform:none!important}.placeholder-card:nth-child(even){transform:translateY(22px)!important}.work::before,.about::before,.process::before,.faq::before,.booking::before{top:18px;left:18px}}
+@media(max-width:760px){.bottom-bar{display:none!important}.hero h1{font-size:clamp(74px,21.8vw,112px)!important;line-height:.84!important}.hero h1 span{font-size:.39em!important;margin-top:8px!important}.hero-bottom{margin-top:24px!important}.hero-bottom .cta{min-height:58px!important;padding:16px 20px!important;border-radius:13px!important;transform:none!important}.hero-bottom .cta b{width:34px!important;height:34px!important;font-size:18px!important}.hero-tags span:hover{transform:none}.manifesto::after{font-size:65vw;bottom:-.12em}.work{padding-top:92px!important}.grid{gap:28px 12px!important}.empty-work-square::before{inset:9px}.empty-index{left:12px;top:11px;font-size:30px}.empty-cross{right:12px;bottom:12px;width:18px;height:18px}.about,.process,.faq,.booking{padding-top:88px!important}.step:hover,.step.v7-active{padding-left:0!important}.about .portrait:hover img{transform:none}.booking::after{font-size:80vw;bottom:-.06em}}
+@media(max-width:430px){.grid{grid-template-columns:1fr 1fr!important;gap:20px 10px!important}.placeholder-card:nth-child(even){transform:translateY(16px)!important}}
+@media(prefers-reduced-motion:reduce){.placeholder-card,.empty-work-square,.step,.about .portrait img,.about .portrait::before,.hero-bottom .cta b,.submit,.submit span{transition:none!important;transform:none!important}}
+
+
+/* source: orlica-v8.css */
+
+/* ORLICA V8 — live portfolio + booking */
+#works .sectionhead{margin-bottom:28px!important}
+#works .sectionhead::after{content:"9 РАБОТ / TAP — FULLSCREEN";display:block;margin-top:18px;font-size:10px;letter-spacing:.18em;color:#777}
+#works .orlica-gallery{display:grid!important;grid-template-columns:repeat(12,minmax(0,1fr))!important;gap:clamp(10px,1.7vw,24px)!important;align-items:start!important;counter-reset:piece!important}
+#works .portfolio-piece{position:relative!important;margin:0!important;min-width:0!important;grid-column:span 4;overflow:visible!important;counter-increment:piece}
+#works .portfolio-piece:nth-child(1){grid-column:1/span 7}
+#works .portfolio-piece:nth-child(2){grid-column:9/span 4;margin-top:11vw!important}
+#works .portfolio-piece:nth-child(3){grid-column:2/span 4;margin-top:2vw!important}
+#works .portfolio-piece:nth-child(4){grid-column:7/span 6;margin-top:8vw!important}
+#works .portfolio-piece:nth-child(5){grid-column:1/span 5;margin-top:2vw!important}
+#works .portfolio-piece:nth-child(6){grid-column:7/span 5;margin-top:8vw!important}
+#works .portfolio-piece:nth-child(7){grid-column:2/span 4;margin-top:4vw!important}
+#works .portfolio-piece:nth-child(8){grid-column:7/span 6;margin-top:0!important}
+#works .portfolio-piece:nth-child(9){grid-column:1/span 7;margin-top:6vw!important}
+#works .piece-button{all:unset;display:block;width:100%;cursor:zoom-in;position:relative;isolation:isolate}
+#works .piece-media{position:relative;overflow:hidden;background:#111;box-shadow:0 16px 46px rgba(0,0,0,.24)}
+#works .portfolio-piece:nth-child(1) .piece-media,#works .portfolio-piece:nth-child(6) .piece-media,#works .portfolio-piece:nth-child(9) .piece-media{aspect-ratio:4/5}
+#works .portfolio-piece:nth-child(2) .piece-media,#works .portfolio-piece:nth-child(3) .piece-media,#works .portfolio-piece:nth-child(5) .piece-media,#works .portfolio-piece:nth-child(7) .piece-media{aspect-ratio:3/4}
+#works .portfolio-piece:nth-child(4) .piece-media,#works .portfolio-piece:nth-child(8) .piece-media{aspect-ratio:5/6}
+#works .piece-atlas{position:absolute;inset:0;background-image:url("assets/works/orlica-atlas.webp");background-size:300% 300%;background-position:var(--x) var(--y);background-repeat:no-repeat;transition:transform .8s cubic-bezier(.22,1,.36,1),filter .45s ease;will-change:transform}
+#works .piece-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 62%,rgba(0,0,0,.56));opacity:.3;transition:opacity .35s;pointer-events:none}
+#works .piece-number{position:absolute;top:14px;left:14px;z-index:2;font-family:Later,Impact,sans-serif;font-size:clamp(26px,3.3vw,48px);line-height:1;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.35)}
+#works .piece-open{position:absolute;right:14px;bottom:14px;z-index:2;width:42px;height:42px;border:1px solid rgba(255,255,255,.68);border-radius:50%;display:grid;place-items:center;color:#fff;font-size:19px;backdrop-filter:blur(8px);background:rgba(0,0,0,.18);transition:transform .35s cubic-bezier(.22,1,.36,1),background .25s}
+#works .piece-meta{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding-top:11px;border-top:1px solid rgba(255,255,255,.16);margin-top:10px}
+#works .piece-title{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#eee}
+#works .piece-tag{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#737373;white-space:nowrap}
+@media(hover:hover) and (pointer:fine){#works .piece-button:hover .piece-atlas{transform:scale(1.035);filter:contrast(1.03)}#works .piece-button:hover .piece-media::after{opacity:.55}#works .piece-button:hover .piece-open{transform:rotate(45deg) scale(1.05);background:rgba(255,255,255,.15)}}
+
+.orlica-viewer{position:fixed;inset:0;z-index:500;background:rgba(7,7,8,.95);backdrop-filter:blur(18px);display:none;opacity:0;transition:opacity .28s ease}
+.orlica-viewer.is-open{display:grid;opacity:1}
+.orlica-viewer-shell{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,330px);gap:clamp(20px,4vw,60px);align-items:center;width:min(1380px,100%);height:100%;margin:auto;padding:clamp(58px,7vw,96px) clamp(18px,4vw,64px) 34px}
+.orlica-viewer-media{height:min(78vh,940px);display:grid;place-items:center;overflow:hidden}
+.orlica-viewer-atlas{height:min(78vh,900px);aspect-ratio:3/4;max-width:100%;background-image:url("assets/works/orlica-atlas.webp");background-size:300% 300%;background-position:var(--x) var(--y);background-repeat:no-repeat;box-shadow:0 28px 90px rgba(0,0,0,.5)}
+.orlica-viewer-copy{align-self:end;padding-bottom:5vh}
+.orlica-viewer-index{font-family:Later,Impact,sans-serif;font-size:clamp(68px,10vw,150px);line-height:.75;color:#fff}
+.orlica-viewer-copy h3{font-size:clamp(26px,3vw,44px);margin:22px 0 8px;line-height:.92}
+.orlica-viewer-copy p{margin:0;color:#888;font-size:11px;letter-spacing:.15em;text-transform:uppercase}
+.orlica-viewer-close,.orlica-viewer-nav{position:absolute;border:1px solid rgba(255,255,255,.24);background:rgba(0,0,0,.25);color:#fff;backdrop-filter:blur(10px);cursor:pointer}
+.orlica-viewer-close{top:20px;right:20px;width:48px;height:48px;border-radius:50%;font-size:24px}
+.orlica-viewer-nav{top:50%;width:46px;height:70px;transform:translateY(-50%);font-size:24px}
+.orlica-viewer-prev{left:16px}.orlica-viewer-next{right:16px}
+body.viewer-open{overflow:hidden}
+
+#book.orlica-booking-live{background:#efeee9!important;color:#111!important;padding-top:104px!important}
+#book.orlica-booking-live::after{content:"BOOK";font-family:Later,Impact,sans-serif;position:absolute;right:-.03em;bottom:-.1em;font-size:clamp(180px,29vw,480px);line-height:.75;color:rgba(0,0,0,.025);pointer-events:none}
+.booking-live-head{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,7vw,100px);align-items:end;margin-bottom:58px;position:relative;z-index:1}
+.booking-live-head h2{margin:0!important}
+.booking-live-head p{margin:0 0 8px!important;max-width:34ch!important;color:#555!important;font-size:clamp(16px,1.5vw,20px)!important;line-height:1.45!important}
+.availability-status{display:flex;align-items:center;gap:9px;margin-top:17px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#555}
+.availability-dot{width:8px;height:8px;border-radius:50%;background:#111;box-shadow:0 0 0 5px rgba(0,0,0,.07)}
+.booking-live-grid{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:clamp(24px,5vw,72px);position:relative;z-index:1}
+.booking-calendar{border-top:1px solid rgba(0,0,0,.3);padding-top:18px}
+.booking-calendar-top{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:22px}
+.booking-calendar-top strong{font-size:13px;letter-spacing:.08em;text-transform:uppercase}.booking-calendar-top span{font-size:11px;color:#777}
+.booking-days{display:flex;gap:9px;overflow-x:auto;padding:2px 2px 12px;scrollbar-width:none}.booking-days::-webkit-scrollbar{display:none}
+.booking-day{appearance:none;border:1px solid rgba(0,0,0,.22);background:transparent;color:#111;min-width:92px;padding:14px 12px;text-align:left;cursor:pointer;transition:.22s;border-radius:0}
+.booking-day span{display:block}.booking-day .dow{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#777}.booking-day .dom{font-family:Later,Impact,sans-serif;font-size:34px;line-height:.9;margin:7px 0 5px}.booking-day .count{font-size:9px;color:#777}.booking-day.is-active{background:#111;color:#fff;border-color:#111}.booking-day.is-active .dow,.booking-day.is-active .count{color:#aaa}
+.booking-times{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:18px}
+.booking-time{appearance:none;border:1px solid rgba(0,0,0,.2);background:transparent;color:#111;padding:13px 10px;font:inherit;font-size:13px;cursor:pointer;transition:.2s}.booking-time:hover,.booking-time.is-active{background:#111;color:#fff;border-color:#111}
+.booking-empty{border:1px dashed rgba(0,0,0,.28);padding:22px;color:#555;line-height:1.5}.booking-empty a{color:#111;font-weight:700}
+.booking-form-wrap{border:1px solid rgba(0,0,0,.22);padding:clamp(20px,3vw,34px);background:rgba(255,255,255,.28)}
+.booking-selected{display:flex;justify-content:space-between;align-items:center;gap:14px;padding-bottom:18px;margin-bottom:20px;border-bottom:1px solid rgba(0,0,0,.18)}
+.booking-selected strong{font-size:15px}.booking-selected span{font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:#777}
+.booking-form{display:grid;grid-template-columns:1fr 1fr;gap:15px 12px}.booking-form label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#555}.booking-form label.wide{grid-column:1/-1}.booking-form input,.booking-form textarea{width:100%;border:0;border-bottom:1px solid rgba(0,0,0,.32);background:transparent;padding:11px 0;color:#111;font:inherit;font-size:16px;border-radius:0;outline:none}.booking-form textarea{min-height:100px;resize:vertical}.booking-form input:focus,.booking-form textarea:focus{border-bottom-color:#111}
+.booking-submit{grid-column:1/-1;margin-top:8px;appearance:none;border:0;background:#111;color:#fff;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;font:inherit;font-weight:800;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;min-height:60px}.booking-submit:disabled{opacity:.45;cursor:not-allowed}.booking-submit b{font-size:22px;font-weight:400}.booking-legal{grid-column:1/-1;color:#777;font-size:10px;line-height:1.45;margin:0}
+.booking-message{grid-column:1/-1;padding:14px 15px;font-size:13px;line-height:1.4;display:none}.booking-message.show{display:block}.booking-message.error{background:#2a0e0e;color:#ffb7b7}.booking-message.success{background:#e4eadf;color:#14200f}
+.booking-success{padding:34px;border:1px solid rgba(0,0,0,.25);background:#fff;display:none}.booking-success.show{display:block}.booking-success .code{font-family:Later,Impact,sans-serif;font-size:clamp(48px,7vw,88px);line-height:.8;margin:18px 0}.booking-success p{color:#555;line-height:1.5!important}.booking-success a{display:inline-block;margin-top:10px;color:#111;font-weight:800}
+
+@media(max-width:800px){
+  #works .orlica-gallery{grid-template-columns:1fr 1fr!important;gap:22px 10px!important}
+  #works .portfolio-piece:nth-child(n){grid-column:auto!important;margin-top:0!important}
+  #works .portfolio-piece:nth-child(3n+2){transform:translateY(30px)}
+  #works .piece-meta{display:block}.piece-tag{display:block;margin-top:4px}
+  .orlica-viewer-shell{display:block;padding:70px 14px 24px;overflow:auto}.orlica-viewer-media{height:68vh}.orlica-viewer-copy{padding:22px 4px 30px}.orlica-viewer-index{font-size:74px}.orlica-viewer-nav{top:auto;bottom:18px;transform:none;height:46px}.orlica-viewer-prev{left:14px}.orlica-viewer-next{right:70px}
+  .booking-live-head,.booking-live-grid{grid-template-columns:1fr}.booking-live-head{margin-bottom:34px}.booking-live-grid{gap:30px}.booking-times{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:430px){#works .orlica-gallery{gap:18px 8px!important}#works .piece-number{font-size:24px;top:9px;left:9px}#works .piece-open{width:34px;height:34px;right:9px;bottom:9px}.booking-form{grid-template-columns:1fr}.booking-form label.wide{grid-column:auto}.booking-submit,.booking-legal,.booking-message{grid-column:auto}.booking-day{min-width:82px}.booking-live-head p{font-size:15px!important}}
+@media(prefers-reduced-motion:reduce){#works .piece-media img,#works .piece-open,.orlica-viewer{transition:none!important}}
+
+
+/* source: orlica-v81.css */
+
+/* ORLICA V8.1 — gallery safety + sketch upload + channel CTA */
+#works .piece-open{display:none!important}
+#works .portfolio-piece{display:block!important;height:auto!important;overflow:visible!important;contain:layout style;z-index:auto!important}
+#works .piece-button{display:flex!important;flex-direction:column!important;width:100%!important;height:auto!important;overflow:visible!important}
+#works .piece-media{position:relative!important;z-index:1!important;flex:0 0 auto!important;overflow:hidden!important}
+#works .piece-meta{position:relative!important;inset:auto!important;z-index:3!important;display:flex!important;align-items:flex-start!important;justify-content:space-between!important;gap:14px!important;min-height:46px!important;width:100%!important;margin:0!important;padding:12px 0 0!important;border-top:0!important;background:#0b0b0c!important;transform:none!important}
+#works .piece-title,#works .piece-tag{position:static!important;transform:none!important;line-height:1.25!important}
+#works .piece-title{display:block!important;max-width:70%!important;color:#f2f1ed!important}
+#works .piece-tag{display:block!important;text-align:right!important;color:#777!important}
+#works .piece-media::after{bottom:0!important}
+
+.works-channel{margin:clamp(60px,8vw,120px) 0 0;display:grid;grid-template-columns:.7fr 2fr auto;align-items:end;gap:18px;padding:26px 0 22px;border-top:1px solid rgba(255,255,255,.25);border-bottom:1px solid rgba(255,255,255,.25);color:#f3f2ed;text-decoration:none!important;transition:padding .35s cubic-bezier(.22,1,.36,1),background .25s,color .25s}
+.works-channel span{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#777}
+.works-channel strong{font-family:Later,Impact,sans-serif;font-size:clamp(34px,5.6vw,82px);line-height:.82;font-weight:400;letter-spacing:-.03em}
+.works-channel em{font-style:normal;font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:#999;white-space:nowrap}
+@media(hover:hover) and (pointer:fine){.works-channel:hover{padding-left:18px;padding-right:18px;background:#f1f0eb;color:#111}.works-channel:hover span,.works-channel:hover em{color:#555}}
+
+.sketch-upload{grid-column:1/-1;position:relative;min-width:0;width:100%}
+.sketch-upload>input{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important;overflow:hidden!important}
+.sketch-drop{display:grid!important;grid-template-columns:88px minmax(0,1fr)!important;gap:16px!important;align-items:center!important;border:1px dashed rgba(0,0,0,.35)!important;padding:12px!important;cursor:pointer!important;letter-spacing:0!important;text-transform:none!important;color:#111!important;background:rgba(255,255,255,.22);transition:background .2s,border-color .2s;width:100%!important;min-width:0!important}
+.sketch-drop:hover{background:rgba(255,255,255,.5);border-color:#111!important}
+.sketch-thumb{width:88px;height:88px;display:grid;place-items:center;background:#111;color:#fff;overflow:hidden;flex:none}
+.sketch-thumb b{font-size:28px;font-weight:400}
+.sketch-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.sketch-copy{min-width:0;display:block}
+.sketch-copy strong{display:block;font-size:13px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
+.sketch-copy small{display:block;color:#777;font-size:11px;line-height:1.45;text-transform:none;letter-spacing:0;margin-bottom:10px}
+.sketch-copy em{display:block;font-style:normal;font-size:11px;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:underline;text-underline-offset:3px}
+
+/* Mobile booking fixes */
+#book .booking-legal{font-size:11px!important;line-height:1.45!important;letter-spacing:0!important;text-transform:none!important;color:#6f6f6f!important;margin:2px 0 0!important;max-width:none!important}
+#book .booking-submit b{display:none!important}
+#book .booking-submit{justify-content:center!important;text-align:center!important}
+
+@media(max-width:800px){
+  #works .portfolio-piece:nth-child(n){transform:none!important}
+  #works .piece-meta{display:flex!important;background:#0b0b0c!important;min-height:52px!important}
+  .works-channel{grid-template-columns:1fr;align-items:start;gap:10px}.works-channel em{margin-top:4px}
+  #book .booking-form{grid-template-columns:1fr!important;gap:18px!important}
+  #book .booking-form>label,#book .booking-form>.sketch-upload,#book .booking-form>.booking-message,#book .booking-form>.booking-submit,#book .booking-form>.booking-legal{grid-column:1/-1!important;width:100%!important;min-width:0!important}
+  #book .booking-selected{display:grid!important;grid-template-columns:1fr!important;gap:6px!important;align-items:start!important}
+  #book .booking-selected>span{justify-self:start!important}
+  #book .booking-form-wrap{padding:20px!important;overflow:hidden!important}
+}
+@media(max-width:620px){
+  #works .orlica-gallery{grid-template-columns:1fr!important;gap:34px!important}
+  #works .portfolio-piece:nth-child(n){grid-column:1!important;margin:0!important;transform:none!important}
+  #works .portfolio-piece .piece-media{aspect-ratio:4/5!important}
+  #works .piece-meta{padding-top:10px!important;min-height:44px!important}
+  #works .piece-title{max-width:68%!important}
+  #book .booking-live-grid{grid-template-columns:1fr!important}
+  #book .booking-form-wrap{padding:18px 16px!important}
+  #book .booking-form input,#book .booking-form textarea{font-size:16px!important}
+  .sketch-drop{grid-template-columns:76px minmax(0,1fr)!important;gap:12px!important;padding:12px!important}
+  .sketch-thumb{width:76px;height:76px}
+  .sketch-copy strong{font-size:12px!important;line-height:1.25!important}
+  .sketch-copy small{font-size:10px!important;line-height:1.4!important;margin-bottom:7px!important}
+  .sketch-copy em{font-size:10px!important}
+}
+@media(max-width:430px){
+  .works-channel strong{font-size:38px}
+  #book .booking-form-wrap{padding:16px 12px!important}
+  #book .booking-submit{min-height:58px!important;padding:16px!important;font-size:15px!important}
+  #book .booking-legal{font-size:10px!important;line-height:1.45!important}
+}
+
+
+/* source: orlica-v9.css */
+
+/* ORLICA V9 — waitlist */
+.orlica-waitlist{margin:28px 0 0;border-top:1px solid rgba(0,0,0,.18);padding-top:24px}
+.orlica-waitlist-head{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:end}
+.orlica-waitlist-head h3{margin:0;font-size:clamp(32px,6vw,68px);line-height:.9;letter-spacing:-.04em}
+.orlica-waitlist-head p{margin:0;color:#6f6f72;max-width:38ch;line-height:1.5}
+.waitlist-toggle{margin-top:18px;width:100%;border:1px solid #111;background:#111;color:#fff;padding:17px 18px;text-align:left;font:inherit;font-weight:800;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.waitlist-panel{display:none;margin-top:14px;border:1px solid rgba(0,0,0,.2);padding:18px;background:rgba(255,255,255,.22)}
+.waitlist-panel.show{display:block}
+.waitlist-form{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.waitlist-form label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#59595d}
+.waitlist-form input,.waitlist-form textarea{display:block;width:100%;border:0;border-bottom:1px solid rgba(0,0,0,.35);background:transparent;padding:12px 0;font:inherit;font-size:16px;color:#111;outline:none;border-radius:0}
+.waitlist-form textarea{min-height:110px;resize:vertical}.waitlist-form .wide{grid-column:1/-1}
+.waitlist-submit{grid-column:1/-1;border:0;background:#111;color:#fff;padding:16px 18px;font:inherit;font-weight:800;text-transform:uppercase;letter-spacing:.08em;cursor:pointer}
+.waitlist-message{grid-column:1/-1;font-size:13px;line-height:1.45;color:#555}.waitlist-message.ok{color:#244e2e}.waitlist-message.err{color:#9b3030}
+@media(max-width:620px){.orlica-waitlist-head{grid-template-columns:1fr}.waitlist-form{grid-template-columns:1fr}.waitlist-form .wide,.waitlist-submit{grid-column:1}.orlica-waitlist{padding-top:20px}.waitlist-panel{padding:14px}}
+
+
+/* source: orlica-v10.css */
+
+/* ORLICA V10 — Dark Red Editorial system */
+:root{
+  --v10-bg:#090506;--v10-bg2:#110708;--v10-panel:#16090b;--v10-wine:#29090d;
+  --v10-red:#8f111c;--v10-red2:#c21d31;--v10-red3:#ee4357;
+  --v10-text:#f6efe9;--v10-muted:#bfaea7;--v10-dim:#887773;
+  --v10-line:rgba(236,177,177,.20);--v10-soft:rgba(194,29,49,.13);
+}
+html.orlica-v10{background:var(--v10-bg);color-scheme:dark}
+html.orlica-v10 body{background:radial-gradient(900px 620px at 78% -8%,rgba(151,15,27,.24),transparent 64%),radial-gradient(760px 560px at 6% 18%,rgba(95,8,17,.18),transparent 70%),var(--v10-bg)!important;color:var(--v10-text)!important}
+html.orlica-v10 body::selection{background:var(--v10-red2);color:#fff}
+html.orlica-v10 a{color:inherit}
+html.orlica-v10 header{background:linear-gradient(180deg,rgba(9,5,6,.91),rgba(9,5,6,.68))!important;border-bottom:1px solid var(--v10-line)!important;backdrop-filter:blur(18px) saturate(130%)}
+html.orlica-v10 header .logo,html.orlica-v10 header a{color:var(--v10-text)!important}
+html.orlica-v10 header nav a{opacity:.72}html.orlica-v10 header nav a:hover,html.orlica-v10 header nav a.is-active{opacity:1;color:#fff!important}
+html.orlica-v10 header .navbook{background:var(--v10-red2)!important;border-color:var(--v10-red2)!important;color:#fff!important;box-shadow:0 8px 30px rgba(194,29,49,.2)}
+html.orlica-v10 .hero{position:relative;min-height:100svh;padding-top:clamp(92px,10vw,136px)!important;padding-bottom:clamp(42px,7vw,92px)!important;background:linear-gradient(90deg,rgba(9,5,6,.96) 0%,rgba(15,6,8,.90) 38%,rgba(30,7,10,.60) 72%,rgba(78,6,14,.20) 100%)!important;border-bottom:1px solid var(--v10-line)!important;overflow:hidden}
+html.orlica-v10 .hero::before{content:"";position:absolute;inset:-20% -10%;pointer-events:none;background:radial-gradient(circle at 78% 42%,rgba(202,26,46,.19),transparent 38%),radial-gradient(circle at 83% 42%,rgba(255,55,72,.10),transparent 22%);filter:blur(18px)}
+html.orlica-v10 .hero>*{position:relative;z-index:1}
+html.orlica-v10 .hero .eyebrow{color:#d6b8b3!important;border-color:var(--v10-line)!important}
+html.orlica-v10 .hero h1{color:var(--v10-text)!important;text-shadow:0 2px 0 rgba(255,255,255,.02),0 24px 80px rgba(0,0,0,.34)}
+html.orlica-v10 .hero h1 span{color:var(--v10-red3)!important}
+html.orlica-v10 .hero-note{color:var(--v10-muted)!important;max-width:36ch!important;font-size:clamp(15px,1.3vw,19px)!important;line-height:1.55!important}
+html.orlica-v10 .hero-tags span{border-color:var(--v10-line)!important;color:#d9c4be!important;background:rgba(255,255,255,.025)!important}
+html.orlica-v10 .hero .cta{background:linear-gradient(135deg,#d42138,#8d101b)!important;color:#fff!important;border:1px solid rgba(255,255,255,.12)!important;box-shadow:0 16px 44px rgba(154,13,29,.32),inset 0 1px rgba(255,255,255,.12)!important;text-shadow:none!important}
+html.orlica-v10 .hero .cta:hover{transform:translateY(-2px)!important;box-shadow:0 22px 60px rgba(188,18,38,.38)!important}
+html.orlica-v10 .hero-visual{position:relative!important;filter:drop-shadow(0 26px 75px rgba(0,0,0,.52))}
+html.orlica-v10 #ink-portrait.ink-portrait{border-radius:22px!important;background:#17080a!important;border:1px solid rgba(255,173,178,.24)!important;box-shadow:0 30px 90px rgba(0,0,0,.56),0 0 80px rgba(173,13,29,.16)!important;overflow:hidden!important}
+html.orlica-v10 #ink-portrait img{aspect-ratio:720/980!important;object-fit:cover!important;object-position:center 50%!important}
+html.orlica-v10 #ink-portrait::before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.04),transparent 22%,transparent 76%,rgba(50,0,8,.18));mix-blend-mode:screen;opacity:.5}
+html.orlica-v10 #ink-portrait::after{background:linear-gradient(90deg,transparent 0%,#f15b69 22%,#fff0ee 50%,#f15b69 78%,transparent 100%)!important;height:2px!important;box-shadow:0 0 14px rgba(233,47,68,.85),0 0 34px rgba(194,29,49,.44)!important}
+html.orlica-v10 #ink-portrait.is-holding{box-shadow:0 32px 110px rgba(0,0,0,.58),0 0 110px rgba(194,29,49,.24)!important}
+html.orlica-v10 .hero-visual figcaption{border-color:var(--v10-line)!important;color:var(--v10-muted)!important}
+html.orlica-v10 .hero-visual figcaption a{color:var(--v10-text)!important}
+.v10-hold-note{display:flex;align-items:center;gap:9px;margin-top:12px;color:#b99f99;font-size:9px;letter-spacing:.18em;text-transform:uppercase;pointer-events:none}
+.v10-hold-note span{width:7px;height:7px;border-radius:50%;background:var(--v10-red2);box-shadow:0 0 0 5px rgba(194,29,49,.12),0 0 18px rgba(194,29,49,.46)}
+html.orlica-v10 .ticker{background:#21070b!important;color:#f7e7e3!important;border-color:var(--v10-line)!important}
+html.orlica-v10 .manifesto{background:linear-gradient(180deg,#120709,#0b0506)!important;color:var(--v10-text)!important;border-color:var(--v10-line)!important}
+html.orlica-v10 .manifesto-index,html.orlica-v10 .manifesto-kicker,html.orlica-v10 .manifesto-note{color:var(--v10-muted)!important}
+html.orlica-v10 .manifesto h2{color:var(--v10-text)!important}html.orlica-v10 .manifesto h2 span{color:var(--v10-red3)!important}
+html.orlica-v10 #works{background:#0b0506!important;color:var(--v10-text)!important}
+html.orlica-v10 #works .sectionhead h2{color:var(--v10-text)!important}
+html.orlica-v10 #works .sectionhead::after{color:#9f8582!important}
+html.orlica-v10 #works .piece-media{background:#16090b!important;border:1px solid rgba(255,255,255,.06);box-shadow:0 22px 60px rgba(0,0,0,.36)!important}
+html.orlica-v10 #works .piece-media::after{background:linear-gradient(180deg,transparent 55%,rgba(20,1,5,.72))!important}
+html.orlica-v10 #works .piece-meta{border-color:var(--v10-line)!important}
+html.orlica-v10 #works .piece-title{color:#f4e8e4!important}html.orlica-v10 #works .piece-tag{color:#9b7f7b!important}
+html.orlica-v10 #works .piece-number{color:#fff4ef!important;text-shadow:0 4px 24px rgba(0,0,0,.5)!important}
+html.orlica-v10 #works .piece-open{display:none!important}
+html.orlica-v10 .orlica-viewer{background:rgba(7,2,3,.97)!important}
+html.orlica-v10 .orlica-viewer-copy p{color:#a98e89!important}
+html.orlica-v10 .orlica-viewer-close,html.orlica-v10 .orlica-viewer-nav{border-color:var(--v10-line)!important;background:rgba(45,6,11,.5)!important}
+html.orlica-v10 .about,html.orlica-v10 .process,html.orlica-v10 .faq{background:linear-gradient(180deg,#100608,#0b0506)!important;color:var(--v10-text)!important;border-color:var(--v10-line)!important}
+html.orlica-v10 .about h2,html.orlica-v10 .process h2,html.orlica-v10 .faq h2{color:var(--v10-text)!important}
+html.orlica-v10 .about p,html.orlica-v10 .process p,html.orlica-v10 .faq p{color:var(--v10-muted)!important}
+html.orlica-v10 .about .portrait img{filter:saturate(.92) contrast(1.04)}
+html.orlica-v10 .smooth-faq{border-color:var(--v10-line)!important;background:rgba(255,255,255,.018)!important}
+html.orlica-v10 .smooth-faq-item+ .smooth-faq-item{border-color:var(--v10-line)!important}
+html.orlica-v10 .smooth-faq-trigger{color:var(--v10-text)!important}
+html.orlica-v10 #book.orlica-booking-live{background:linear-gradient(180deg,#17090b,#0e0607)!important;color:var(--v10-text)!important;border-top:1px solid var(--v10-line)!important}
+html.orlica-v10 #book.orlica-booking-live::after{color:rgba(255,255,255,.018)!important}
+html.orlica-v10 .booking-live-head p,html.orlica-v10 .availability-status{color:var(--v10-muted)!important}
+html.orlica-v10 .availability-dot{background:var(--v10-red2)!important;box-shadow:0 0 0 5px rgba(194,29,49,.12),0 0 18px rgba(194,29,49,.3)!important}
+html.orlica-v10 .booking-calendar{border-color:var(--v10-line)!important}
+html.orlica-v10 .booking-calendar-top span,html.orlica-v10 .booking-day .dow,html.orlica-v10 .booking-day .count{color:#a78e89!important}
+html.orlica-v10 .booking-day,html.orlica-v10 .booking-time{border-color:var(--v10-line)!important;color:var(--v10-text)!important;background:rgba(255,255,255,.025)!important}
+html.orlica-v10 .booking-day.is-active,html.orlica-v10 .booking-time:hover,html.orlica-v10 .booking-time.is-active{background:var(--v10-red2)!important;color:#fff!important;border-color:var(--v10-red2)!important}
+html.orlica-v10 .booking-form-wrap{border-color:var(--v10-line)!important;background:rgba(255,255,255,.025)!important;box-shadow:0 26px 70px rgba(0,0,0,.22)!important}
+html.orlica-v10 .booking-selected{border-color:var(--v10-line)!important}html.orlica-v10 .booking-selected span{color:#a98f89!important}
+html.orlica-v10 .booking-form label{color:#b99f99!important}
+html.orlica-v10 .booking-form input,html.orlica-v10 .booking-form textarea{color:var(--v10-text)!important;border-bottom-color:rgba(237,190,190,.25)!important}
+html.orlica-v10 .booking-form input::placeholder,html.orlica-v10 .booking-form textarea::placeholder{color:#725f5c!important}
+html.orlica-v10 .booking-form input:focus,html.orlica-v10 .booking-form textarea:focus{border-bottom-color:var(--v10-red3)!important}
+html.orlica-v10 .booking-submit{background:linear-gradient(135deg,#c91c32,#83101a)!important;color:#fff!important;box-shadow:0 14px 38px rgba(173,13,30,.24)!important}
+html.orlica-v10 .booking-legal{color:#9d8580!important}
+html.orlica-v10 .booking-empty{border-color:var(--v10-line)!important;color:var(--v10-muted)!important;background:rgba(255,255,255,.015)!important}html.orlica-v10 .booking-empty a{color:#fff!important}
+html.orlica-v10 .booking-success{background:#16090b!important;color:var(--v10-text)!important;border-color:var(--v10-line)!important}html.orlica-v10 .booking-success p{color:var(--v10-muted)!important}html.orlica-v10 .booking-success a{color:#fff!important}
+html.orlica-v10 .orlica-waitlist{border-color:var(--v10-line)!important}
+html.orlica-v10 .orlica-waitlist-head p{color:var(--v10-muted)!important}
+html.orlica-v10 .waitlist-toggle,html.orlica-v10 .waitlist-submit{background:#f1e6e1!important;color:#17080a!important;border-color:#f1e6e1!important}
+html.orlica-v10 .waitlist-panel{border-color:var(--v10-line)!important;background:rgba(255,255,255,.025)!important}
+html.orlica-v10 .waitlist-form label{color:#b79d97!important}
+html.orlica-v10 .waitlist-form input,html.orlica-v10 .waitlist-form textarea{color:var(--v10-text)!important;border-bottom-color:rgba(237,190,190,.24)!important}
+html.orlica-v10 .waitlist-form input::placeholder,html.orlica-v10 .waitlist-form textarea::placeholder{color:#725f5c!important}
+html.orlica-v10 .waitlist-message{color:var(--v10-muted)!important}.orlica-v10 .waitlist-message.ok{color:#b8d3b8!important}.orlica-v10 .waitlist-message.err{color:#ff9da9!important}
+html.orlica-v10 footer{background:#070304!important;color:#bba6a0!important;border-color:var(--v10-line)!important}
+html.orlica-v10 footer .logo,html.orlica-v10 footer strong{color:var(--v10-text)!important}
+html.orlica-v10 .mobile-book{background:linear-gradient(135deg,#c91c32,#83101a)!important;color:#fff!important;box-shadow:0 14px 42px rgba(128,7,19,.38)!important}
+@media(max-width:760px){html.orlica-v10 .hero{min-height:auto!important;padding-top:84px!important;background:linear-gradient(180deg,#0b0506 0%,#16080a 64%,#0b0506 100%)!important}html.orlica-v10 .hero-copy{position:relative;z-index:2}html.orlica-v10 .hero h1{font-size:clamp(58px,20vw,92px)!important;line-height:.82!important}html.orlica-v10 .hero-note{font-size:15px!important;color:#d0bbb5!important}html.orlica-v10 .hero-visual{margin-top:26px!important}html.orlica-v10 #ink-portrait.ink-portrait{border-radius:18px!important}.v10-hold-note{margin-left:3px}html.orlica-v10 #works .portfolio-piece:nth-child(3n+2){transform:none!important}html.orlica-v10 #works .orlica-gallery{gap:26px 10px!important}html.orlica-v10 .booking-form-wrap{padding:20px 16px!important}}
+@media(max-width:430px){html.orlica-v10 #works .orlica-gallery{grid-template-columns:1fr!important;gap:34px!important}html.orlica-v10 #works .portfolio-piece:nth-child(n){grid-column:1!important}html.orlica-v10 #works .piece-media{aspect-ratio:4/5!important}html.orlica-v10 #works .piece-meta{padding-top:9px!important;margin-top:9px!important}}
+@media(prefers-reduced-motion:reduce){html.orlica-v10 .hero .cta,html.orlica-v10 #ink-portrait{transition:none!important}}
+
+
+/* source: orlica-hero-hold.css */
+
+/* ORLICA HERO — press & hold top-to-bottom tattoo reveal */
+#ink-portrait.ink-portrait{
+  --ink-cut:100%;
+  cursor:pointer;
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
+#ink-portrait .ink-layer{
+  opacity:1!important;
+  clip-path:inset(0 0 var(--ink-cut) 0);
+  -webkit-clip-path:inset(0 0 var(--ink-cut) 0);
+  transition:none!important;
+  will-change:clip-path;
+}
+#ink-portrait.is-ink .ink-layer{opacity:1!important}
+#ink-portrait .ink-badge,
+.hero-visual .ink-controls{display:none!important}
+
+/* Clean reveal: no scanner line, ring, progress cursor or overlay chrome */
+#ink-portrait::before,
+#ink-portrait::after{
+  content:none!important;
+  display:none!important;
+}
+#ink-portrait .hold-ring,
+#ink-portrait .hold-progress,
+#ink-portrait .press-ring,
+#ink-portrait .ink-progress,
+#ink-portrait .ink-scan,
+#ink-portrait .scan-line,
+#ink-portrait [class*="cursor"],
+#ink-portrait [class*="progress"],
+#ink-portrait [class*="hold"]:not(img){display:none!important}
+
+#ink-portrait.is-holding{cursor:grabbing}
+@media (hover:hover) and (pointer:fine){#ink-portrait:hover{transform:translateY(-1px)}}
+
+
+/* source: orlica-hero-clean.css */
+
+/* ORLICA hero hotfix — clean press/hold reveal */
+html.orlica-v101 #ink-portrait::before,
+html.orlica-v101 #ink-portrait::after{
+  content:none!important;
+  display:none!important;
+  opacity:0!important;
+  box-shadow:none!important;
+  background:none!important;
+}
+html.orlica-v101 #ink-portrait .hold-ring,
+html.orlica-v101 #ink-portrait .hold-progress,
+html.orlica-v101 #ink-portrait .press-ring,
+html.orlica-v101 #ink-portrait .ink-progress,
+html.orlica-v101 #ink-portrait .ink-scan,
+html.orlica-v101 #ink-portrait .scan-line,
+html.orlica-v101 #ink-portrait [class*="cursor"],
+html.orlica-v101 #ink-portrait [class*="progress"],
+html.orlica-v101 #ink-portrait [class*="scanner"],
+html.orlica-v101 #ink-portrait [class*="ring"]:not(img){display:none!important}
+html.orlica-v101 .hero .compare,
+html.orlica-v101 .hero [data-compare],
+html.orlica-v101 .hero .before-after,
+html.orlica-v101 .hero .compare-button{display:none!important}
+
+
+/* source: orlica-v101.css */
+
+/* ORLICA V10.1 — gradient system, mobile polish, full calendar, announcement board */
+:root{
+  --v101-photo:#5b0810;
+  --v101-wine:#26070b;
+  --v101-black:#030303;
+  --v101-ink:#090506;
+  --v101-red:#c51e34;
+  --v101-red-soft:#8e1423;
+  --v101-cream:#f6efe9;
+  --v101-muted:#bea9a3;
+  --v101-line:rgba(244,205,202,.16);
+  --v101-green:#58d184;
+  --v101-green-bg:rgba(88,209,132,.12);
+  --v101-busy:#755d60;
+}
+html.orlica-v101,html.orlica-v101 body{background:#030303!important;color:var(--v101-cream)!important}
+html.orlica-v101 body{
+  background:
+    radial-gradient(760px 640px at 72% 5%,rgba(155,13,29,.31),transparent 66%),
+    linear-gradient(180deg,#5a0710 0%,#2b070b 11%,#160608 27%,#0b0506 48%,#050303 68%,#000 100%) fixed!important;
+}
+html.orlica-v101 body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background:radial-gradient(circle at 72% 9%,rgba(255,57,79,.09),transparent 24%),linear-gradient(180deg,rgba(72,0,10,.12),transparent 34%);
+}
+html.orlica-v101 header{background:linear-gradient(180deg,rgba(8,3,4,.94),rgba(8,3,4,.68))!important;border-bottom-color:var(--v101-line)!important}
+html.orlica-v101 .hero,
+html.orlica-v101 .manifesto,
+html.orlica-v101 #works,
+html.orlica-v101 .about,
+html.orlica-v101 .process,
+html.orlica-v101 .faq,
+html.orlica-v101 #book.orlica-booking-live,
+html.orlica-v101 footer{background:transparent!important}
+html.orlica-v101 .hero{border-bottom:1px solid var(--v101-line)!important;background:linear-gradient(180deg,rgba(74,6,14,.28),rgba(15,5,7,.24) 58%,rgba(2,2,2,.04))!important}
+html.orlica-v101 .hero::before{background:radial-gradient(circle at 78% 36%,rgba(255,47,67,.18),transparent 32%),radial-gradient(circle at 82% 32%,rgba(113,4,14,.23),transparent 54%)!important}
+html.orlica-v101 .manifesto{background:linear-gradient(180deg,rgba(23,6,9,.72),rgba(8,4,5,.48))!important}
+html.orlica-v101 #works{background:linear-gradient(180deg,rgba(8,4,5,.5),rgba(3,3,3,.18))!important}
+html.orlica-v101 .about,html.orlica-v101 .process,html.orlica-v101 .faq{background:linear-gradient(180deg,rgba(8,4,5,.2),rgba(0,0,0,.18))!important}
+html.orlica-v101 #book.orlica-booking-live{background:linear-gradient(180deg,rgba(24,6,9,.78),rgba(5,3,3,.94))!important}
+html.orlica-v101 footer{background:rgba(0,0,0,.76)!important}
+
+/* Hero cleanup seen in the mobile recording */
+html.orlica-v101 .hero-visual figcaption .v101-remove,
+html.orlica-v101 .hero-visual .compare,
+html.orlica-v101 .hero-visual [data-compare]{display:none!important}
+html.orlica-v101 .v10-hold-note{margin-top:9px!important;color:#d0afa9!important}
+html.orlica-v101 #ink-portrait.ink-portrait{background:#180608!important;border-color:rgba(255,165,172,.20)!important;box-shadow:0 28px 78px rgba(0,0,0,.5),0 0 90px rgba(153,11,25,.14)!important}
+html.orlica-v101 #ink-portrait img{display:block!important;width:100%!important;height:auto!important;object-fit:cover!important}
+
+/* Give each section room without looking like isolated cards */
+html.orlica-v101 section{scroll-margin-top:82px}
+html.orlica-v101 .sectionhead{max-width:1200px}
+html.orlica-v101 .ticker{background:rgba(50,7,12,.72)!important;border-color:var(--v101-line)!important}
+
+/* White studio block from the recording becomes part of the same visual language */
+html.orlica-v101 .v101-studio-section{background:linear-gradient(180deg,rgba(28,7,10,.64),rgba(5,3,3,.24))!important;color:var(--v101-cream)!important}
+html.orlica-v101 .v101-studio-light{
+  background:linear-gradient(145deg,rgba(49,8,14,.96),rgba(16,6,8,.97))!important;
+  color:var(--v101-cream)!important;
+  border:1px solid rgba(243,185,186,.17)!important;
+  box-shadow:0 26px 70px rgba(0,0,0,.3)!important;
+}
+html.orlica-v101 .v101-studio-light *{color:inherit!important}
+html.orlica-v101 .v101-studio-light p,html.orlica-v101 .v101-studio-light small{color:var(--v101-muted)!important}
+
+/* Review carousels: no accidental edge clipping, better touch behaviour */
+html.orlica-v101 .v101-scroll-row{overflow-x:auto!important;overflow-y:visible!important;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;padding-right:18px!important;scroll-padding-inline:16px}
+html.orlica-v101 .v101-scroll-row>*{scroll-snap-align:start}
+html.orlica-v101 .v101-scroll-row::-webkit-scrollbar{display:none}
+
+/* ANNOUNCEMENTS */
+.v101-board{position:relative;padding:clamp(58px,9vw,118px) max(18px,4vw);border-top:1px solid var(--v101-line);border-bottom:1px solid var(--v101-line);background:linear-gradient(135deg,rgba(88,7,16,.45),rgba(11,5,6,.70) 48%,rgba(0,0,0,.88))}
+.v101-board-inner{width:min(1240px,100%);margin:auto}
+.v101-board-head{display:grid;grid-template-columns:1fr minmax(220px,420px);gap:24px;align-items:end;margin-bottom:32px}
+.v101-board-kicker{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#d4aaa4;margin-bottom:10px}
+.v101-board h2{margin:0;font-family:Later,Impact,sans-serif;font-size:clamp(54px,10vw,136px);line-height:.78;letter-spacing:-.035em;color:var(--v101-cream)}
+.v101-board-head p{margin:0;color:var(--v101-muted);line-height:1.55;max-width:34ch}
+.v101-board-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px}
+.v101-notice{grid-column:span 4;min-height:210px;padding:22px;border:1px solid var(--v101-line);background:linear-gradient(155deg,rgba(255,255,255,.045),rgba(255,255,255,.015));display:flex;flex-direction:column;justify-content:space-between;gap:24px;box-shadow:0 18px 50px rgba(0,0,0,.18)}
+.v101-notice:first-child{grid-column:span 6}.v101-notice:nth-child(2){grid-column:span 6}
+.v101-notice-label{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#ff9cab}
+.v101-notice h3{margin:0 0 10px;font-size:clamp(24px,3vw,38px);line-height:.95;color:#fff}
+.v101-notice p{margin:0;color:var(--v101-muted);line-height:1.48;font-size:14px;white-space:pre-line}
+.v101-notice a{margin-top:18px;display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.35);padding-bottom:4px;width:max-content}
+.v101-board-empty{padding:22px;border:1px dashed rgba(255,255,255,.18);color:#ad9490;font-size:14px;line-height:1.5;grid-column:1/-1}
+
+/* FULL MONTH CALENDAR */
+.v101-calendar{margin-top:4px}
+.v101-calendar-shell{border:1px solid var(--v101-line);background:rgba(255,255,255,.018);padding:16px}
+.v101-calendar-nav{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:8px;margin-bottom:14px}
+.v101-calendar-nav button{appearance:none;border:1px solid var(--v101-line);background:rgba(255,255,255,.025);color:#fff;width:44px;height:40px;cursor:pointer;font-size:19px}
+.v101-calendar-nav button:disabled{opacity:.28;cursor:default}
+.v101-calendar-title{text-align:center;font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#f3e6e0}
+.v101-weekdays,.v101-month-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.v101-weekdays{margin-bottom:6px}
+.v101-weekdays span{text-align:center;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:#876f70;padding:6px 0}
+.v101-day{position:relative;appearance:none;min-height:58px;border:1px solid rgba(255,255,255,.075);background:rgba(255,255,255,.02);color:#7f696b;padding:7px 5px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font:inherit;border-radius:0}
+.v101-day .num{font-family:Later,Impact,sans-serif;font-size:24px;line-height:.9}
+.v101-day .mini{font-size:7px;letter-spacing:.08em;text-transform:uppercase}
+.v101-day.blank{border:0;background:transparent;visibility:hidden}
+.v101-day.busy{cursor:not-allowed;color:#69575a;background:rgba(255,255,255,.01)}
+.v101-day.busy .num{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:#9b2938}
+.v101-day.busy::after{content:"";position:absolute;left:18%;right:18%;top:50%;height:1px;background:rgba(164,46,62,.42);transform:rotate(-11deg)}
+.v101-day.past{opacity:.3;cursor:default}.v101-day.past .num{text-decoration:line-through}
+.v101-day.open{cursor:pointer;color:#dff8e8;border-color:rgba(88,209,132,.45);background:var(--v101-green-bg);box-shadow:inset 0 0 0 1px rgba(88,209,132,.06)}
+.v101-day.open .num{color:var(--v101-green)}
+.v101-day.open:hover,.v101-day.open.is-selected{background:rgba(88,209,132,.22);border-color:var(--v101-green);box-shadow:0 0 24px rgba(88,209,132,.10)}
+.v101-calendar-legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:12px;color:#9d8682;font-size:9px;letter-spacing:.09em;text-transform:uppercase}
+.v101-calendar-legend span{display:inline-flex;align-items:center;gap:7px}.v101-calendar-legend i{width:8px;height:8px;border-radius:50%;display:inline-block}.v101-calendar-legend .free{background:var(--v101-green)}.v101-calendar-legend .busy{background:#8b3441}
+html.orlica-v101 #booking-days{display:none!important}
+html.orlica-v101 .booking-calendar-top{margin-bottom:12px!important}
+html.orlica-v101 .booking-calendar-top strong::after{content:" · весь календарь";color:#8f7672;font-weight:400}
+html.orlica-v101 .booking-times{margin-top:16px!important}
+
+/* Form polish */
+html.orlica-v101 .booking-form-wrap{background:linear-gradient(155deg,rgba(255,255,255,.035),rgba(255,255,255,.015))!important;border-color:var(--v101-line)!important}
+html.orlica-v101 .booking-submit:not(:disabled){background:linear-gradient(135deg,#d7253e,#7c0e18)!important}
+html.orlica-v101 .booking-submit:disabled{background:#2e2527!important;color:#827274!important;opacity:1!important}
+html.orlica-v101 .booking-legal{max-width:52ch}
+
+@media(max-width:800px){
+  html.orlica-v101 .hero{padding-top:72px!important;padding-bottom:44px!important}
+  html.orlica-v101 .hero .eyebrow{margin-bottom:18px!important}
+  html.orlica-v101 .hero-copy{gap:14px!important}
+  html.orlica-v101 .hero-visual{margin-top:18px!important}
+  html.orlica-v101 .hero h1{margin-bottom:4px!important}
+  .v101-board{padding:58px 18px}.v101-board-head{grid-template-columns:1fr;gap:14px}.v101-board-grid{grid-template-columns:1fr}.v101-notice,.v101-notice:first-child,.v101-notice:nth-child(2){grid-column:1;min-height:0}
+  .v101-calendar-shell{padding:12px}.v101-weekdays,.v101-month-grid{gap:4px}.v101-day{min-height:54px;padding:6px 2px}.v101-day .num{font-size:21px}.v101-calendar-nav{grid-template-columns:40px 1fr 40px}.v101-calendar-nav button{width:40px;height:38px}
+  html.orlica-v101 .booking-live-grid{gap:22px!important}
+}
+@media(max-width:430px){
+  html.orlica-v101 .hero h1{font-size:clamp(54px,18vw,78px)!important;line-height:.84!important}
+  html.orlica-v101 #ink-portrait.ink-portrait{border-radius:16px!important}
+  .v101-day{min-height:49px}.v101-day .num{font-size:19px}.v101-day .mini{font-size:6px}
+  .v101-weekdays span{font-size:7px}.v101-calendar-shell{padding:10px}
+  .v101-board h2{font-size:clamp(52px,17vw,78px)}
+}
+@media(prefers-reduced-motion:reduce){.v101-day,.v101-notice{transition:none!important}}
+
+
+/* source: orlica-v11-cleanup.css */
+
+/* ORLICA V11 — final visual cleanup */
+:root{
+  --v11-bg:#020202;
+  --v11-wine:#240609;
+  --v11-red:#c41e37;
+  --v11-red-deep:#7f0d1a;
+  --v11-cream:#f4ede8;
+  --v11-muted:#a99590;
+  --v11-line:rgba(244,237,232,.10);
+  --v11-green:#63d88b;
+}
+html.orlica-v11,html.orlica-v11 body{background:#020202!important;color:var(--v11-cream)!important}
+html.orlica-v11 body{
+  background:
+    radial-gradient(860px 720px at 72% 1%,rgba(167,17,36,.27),transparent 58%),
+    linear-gradient(180deg,#47070f 0%,#210609 13%,#0d0506 29%,#050303 46%,#020202 64%,#000 100%) fixed!important;
+}
+html.orlica-v11 body::before{background:radial-gradient(circle at 74% 5%,rgba(255,61,82,.065),transparent 25%)!important}
+html.orlica-v11 body::after{display:none!important}
+html.orlica-v11 header{background:rgba(4,3,3,.86)!important;border-bottom:1px solid var(--v11-line)!important;backdrop-filter:blur(18px) saturate(120%)}
+html.orlica-v11 header.director-scrolled,html.orlica-v11 header.is-scrolled{background:rgba(4,3,3,.94)!important;box-shadow:0 10px 34px rgba(0,0,0,.28)!important}
+
+/* HERO: less chrome, more photo */
+html.orlica-v11 .hero{min-height:auto!important;background:linear-gradient(180deg,rgba(94,8,20,.14),rgba(22,6,8,.10) 55%,rgba(0,0,0,0))!important;border-bottom:1px solid var(--v11-line)!important;padding-bottom:clamp(40px,6vw,70px)!important}
+html.orlica-v11 .hero::before{opacity:.45!important}
+html.orlica-v11 .hero-visual figcaption{display:none!important}
+html.orlica-v11 #ink-portrait.ink-portrait{aspect-ratio:3/4!important;max-height:min(72svh,760px)!important;width:100%!important;border-color:rgba(255,205,208,.11)!important;border-radius:18px!important;box-shadow:0 24px 66px rgba(0,0,0,.42),0 0 64px rgba(137,8,25,.09)!important}
+html.orlica-v11 #ink-portrait img{width:100%!important;height:100%!important;object-fit:cover!important;object-position:center 44%!important}
+html.orlica-v11 #ink-portrait::before,html.orlica-v11 #ink-portrait::after{content:none!important;display:none!important}
+html.orlica-v11 #ink-portrait [class*="ring"],html.orlica-v11 #ink-portrait [class*="scan"],html.orlica-v11 #ink-portrait [class*="progress"]{display:none!important}
+html.orlica-v11 .v10-hold-note{margin:10px 0 0!important;color:#c7aaa5!important;font-size:9px!important;letter-spacing:.16em!important;opacity:.88}
+html.orlica-v11 .v10-hold-note span{width:6px!important;height:6px!important;box-shadow:0 0 0 4px rgba(196,30,55,.10)!important}
+html.orlica-v11 .hero-note{font-size:clamp(15px,1.2vw,17px)!important;line-height:1.58!important;max-width:31ch!important;color:#d4c2bd!important}
+html.orlica-v11 .hero-tags{gap:7px!important}
+html.orlica-v11 .hero-tags span{font-size:9px!important;padding:8px 11px!important;border-color:var(--v11-line)!important;background:rgba(255,255,255,.018)!important}
+html.orlica-v11 .hero .cta{min-height:58px!important;border-radius:12px!important;background:linear-gradient(135deg,#cf2039,#81101d)!important;box-shadow:0 16px 38px rgba(123,8,24,.24)!important;transform:none!important}
+html.orlica-v11 .hero .cta:hover{transform:translateY(-2px)!important}
+
+/* TICKER: supporting element, not a banner */
+html.orlica-v11 .ticker{background:#130406!important;border-color:var(--v11-line)!important;min-height:auto!important;padding:10px 0!important;overflow:hidden!important;opacity:.92}
+html.orlica-v11 .ticker *{animation-duration:36s!important}
+
+/* Section rhythm: red dies into black quickly */
+html.orlica-v11 .manifesto{background:linear-gradient(180deg,rgba(17,5,7,.74),rgba(5,3,3,.94))!important;border-color:var(--v11-line)!important}
+html.orlica-v11 #works{background:linear-gradient(180deg,#060303,#020202)!important;border-color:var(--v11-line)!important}
+html.orlica-v11 .about,html.orlica-v11 .process,html.orlica-v11 .faq{background:#020202!important;border-color:var(--v11-line)!important}
+html.orlica-v11 #book.orlica-booking-live{background:linear-gradient(180deg,#090405,#020202)!important;border-color:var(--v11-line)!important}
+html.orlica-v11 section{border-color:var(--v11-line)!important}
+html.orlica-v11 .manifesto p,html.orlica-v11 .about p,html.orlica-v11 .process p,html.orlica-v11 .faq p,html.orlica-v11 .booking-live-head p{font-size:clamp(14px,1.15vw,17px)!important;line-height:1.6!important;color:var(--v11-muted)!important}
+
+/* Empty board must not look unfinished */
+html.orlica-v11 .v101-board{background:linear-gradient(180deg,rgba(28,6,10,.58),rgba(3,2,2,.96))!important;border-color:var(--v11-line)!important}
+html.orlica-v11 .v101-board:has(.v101-board-empty){display:none!important}
+html.orlica-v11 .v101-notice{border-color:var(--v11-line)!important;background:rgba(255,255,255,.018)!important;box-shadow:none!important}
+
+/* Portfolio: images lead, metadata whispers */
+html.orlica-v11 #works .piece-media{border-color:rgba(255,255,255,.055)!important;box-shadow:0 16px 44px rgba(0,0,0,.28)!important}
+html.orlica-v11 #works .piece-meta{background:transparent!important;border-color:var(--v11-line)!important;padding-top:9px!important;margin-top:8px!important;min-height:0!important}
+html.orlica-v11 #works .piece-title{font-size:11px!important;letter-spacing:.05em!important;line-height:1.3!important}
+html.orlica-v11 #works .piece-tag{font-size:8px!important;color:#776866!important;line-height:1.3!important}
+html.orlica-v11 #works .piece-open{display:none!important}
+html.orlica-v11 .works-channel{border-color:var(--v11-line)!important;padding-top:22px!important;padding-bottom:22px!important}
+html.orlica-v11 .orlica-viewer{background:rgba(2,2,2,.98)!important}
+html.orlica-v11 .orlica-viewer-close,html.orlica-v11 .orlica-viewer-nav{background:rgba(18,7,9,.70)!important;border-color:var(--v11-line)!important}
+
+/* FAQ / About / process */
+html.orlica-v11 .smooth-faq,html.orlica-v11 .smooth-faq-item{border-color:var(--v11-line)!important}
+html.orlica-v11 .smooth-faq{background:transparent!important}
+html.orlica-v11 .smooth-faq-item:has(.smooth-faq-trigger[aria-expanded="true"]){background:rgba(255,255,255,.025)!important}
+html.orlica-v11 .about .portrait::before{border-color:rgba(255,255,255,.10)!important}
+html.orlica-v11 .step::after{background:linear-gradient(90deg,rgba(196,30,55,.055),transparent)!important}
+
+/* Booking: clean and obvious states */
+html.orlica-v11 .booking-form-wrap{border-color:var(--v11-line)!important;background:rgba(255,255,255,.018)!important;box-shadow:none!important}
+html.orlica-v11 .booking-calendar{border-color:var(--v11-line)!important}
+html.orlica-v11 .v101-calendar-shell{border-color:var(--v11-line)!important;background:rgba(255,255,255,.012)!important}
+html.orlica-v11 .v101-calendar-nav button{border-color:var(--v11-line)!important;background:rgba(255,255,255,.015)!important}
+html.orlica-v11 .v101-day{border-color:rgba(255,255,255,.05)!important;background:rgba(255,255,255,.01)!important}
+html.orlica-v11 .v101-day.busy{color:#5e5052!important;opacity:.62}
+html.orlica-v11 .v101-day.busy::after{background:rgba(146,42,56,.5)!important}
+html.orlica-v11 .v101-day.open{color:#dcf8e6!important;border-color:rgba(99,216,139,.42)!important;background:rgba(99,216,139,.09)!important}
+html.orlica-v11 .v101-day.open .num{color:var(--v11-green)!important}
+html.orlica-v11 .v101-day.open:hover,html.orlica-v11 .v101-day.open.is-selected{background:rgba(99,216,139,.17)!important;border-color:var(--v11-green)!important;box-shadow:none!important}
+html.orlica-v11 .booking-time{border-color:var(--v11-line)!important;background:rgba(255,255,255,.015)!important}
+html.orlica-v11 .booking-time.is-active{background:#c52139!important;border-color:#c52139!important}
+html.orlica-v11 .booking-legal{font-size:10px!important;line-height:1.5!important;color:#8b7975!important}
+html.orlica-v11 .booking-submit:not(:disabled){background:linear-gradient(135deg,#cf2039,#7d0f1b)!important}
+html.orlica-v11 .booking-submit:disabled{background:#211a1b!important;color:#695c5e!important}
+html.orlica-v11 .waitlist-toggle,html.orlica-v11 .waitlist-submit{background:#ede4df!important;color:#140708!important;border-color:#ede4df!important}
+html.orlica-v11 .waitlist-panel{background:rgba(255,255,255,.012)!important;border-color:var(--v11-line)!important}
+
+/* Studio / reviews / footer */
+html.orlica-v11 .v101-studio-section,html.orlica-v11 .v101-studio-light{background:#050303!important;border-color:var(--v11-line)!important;box-shadow:none!important}
+html.orlica-v11 .v101-scroll-row{padding-inline:0 18px!important}
+html.orlica-v11 footer{background:#000!important;border-color:var(--v11-line)!important}
+
+@media(max-width:800px){
+  html.orlica-v11 .hero{padding-top:68px!important;padding-bottom:34px!important}
+  html.orlica-v11 .hero-copy{gap:12px!important}
+  html.orlica-v11 .hero-visual{margin-top:14px!important}
+  html.orlica-v11 #ink-portrait.ink-portrait{max-height:68svh!important}
+  html.orlica-v11 .hero-note{font-size:15px!important;line-height:1.56!important}
+  html.orlica-v11 .hero-tags{margin-top:4px!important}
+  html.orlica-v11 .ticker{padding:8px 0!important}
+  html.orlica-v11 .ticker *{font-size:clamp(22px,7.5vw,38px)!important}
+  html.orlica-v11 .manifesto p,html.orlica-v11 .about p,html.orlica-v11 .process p,html.orlica-v11 .faq p,html.orlica-v11 .booking-live-head p{font-size:15px!important}
+  html.orlica-v11 .v101-board{padding:48px 18px!important}
+  html.orlica-v11 .booking-form-wrap{padding:18px 14px!important}
+  html.orlica-v11 #works .orlica-gallery{gap:32px!important}
+}
+@media(max-width:430px){
+  html.orlica-v11 #ink-portrait.ink-portrait{max-height:64svh!important;border-radius:15px!important}
+  html.orlica-v11 .hero h1{font-size:clamp(52px,17vw,72px)!important;line-height:.86!important}
+  html.orlica-v11 .hero-note{font-size:14px!important;max-width:29ch!important}
+  html.orlica-v11 .hero-tags span{font-size:8px!important;padding:7px 9px!important}
+  html.orlica-v11 .hero .cta{min-height:56px!important;padding:15px 18px!important}
+  html.orlica-v11 .v101-day{min-height:47px!important}
+  html.orlica-v11 .v101-day .num{font-size:18px!important}
+  html.orlica-v11 .v101-day .mini{font-size:6px!important}
+}
+@media(prefers-reduced-motion:reduce){html.orlica-v11 *{scroll-behavior:auto!important}}
