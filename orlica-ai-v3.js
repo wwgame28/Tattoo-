@@ -61,6 +61,13 @@
     if(g)g.disabled=remaining<=0;if(a)a.disabled=remaining<=0;
   }
 
+  function clearResults(){
+    const cards=document.getElementById('ai-cards');
+    const results=document.getElementById('ai-results');
+    if(cards)cards.innerHTML='';
+    if(results)results.hidden=true;
+  }
+
   function renderImages(urls){
     const cards=document.getElementById('ai-cards');
     const results=document.getElementById('ai-results');
@@ -126,6 +133,7 @@
       const claim=await call({action:'claim',request:req});
       requestId=claim.request_id;
       updateQuota(claim);
+      clearResults();
       for(const variant of [1,2,3]){
         await renderVariant(requestId,variant);
         if(variant<3)await sleep(2500);
@@ -136,7 +144,7 @@
       renderImages(done.images);
     }catch(e){
       if(requestId){try{await call({action:'refund',request_id:requestId});}catch{} }
-      const results=document.getElementById('ai-results');if(results)results.hidden=true;
+      clearResults();
       if(e?.code==='DAILY_LIMIT_REACHED')showError('Лимит 2 генерации на сегодня уже использован.');
       else showError('Генератор временно не ответил. Попытка не списана — нажми ещё раз.');
     }finally{
