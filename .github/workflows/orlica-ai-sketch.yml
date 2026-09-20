@@ -24,8 +24,8 @@ jobs:
           test -s index.html
           test -s orlica-ai.css
           test -s orlica-ai.js
-          grep -q 'orlica-ai.css?v=1' index.html
-          grep -q 'orlica-ai.js?v=1' index.html
+          grep -q 'orlica-ai.css?v=2' index.html
+          grep -q 'orlica-ai.js?v=2' index.html
           ! grep -q 'orlica-v114.css' index.html
           ! grep -q 'orlica-v114.js' index.html
           ! grep -q 'ORLICA V11.4 conversion layer' orlica-v11.css
@@ -36,5 +36,5 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html orlica-v11.css orlica-v11.js
           git diff --cached --quiet && exit 0
-          git commit -m 'Publish ORLICA AI sketch generator'
+          git commit -m 'Publish ORLICA AI sketch v2'
           git push
