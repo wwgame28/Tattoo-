@@ -24,8 +24,8 @@ if JS_MARKER in script:
 html = re.sub(r'\s*<link[^>]+href=["\']orlica-ai\.css(?:\?[^"\']*)?["\'][^>]*>\s*', '\n', html, flags=re.I)
 html = re.sub(r'\s*<script[^>]+src=["\']orlica-ai\.js(?:\?[^"\']*)?["\'][^>]*>\s*</script>\s*', '\n', html, flags=re.I)
 
-ai_css = '<link rel="stylesheet" href="orlica-ai.css?v=1">'
-ai_js = '<script src="orlica-ai.js?v=1" defer></script>'
+ai_css = '<link rel="stylesheet" href="orlica-ai.css?v=2">'
+ai_js = '<script src="orlica-ai.js?v=2" defer></script>'
 
 if '</head>' not in html.lower() or '</body>' not in html.lower():
     raise SystemExit('index.html is missing </head> or </body>')
@@ -40,4 +40,4 @@ html = re.sub(r'orlica-v11\.js\?v=[^"\']+', 'orlica-v11.js?v=1160', html)
 index.write_text(html, encoding='utf-8')
 if css.exists(): css.write_text(style, encoding='utf-8')
 if js.exists(): js.write_text(script, encoding='utf-8')
-print('ORLICA AI sketch UI wired and obsolete V11.4 layer removed')
+print('ORLICA AI sketch UI v2 wired and obsolete V11.4 layer removed')
