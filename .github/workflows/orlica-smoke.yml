@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'scripts/orlica-smoke-v2.mjs'
+      - 'scripts/orlica-smoke-extra.mjs'
       - '.github/workflows/orlica-smoke.yml'
   workflow_dispatch:
 
@@ -13,7 +14,7 @@ permissions:
 jobs:
   smoke:
     runs-on: ubuntu-latest
-    timeout-minutes: 16
+    timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -23,8 +24,10 @@ jobs:
         run: |
           npm install --no-save playwright@1.55.0
           npx playwright install --with-deps webkit
-      - name: Run live mobile smoke test
+      - name: Run live mobile end-to-end test
         run: node scripts/orlica-smoke-v2.mjs
+      - name: Run remaining UI button test
+        run: node scripts/orlica-smoke-extra.mjs
       - name: Upload QA screenshot
         if: always()
         uses: actions/upload-artifact@v4
