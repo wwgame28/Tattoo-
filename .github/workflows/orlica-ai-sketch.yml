@@ -1,0 +1,40 @@
+name: Wire ORLICA AI sketch
+
+on:
+  push:
+    paths:
+      - 'scripts/apply-ai-sketch.py'
+      - 'orlica-ai.css'
+      - 'orlica-ai.js'
+      - '.github/workflows/orlica-ai-sketch.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply AI sketch UI
+        run: python scripts/apply-ai-sketch.py
+      - name: Validate
+        run: |
+          test -s index.html
+          test -s orlica-ai.css
+          test -s orlica-ai.js
+          grep -q 'orlica-ai.css?v=1' index.html
+          grep -q 'orlica-ai.js?v=1' index.html
+          ! grep -q 'orlica-v114.css' index.html
+          ! grep -q 'orlica-v114.js' index.html
+          ! grep -q 'ORLICA V11.4 conversion layer' orlica-v11.css
+          ! grep -q 'ORLICA V11.4 conversion runtime' orlica-v11.js
+      - name: Commit production wiring
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html orlica-v11.css orlica-v11.js
+          git diff --cached --quiet && exit 0
+          git commit -m 'Publish ORLICA AI sketch generator'
+          git push
