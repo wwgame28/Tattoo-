@@ -105,8 +105,7 @@
     return d;
   }
 
-  async function renderVariant(requestId,variant,delay){
-    if(delay)await sleep(delay);
+  async function renderVariant(requestId,variant){
     let last;
     for(let attempt=0;attempt<2;attempt++){
       try{return await call({action:'render',request_id:requestId,variant});}
@@ -127,14 +126,10 @@
       const claim=await call({action:'claim',request:req});
       requestId=claim.request_id;
       updateQuota(claim);
-      const jobs=[
-        renderVariant(requestId,1,0),
-        renderVariant(requestId,2,5000),
-        renderVariant(requestId,3,10000)
-      ];
-      const settled=await Promise.allSettled(jobs);
-      const failed=settled.find(x=>x.status==='rejected');
-      if(failed)throw failed.reason;
+      for(const variant of [1,2,3]){
+        await renderVariant(requestId,variant);
+        if(variant<3)await sleep(2500);
+      }
       const done=await call({action:'finalize',request_id:requestId});
       if(!Array.isArray(done.images)||done.images.length!==3)throw new Error('Сервер не вернул три эскиза.');
       updateQuota(done);
