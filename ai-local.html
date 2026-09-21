@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090708">
+<title>ORLICA Local Beta</title>
+<style>
+:root{--bg:#080708;--panel:#100b0d;--line:rgba(255,255,255,.1);--text:#f4eeea;--muted:#9e9296;--wine:#7b1a2d;--cream:#eee5df}
+*{box-sizing:border-box}html,body{margin:0;background:radial-gradient(circle at 20% -10%,#33111a,transparent 35%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}body{min-height:100vh;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}.wrap{width:min(680px,calc(100% - 28px));margin:auto;padding:34px 0 60px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:36px}.brand{font-family:Georgia,serif;font-size:25px;letter-spacing:.08em}.back{color:#d8cbce;text-decoration:none;font-size:12px;border:1px solid var(--line);border-radius:999px;padding:10px 13px}.tag{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#c08b95}.title{font-family:Georgia,serif;font-size:clamp(46px,13vw,76px);line-height:.88;letter-spacing:-.04em;margin:12px 0 16px}.lead{color:var(--muted);line-height:1.6;font-size:14px;margin:0 0 26px}.panel{border:1px solid var(--line);border-radius:26px;background:rgba(16,11,13,.78);padding:18px;box-shadow:0 25px 70px rgba(0,0,0,.35)}label{display:block;font-size:10px;color:#877b7f;text-transform:uppercase;letter-spacing:.14em;margin:0 0 8px}.field{margin-bottom:14px}input,textarea,select{width:100%;border:1px solid var(--line);border-radius:15px;background:#090708;color:#fff;padding:14px 15px;font:inherit;outline:none}textarea{min-height:108px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:#8f3043;box-shadow:0 0 0 4px rgba(123,26,45,.15)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.btn{width:100%;border:0;border-radius:16px;min-height:52px;background:var(--cream);color:#1a0e12;font-weight:800;font-size:12px;letter-spacing:.07em;text-transform:uppercase;cursor:pointer}.btn:disabled{opacity:.48}.status{min-height:20px;margin:12px 2px 0;color:#b4a6aa;font-size:12px;line-height:1.5}.result{margin-top:18px;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#0b090a;display:none}.result.show{display:block}.result img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;background:#121011}.meta{padding:13px 14px;display:flex;justify-content:space-between;gap:12px;align-items:center;color:#9c8f93;font-size:11px}.note{margin-top:16px;color:#6f6468;font-size:11px;line-height:1.55}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#b84a61;margin-right:7px;box-shadow:0 0 0 5px rgba(184,74,97,.1)}@media(max-width:560px){.wrap{padding-top:22px}.grid{grid-template-columns:1fr}.panel{padding:14px;border-radius:22px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><div class="brand">ORLICA</div><a class="back" href="./#ai-sketch">← На сайт</a></div>
+  <div class="tag">Local Beta / Free ZeroGPU</div>
+  <h1 class="title">ТЕСТОВЫЙ<br>AI-ЭСКИЗ</h1>
+  <p class="lead">Минимальная версия генератора для телефона. Формирует тату-концепт через бесплатный SDXL на Hugging Face. Первый запуск иногда дольше из-за очереди ZeroGPU.</p>
+
+  <section class="panel">
+    <div class="grid">
+      <div class="field"><label for="style">Стиль</label><select id="style"><option>Blackwork</option><option>Fine line</option><option>Anime</option><option>Ornamental</option><option>Neo traditional</option><option>Dark graphic</option><option>Color tattoo</option></select></div>
+      <div class="field"><label for="placement">Место</label><select id="placement"><option>Предплечье</option><option>Плечо</option><option>Голень</option><option>Бедро</option><option>Спина</option><option>Грудь</option></select></div>
+    </div>
+    <div class="field"><label for="subject">Главный объект</label><input id="subject" placeholder="Например: ворон и полумесяц"></div>
+    <div class="field"><label for="elements">Дополнительные элементы</label><input id="elements" placeholder="Например: дым, цветы, цепи"></div>
+    <div class="field"><label for="custom">Своя идея</label><textarea id="custom" placeholder="Опиши дополнительные детали, настроение или композицию"></textarea></div>
+    <button id="generate" class="btn" type="button">Сгенерировать эскиз</button>
+    <div id="status" class="status"><span class="dot"></span>Движок готов к подключению.</div>
+
+    <div id="result" class="result">
+      <img id="image" alt="AI tattoo concept">
+      <div class="meta"><span>SDXL · ORLICA prompt</span><span id="time"></span></div>
+    </div>
+    <div class="note">Это тестовая бесплатная версия. Результат — концепт для обсуждения с мастером, а не готовый технический эскиз для переноса на кожу.</div>
+  </section>
+</div>
+
+<script type="module">
+import { Client } from 'https://cdn.jsdelivr.net/npm/@gradio/client@2.7.0/+esm';
+const $=id=>document.getElementById(id);
+const btn=$('generate'), status=$('status'), result=$('result'), image=$('image'), timeEl=$('time');
+let clientPromise=null;
+function client(){return clientPromise ||= Client.connect('hysts/SDXL');}
+function clean(v){return String(v||'').trim().replace(/\s+/g,' ')}
+function prompt(){
+  const style=clean($('style').value), placement=clean($('placement').value), subject=clean($('subject').value), elements=clean($('elements').value), custom=clean($('custom').value);
+  if(!subject) throw new Error('Укажи главный объект эскиза.');
+  return [`professional tattoo flash design`,`style: ${style}`,`main subject: ${subject}`,elements&&`additional elements: ${elements}`,`designed for ${placement}`,custom&&custom,`clean white background`,`centered isolated composition`,`high contrast readable linework`,`tattoo artist concept sheet`,`no skin, no body, no mockup, no text, no watermark`].filter(Boolean).join(', ');
+}
+async function generate(){
+  let p;try{p=prompt()}catch(e){status.textContent=e.message;return}
+  btn.disabled=true;btn.textContent='ГЕНЕРИРУЮ…';result.classList.remove('show');
+  const t0=performance.now();status.innerHTML='<span class="dot"></span>Подключаю бесплатный ZeroGPU. Возможна очередь…';
+  try{
+    const app=await client();
+    status.innerHTML='<span class="dot"></span>Создаю тату-концепт…';
+    const response=await app.predict('/predict',{
+      prompt:p,
+      negative_prompt:'photo, skin, body, person, text, watermark, logo, blurry, low quality, messy background',
+      prompt_2:'',negative_prompt_2:'',use_negative_prompt:true,use_prompt_2:false,use_negative_prompt_2:false,
+      seed:0,width:768,height:768,guidance_scale_base:5,guidance_scale_refiner:5,num_inference_steps_base:20,num_inference_steps_refiner:25,apply_refiner:false
+    });
+    const file=response?.data?.[0];
+    const url=typeof file==='string'?file:file?.url;
+    if(!url) throw new Error('Модель не вернула изображение.');
+    image.src=url;result.classList.add('show');
+    const sec=((performance.now()-t0)/1000).toFixed(1);timeEl.textContent=sec+' сек';
+    status.innerHTML='<span class="dot"></span>Готово. Можно сгенерировать ещё вариант.';
+  }catch(e){
+    console.error(e);clientPromise=null;
+    status.textContent='Сейчас бесплатный GPU занят или недоступен. Нажми ещё раз через несколько секунд.';
+  }finally{btn.disabled=false;btn.textContent='СГЕНЕРИРОВАТЬ ЭСКИЗ'}
+}
+btn.addEventListener('click',generate);
+</script>
+</body>
+</html>
