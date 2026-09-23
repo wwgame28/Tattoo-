@@ -1,0 +1,30 @@
+/* The paper is an interactive drawing surface; no illustrative assets are substituted. */
+.idea-studio{padding:88px clamp(18px,5vw,80px);border-top:1px solid #ffffff25;background:#120b0d;color:#f6eeea;scroll-margin-top:90px}
+.idea-heading{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:40px}
+.idea-kicker,.idea-control-head,.idea-paper-head,.idea-paper-foot{font:11px/1.5 Arial,sans-serif;letter-spacing:.12em}
+.idea-heading h2{font-size:clamp(62px,8vw,112px);margin:20px 0 0;line-height:.95}
+.idea-heading p{max-width:40ch;font:17px/1.7 Arial,sans-serif;color:#d7c9c5}
+.idea-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.8fr);gap:clamp(24px,5vw,72px);align-items:start}
+.idea-paper-wrap{background:#f5efe4;color:#413839;border-radius:4px;overflow:hidden;box-shadow:0 20px 50px #0004}
+.idea-paper-head,.idea-paper-foot{padding:20px;display:flex;justify-content:space-between;gap:10px;font-size:10px}
+.idea-paper-head{border-bottom:1px solid #231b1c22}.idea-paper-foot{border-top:1px solid #231b1c22;letter-spacing:.03em}
+#idea-canvas{display:block;width:100%;height:auto;aspect-ratio:4/5;touch-action:pan-y;cursor:default}
+#idea-canvas.is-drawing{touch-action:none;cursor:crosshair;box-shadow:inset 0 0 0 2px #b3203b}
+.idea-controls{font:15px/1.6 Arial,sans-serif;min-width:0}.idea-control-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:22px;color:#d2bcb8}
+.idea-controls label{display:block;margin:22px 0 8px}.idea-controls output{float:right;color:#f0a5b2}
+.idea-studio button,.idea-export a{min-height:46px;border:1px solid #8c666e;border-radius:10px;color:#f8eeeb;background:#231419;padding:10px 16px;font:500 14px/1.5 Arial,sans-serif;cursor:pointer;touch-action:manipulation}
+.idea-studio button:hover,.idea-export a:hover{background:#40202a;border-color:#e39caa}.idea-studio button:disabled{opacity:.4;cursor:default}
+.idea-studio .idea-draw{width:100%;background:#aa1930;border-color:#d54860;font-weight:600}.idea-draw[aria-pressed=true]{background:#f5efe4;color:#24191d;border-color:#f5efe4}
+.idea-controls .idea-help{font:12px/1.65 Arial,sans-serif;color:#c2adaa;max-width:none;margin:12px 0}
+.idea-controls input[type=range]{width:100%;height:36px;accent-color:#e36e85;cursor:pointer;touch-action:pan-y}
+.idea-range-labels{display:flex;justify-content:space-between;font-size:11px;color:#cbb6b2}
+.idea-controls fieldset{border:0;padding:0;margin:24px 0 8px}.idea-controls legend{margin-bottom:12px}.idea-symbols{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.idea-tools{display:flex;gap:10px;margin-top:20px}.idea-tools button{flex:1}
+.idea-controls textarea{width:100%;min-height:96px;resize:vertical;padding:12px;border:1px solid #8c666e;background:#1d1116;color:#fff;border-radius:10px;font:16px/1.6 Arial,sans-serif;box-sizing:border-box}
+.idea-export{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}.idea-export a{grid-column:1/-1;text-align:center;background:#aa1930;text-decoration:none}
+#idea-status{font:12px/1.6 Arial,sans-serif;color:#e4c5ce;min-height:40px;margin:14px 0 0}
+.idea-studio :is(button,a,input,textarea,canvas):focus-visible{outline:3px solid #f3aabe;outline-offset:4px}
+.idea-studio [hidden]{display:none!important}
+@media(max-width:760px){.idea-studio{padding:60px 18px}.idea-heading{grid-template-columns:1fr;gap:18px;margin-bottom:24px}.idea-heading h2{font-size:clamp(62px,17vw,90px)}.idea-heading p{font-size:16px;margin:0}.idea-layout{grid-template-columns:1fr;gap:24px}.idea-paper-wrap{max-width:460px;width:100%;justify-self:center}.idea-paper-head,.idea-paper-foot{padding:14px;font-size:9px}.idea-control-head{font-size:10px}.idea-export{grid-template-columns:1fr}.idea-controls label{margin-top:18px}}
+.idea-canvas-tools{display:flex;gap:8px;padding:12px;background:#211318}.idea-canvas-tools .idea-draw{flex:1;width:auto}.idea-canvas-tools #idea-mirror{flex:1}#idea-mirror[aria-pressed=true]{background:#f5efe4;color:#24191d;border-color:#f5efe4}
+@media(max-width:400px){.idea-canvas-tools button{padding:10px 8px;font-size:12px}}
