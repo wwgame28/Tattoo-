@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {book,getSlots} from '../frontend/src/lib/booking-api.js';
+let called=0;
+globalThis.fetch=async(url,options)=>{called++;assert.equal(options.method,'POST');assert(options.body instanceof FormData);return {ok:true,json:async()=>({booking_code:'LOCAL-TEST',starts_at:'2026-10-01T05:00:00Z'})}};
+assert.equal((await book(new FormData())).booking_code,'LOCAL-TEST');
+globalThis.fetch=async()=>({ok:false,json:async()=>({error:'SLOT_UNAVAILABLE'})});await assert.rejects(book(new FormData()),/время уже занято/);
+globalThis.fetch=async()=>({ok:false,json:async()=>({error:'RATE_LIMIT'})});await assert.rejects(book(new FormData()),/Слишком много/);
+globalThis.fetch=async()=>({ok:false,json:async()=>null});await assert.rejects(book(new FormData()),/не удалось подтвердить/);
+globalThis.fetch=async()=>{throw new DOMException('timeout','TimeoutError')};await assert.rejects(book(new FormData()),{name:'TimeoutError'});
+globalThis.fetch=async(url)=>{assert(url.includes('status=eq.open'));return {ok:true,json:async()=>[]}};assert.deepEqual(await getSlots(),[]);
+globalThis.fetch=async()=>({ok:false});await assert.rejects(getSlots(),/Календарь сейчас недоступен/);
+console.log('7 booking API checks passed; all network calls mocked, no external submissions.');

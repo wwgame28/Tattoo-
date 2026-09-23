@@ -1,0 +1,29 @@
+{
+  "name": "orlica-editorial",
+  "private": true,
+  "version": "12.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build && node scripts/export-routes.mjs",
+    "preview": "vite preview --host 0.0.0.0",
+    "stage:pages": "npm run build && node scripts/stage-pages.mjs",
+    "test": "node scripts/test-booking-api.mjs"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.0",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-accordion": "^1.2.12",
+    "@radix-ui/react-slot": "^1.2.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.3.1",
+    "lucide-react": "^0.468.0"
+  },
+  "devDependencies": {
+    "vite": "^7.2.0",
+    "@vitejs/plugin-react": "^5.1.0"
+  }
+}

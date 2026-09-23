@@ -1,0 +1,14 @@
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/Tattoo-/assets/fonts/oswald-0.woff') format('woff');
+}
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/Tattoo-/assets/fonts/oswald-1.woff') format('woff');
+}
