@@ -8,5 +8,16 @@ export const works=[
 {slug:'tribal',title:'СИЛА ФОРМЫ',category:'Орнамент',image:'tribal.webp',number:'07',source:68,description:'Смелые чёрные линии подчёркивают плечи. Крупный орнамент и выразительный ритм.'},
 {slug:'stars',title:'ПОД НОГАМИ — ЗВЁЗДЫ',category:'Миниатюры',image:'stars.webp',number:'08',source:72,description:'Маленькие звёзды на стопах. Работа, которую я сделала для себя.'}
 ];
+export const flashSketches=[
+{number:'01',title:'КОСТЯНОЙ ДРАКОН',image:'flash-01.webp'},
+{number:'02',title:'СЕРДЦЕ НАЯВУ',image:'flash-02.webp'},
+{number:'03',title:'ТИХИЙ ЧЁРТ',image:'flash-03.webp'},
+{number:'04',title:'РОГА И ЗВЁЗДЫ',image:'flash-04.webp'},
+{number:'05',title:'ШОВ',image:'flash-05.webp'},
+{number:'06',title:'СТРАННЫЕ ДРУЗЬЯ',image:'flash-06.webp'},
+{number:'07',title:'СМОТРИ В СЕРДЦЕ',image:'flash-07.webp'},
+{number:'08',title:'ЛЕСНАЯ ФЕЯ',image:'flash-08.webp'},
+{number:'09',title:'ДОМ ЛЕТУЧИХ МЫШЕЙ',image:'flash-09.webp'}
+];
 export const links={telegram:'https://t.me/Sveta_orel09',channel:'https://t.me/orlica_tatt',vk:'https://vk.ru/sveta_orel_tattoo',map:'https://2gis.ru/blagoveshensk/firm/70000001090509314'};
-export const pages=[['/works','РАБОТЫ'],['/prices','ЦЕНЫ'],['/about','ОБО МНЕ'],['/process','ПРОЦЕСС'],['/faq','ВОПРОСЫ'],['/booking','ЗАПИСЬ']];
+export const pages=[['/works','РАБОТЫ'],['/flash','ЭСКИЗЫ'],['/prices','ЦЕНЫ'],['/about','ОБО МНЕ'],['/process','ПРОЦЕСС'],['/faq','ВОПРОСЫ'],['/booking','ЗАПИСЬ']];
