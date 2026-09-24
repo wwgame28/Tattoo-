@@ -82,7 +82,7 @@ export default function TattooConstructor(){
     <header className="constructor-hero">
       <span className="eyebrow">MALABAR / AI-КОНСТРУКТОР</span>
       <h1>СОБЕРИ<br/><i>свою</i> ИДЕЮ.</h1>
-      <p>Шесть решений. Один уникальный эскиз.</p>
+      <p>Шесть решений. На выходе — tattoo-ready эскиз на белом листе, а не картинка или мокап.</p>
     </header>
 
     {imported&&<div className="constructor-import-note"><span>MALABAR LAB</span><p>Параметры из лаборатории уже перенесены. Дополни недостающее или меняй любые пункты.</p><button type="button" onClick={()=>setImported(false)}>×</button></div>}
@@ -99,7 +99,7 @@ export default function TattooConstructor(){
             <input id={`custom-${group.key}`} value={custom[group.key]} maxLength={140} onChange={e=>changeCustom(group.key,e.target.value)} placeholder={group.placeholder} autoComplete="off"/>
           </div>}
           {group.key==='mood'&&<p className="constructor-hint">18+ — сексуальный взрослый характер: чувственные позы, бельё, акцент на теле и прикрытая грудь допустимы; без откровенной порнографии.</p>}
-          {group.key==='placement'&&<p className="constructor-hint">Место влияет на форму эскиза: ИИ подстроит композицию под выбранную часть тела.</p>}
+          {group.key==='placement'&&<p className="constructor-hint">Часть тела задаёт только форму и направление композиции. В результате будет чистый эскиз без кожи, руки или тела.</p>}
         </section>)}
 
         <section className="constructor-idea">
@@ -112,7 +112,7 @@ export default function TattooConstructor(){
         <span className="eyebrow">ТВОЯ СБОРКА · {completedCount}/6</span>
         <div className="constructor-progress" aria-label={`Заполнено ${completedCount} из 6`}><span style={{width:`${completedCount/6*100}%`}}/></div>
         <div className="constructor-summary-list">{groups.map(g=><div key={g.key}><small>{g.number}</small><span>{displayValue(g)}</span></div>)}</div>
-        <Button onClick={generate} disabled={!complete||busy}>{busy?'РИСУЮ…':'СГЕНЕРИРОВАТЬ'}<Sparkles size={18}/></Button>
+        <Button onClick={generate} disabled={!complete||busy}>{busy?'РИСУЮ ЭСКИЗ…':'СГЕНЕРИРОВАТЬ ЭСКИЗ'}<Sparkles size={18}/></Button>
         {!complete&&<p>Заполни все шесть параметров.</p>}
         {error&&<p className="constructor-error" role="alert">{error}</p>}
       </aside>
@@ -120,15 +120,15 @@ export default function TattooConstructor(){
 
     {image&&<section className="constructor-result">
       <div className="constructor-result-copy">
-        <span className="eyebrow">MALABAR / AI-ЭСКИЗ</span>
-        <h2>ВОТ<br/><i>что получилось.</i></h2>
+        <span className="eyebrow">MALABAR / TATTOO SKETCH</span>
+        <h2>ГОТОВ<br/><i>эскиз.</i></h2>
         {remaining!==null&&<p>Осталось генераций сегодня: {remaining}</p>}
         <div className="constructor-result-actions">
-          <Button onClick={generate} disabled={busy}>{busy?'РИСУЮ…':'ЕЩЁ ВАРИАНТ'}<RefreshCcw size={18}/></Button>
+          <Button onClick={generate} disabled={busy}>{busy?'РИСУЮ ЭСКИЗ…':'ЕЩЁ ЭСКИЗ'}<RefreshCcw size={18}/></Button>
           <Button variant="outline" asChild><Link to="/booking">ХОЧУ ОБСУДИТЬ <ArrowRight size={18}/></Link></Button>
         </div>
       </div>
-      <div className="constructor-result-image"><img src={image} alt="Сгенерированный эскиз татуировки"/></div>
+      <div className="constructor-result-image"><img src={image} alt="Сгенерированный tattoo-ready эскиз"/></div>
     </section>}
   </div>
 }
