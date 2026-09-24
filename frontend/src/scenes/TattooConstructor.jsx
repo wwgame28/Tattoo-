@@ -61,13 +61,13 @@ export default function TattooConstructor(){
           <div className="constructor-options">
             {group.options.map(option=><button type="button" key={option} aria-pressed={choice[group.key]===option} onClick={()=>choose(group.key,option)}>{option}<span>↗</span></button>)}
           </div>
-          {group.key==='mood'&&<p className="constructor-hint">18+ — взрослая чувственная эстетика без откровенного контента.</p>}
+          {group.key==='mood'&&<p className="constructor-hint">18+ — сексуальный взрослый характер: чувственные позы, бельё, акцент на теле и прикрытая грудь допустимы; без откровенной порнографии.</p>}
           {group.key==='reference'&&<p className="constructor-hint">Если выбрал «Свой вариант» — напиши название фильма, героя или вселенной ниже.</p>}
         </section>)}
 
         <section className="constructor-idea">
           <label htmlFor="constructor-idea">ДОБАВЬ ДЕТАЛЬ <span>необязательно</span></label>
-          <textarea id="constructor-idea" value={idea} maxLength={400} onChange={e=>setIdea(e.target.value)} placeholder="Например: Дарт Вейдер в готической подаче, без текста, больше чёрного…"/>
+          <textarea id="constructor-idea" value={idea} maxLength={400} onChange={e=>setIdea(e.target.value)} placeholder="Например: чувственный образ в белье, грудь прикрыта руками/волосами, без откровенной наготы…"/>
         </section>
       </div>
 
