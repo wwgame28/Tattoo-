@@ -38,7 +38,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A index.html 404.html app-assets about booking constructor faq flash prices process works
+          git add -A index.html 404.html app-assets about booking constructor faq flash lab prices process works
           if git diff --cached --quiet; then
             echo "No generated changes"
           else
