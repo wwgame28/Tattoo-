@@ -10,4 +10,4 @@
 
 html[data-shared="floral"] img[data-work="floral"],html[data-shared="cathedral"] img[data-work="cathedral"],html[data-shared="snake"] img[data-work="snake"],html[data-shared="angel"] img[data-work="angel"],html[data-shared="rose"] img[data-work="rose"],html[data-shared="moon"] img[data-work="moon"],html[data-shared="tribal"] img[data-work="tribal"],html[data-shared="stars"] img[data-work="stars"]{view-transition-name:work-focus}
 .hero-title>span{transform:translateX(calc(var(--hx)*(var(--i) - 2.5)*.13))}
-@media(max-width:700px){.hero-front{font-size:clamp(68px,20vw,82px);left:auto;right:4%;max-width:54vw;white-space:nowrap;transform:rotate(-8deg)}}
+@media(max-width:700px){.hero-title{top:86px;font-size:22vw;line-height:.92;z-index:2}.hero-photo-wrap{top:175px}.hero-front,.hero-note{display:none}}
