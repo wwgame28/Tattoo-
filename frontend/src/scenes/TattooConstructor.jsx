@@ -4,13 +4,15 @@ import {Button} from '../components/ui/button';
 import {Link} from '../router';
 
 const API='https://dbwnvbfdphqmfjzbpqnw.supabase.co/functions/v1/orlica-openrouter';
+const OWN='Свой вариант';
 
 const groups=[
-  {key:'style',number:'01',title:'СТИЛЬ',options:['Графика','Fine line','Blackwork','Реализм','Нео-традишнл','Японский','Dotwork','Минимализм']},
-  {key:'genre',number:'02',title:'ЖАНР',options:['Ботаника','Животные','Мистика','Готика','Хоррор','Фэнтези','Абстракция','Портрет']},
-  {key:'mood',number:'03',title:'ХАРАКТЕР / 18+',options:['Нежно','Смело','Тёмно','Романтика','Странно','18+']},
-  {key:'source',number:'04',title:'ОТКУДА ОБРАЗ',options:['Фильм','Сериал','Аниме','Игра','Книга','Мифология']},
-  {key:'reference',number:'05',title:'ВСЕЛЕННАЯ / РЕФЕРЕНС',options:['Marvel','DC','Harry Potter','Star Wars','The Lord of the Rings','The Witcher','Berserk','Studio Ghibli','Silent Hill','Свой вариант']}
+  {key:'style',number:'01',title:'СТИЛЬ',options:['Графика','Fine line','Blackwork','Реализм','Нео-традишнл','Японский','Dotwork','Минимализм',OWN],placeholder:'Например: гравюра, трэш-полька, скетч…'},
+  {key:'genre',number:'02',title:'ЖАНР',options:['Ботаника','Животные','Мистика','Готика','Хоррор','Фэнтези','Абстракция','Портрет',OWN],placeholder:'Например: киберпанк, религия, космос…'},
+  {key:'mood',number:'03',title:'ХАРАКТЕР / 18+',options:['Нежно','Смело','Тёмно','Романтика','Странно','18+',OWN],placeholder:'Например: дерзко, провокационно, иронично…'},
+  {key:'source',number:'04',title:'ОТКУДА ОБРАЗ',options:['Фильм','Сериал','Аниме','Игра','Книга','Мифология',OWN],placeholder:'Например: клип, музыка, комикс, сон…'},
+  {key:'reference',number:'05',title:'ВСЕЛЕННАЯ / РЕФЕРЕНС',options:['Marvel','DC','Harry Potter','Star Wars','The Lord of the Rings','The Witcher','Berserk','Studio Ghibli','Silent Hill',OWN],placeholder:'Например: Supernatural, Arcane, Alien…'},
+  {key:'placement',number:'06',title:'ЧАСТЬ ТЕЛА',options:['Рука','Предплечье','Плечо','Кисть','Грудь','Рёбра','Спина','Шея','Бедро','Голень',OWN],placeholder:'Например: под ключицей с переходом на плечо…'}
 ];
 
 function deviceId(){
@@ -23,20 +25,28 @@ function deviceId(){
 }
 
 export default function TattooConstructor(){
-  const[choice,setChoice]=useState({style:'',genre:'',mood:'',source:'',reference:''});
+  const[choice,setChoice]=useState({style:'',genre:'',mood:'',source:'',reference:'',placement:''});
+  const[custom,setCustom]=useState({style:'',genre:'',mood:'',source:'',reference:'',placement:''});
   const[idea,setIdea]=useState('');
   const[image,setImage]=useState('');
   const[busy,setBusy]=useState(false);
   const[error,setError]=useState('');
   const[remaining,setRemaining]=useState(null);
-  const complete=useMemo(()=>groups.every(g=>choice[g.key]),[choice]);
+
+  const isGroupComplete=(group)=>Boolean(choice[group.key]&&(choice[group.key]!==OWN||custom[group.key].trim()));
+  const completedCount=useMemo(()=>groups.filter(isGroupComplete).length,[choice,custom]);
+  const complete=completedCount===groups.length;
+  const displayValue=(group)=>choice[group.key]===OWN?(custom[group.key].trim()||OWN):(choice[group.key]||'—');
 
   const choose=(key,value)=>{setChoice(v=>({...v,[key]:value}));setError('')};
+  const changeCustom=(key,value)=>{setCustom(v=>({...v,[key]:value.slice(0,140)}));setError('')};
+
   const generate=async()=>{
     if(!complete||busy)return;
     setBusy(true);setError('');
     try{
-      const response=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...choice,idea,device_id:deviceId()}),signal:AbortSignal.timeout(95000)});
+      const customPayload=Object.fromEntries(groups.map(g=>[`${g.key}_custom`,custom[g.key].trim()]));
+      const response=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...choice,...customPayload,idea,device_id:deviceId()}),signal:AbortSignal.timeout(95000)});
       const data=await response.json().catch(()=>null);
       if(!response.ok)throw new Error(data?.message||'Не получилось создать эскиз. Попробуй ещё раз.');
       setImage(data.image||'');
@@ -51,7 +61,7 @@ export default function TattooConstructor(){
     <header className="constructor-hero">
       <span className="eyebrow">MALABAR / AI-КОНСТРУКТОР</span>
       <h1>СОБЕРИ<br/><i>свою</i> ИДЕЮ.</h1>
-      <p>Пять решений. Один уникальный эскиз.</p>
+      <p>Шесть решений. Один уникальный эскиз.</p>
     </header>
 
     <div className="constructor-layout">
@@ -61,21 +71,26 @@ export default function TattooConstructor(){
           <div className="constructor-options">
             {group.options.map(option=><button type="button" key={option} aria-pressed={choice[group.key]===option} onClick={()=>choose(group.key,option)}>{option}<span>↗</span></button>)}
           </div>
+          {choice[group.key]===OWN&&<div className="constructor-custom">
+            <label htmlFor={`custom-${group.key}`}>НАПИШИ СВОЙ ВАРИАНТ</label>
+            <input id={`custom-${group.key}`} value={custom[group.key]} maxLength={140} onChange={e=>changeCustom(group.key,e.target.value)} placeholder={group.placeholder} autoComplete="off"/>
+          </div>}
           {group.key==='mood'&&<p className="constructor-hint">18+ — сексуальный взрослый характер: чувственные позы, бельё, акцент на теле и прикрытая грудь допустимы; без откровенной порнографии.</p>}
-          {group.key==='reference'&&<p className="constructor-hint">Если выбрал «Свой вариант» — напиши название фильма, героя или вселенной ниже.</p>}
+          {group.key==='placement'&&<p className="constructor-hint">Место влияет на форму эскиза: ИИ подстроит композицию под выбранную часть тела.</p>}
         </section>)}
 
         <section className="constructor-idea">
-          <label htmlFor="constructor-idea">ДОБАВЬ ДЕТАЛЬ <span>необязательно</span></label>
-          <textarea id="constructor-idea" value={idea} maxLength={400} onChange={e=>setIdea(e.target.value)} placeholder="Например: чувственный образ в белье, грудь прикрыта руками/волосами, без откровенной наготы…"/>
+          <label htmlFor="constructor-idea">ОБЩИЕ ПОЖЕЛАНИЯ <span>необязательно</span></label>
+          <textarea id="constructor-idea" value={idea} maxLength={400} onChange={e=>setIdea(e.target.value)} placeholder="Например: больше воздуха, без текста, добавить лилии, оставить много чёрного…"/>
         </section>
       </div>
 
       <aside className="constructor-summary">
-        <span className="eyebrow">ТВОЯ СБОРКА</span>
-        <div className="constructor-summary-list">{groups.map(g=><div key={g.key}><small>{g.number}</small><span>{choice[g.key]||'—'}</span></div>)}</div>
+        <span className="eyebrow">ТВОЯ СБОРКА · {completedCount}/6</span>
+        <div className="constructor-progress" aria-label={`Заполнено ${completedCount} из 6`}><span style={{width:`${completedCount/6*100}%`}}/></div>
+        <div className="constructor-summary-list">{groups.map(g=><div key={g.key}><small>{g.number}</small><span>{displayValue(g)}</span></div>)}</div>
         <Button onClick={generate} disabled={!complete||busy}>{busy?'РИСУЮ…':'СГЕНЕРИРОВАТЬ'}<Sparkles size={18}/></Button>
-        {!complete&&<p>Выбери все пять параметров.</p>}
+        {!complete&&<p>Заполни все шесть параметров.</p>}
         {error&&<p className="constructor-error" role="alert">{error}</p>}
       </aside>
     </div>
