@@ -1,4 +1,4 @@
-import {useMemo,useState} from 'react';
+import {useEffect,useMemo,useState} from 'react';
 import {ArrowRight,RefreshCcw,Sparkles} from 'lucide-react';
 import {Button} from '../components/ui/button';
 import {Link} from '../router';
@@ -32,6 +32,27 @@ export default function TattooConstructor(){
   const[busy,setBusy]=useState(false);
   const[error,setError]=useState('');
   const[remaining,setRemaining]=useState(null);
+  const[imported,setImported]=useState(false);
+
+  useEffect(()=>{
+    try{
+      const raw=sessionStorage.getItem('malabar-lab-preset');
+      if(!raw)return;
+      const data=JSON.parse(raw);
+      const nextChoice={};const nextCustom={};
+      groups.forEach(group=>{
+        const value=data?.choice?.[group.key];
+        const ownValue=data?.custom?.[group.key];
+        if(value)nextChoice[group.key]=value;
+        if(ownValue)nextCustom[group.key]=ownValue;
+      });
+      setChoice(v=>({...v,...nextChoice}));
+      setCustom(v=>({...v,...nextCustom}));
+      if(data?.idea)setIdea(String(data.idea).slice(0,400));
+      setImported(true);
+      sessionStorage.removeItem('malabar-lab-preset');
+    }catch{}
+  },[]);
 
   const isGroupComplete=(group)=>Boolean(choice[group.key]&&(choice[group.key]!==OWN||custom[group.key].trim()));
   const completedCount=useMemo(()=>groups.filter(isGroupComplete).length,[choice,custom]);
@@ -63,6 +84,8 @@ export default function TattooConstructor(){
       <h1>СОБЕРИ<br/><i>свою</i> ИДЕЮ.</h1>
       <p>Шесть решений. Один уникальный эскиз.</p>
     </header>
+
+    {imported&&<div className="constructor-import-note"><span>MALABAR LAB</span><p>Параметры из лаборатории уже перенесены. Дополни недостающее или меняй любые пункты.</p><button type="button" onClick={()=>setImported(false)}>×</button></div>}
 
     <div className="constructor-layout">
       <div className="constructor-groups">
