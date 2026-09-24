@@ -1,9 +1,10 @@
-name: ORLICA build pages
+name: MALABAR build pages
 
 on:
   push:
     branches: [main]
     paths:
+      - 'frontend/index.html'
       - 'frontend/src/**'
       - 'scripts/export-routes.mjs'
       - 'scripts/stage-pages.mjs'
@@ -16,7 +17,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: orlica-build-pages
+  group: malabar-build-pages
   cancel-in-progress: true
 
 jobs:
@@ -41,6 +42,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No generated changes"
           else
-            git commit -m "Build ORLICA site"
+            git commit -m "Build MALABAR site"
             git push
           fi
