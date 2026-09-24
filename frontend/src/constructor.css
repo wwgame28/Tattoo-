@@ -1,0 +1,42 @@
+.constructor-page{padding:0 0 100px;background:var(--paper);color:var(--ink)}
+.constructor-hero{padding:72px 6% 60px;border-bottom:1px solid var(--line)}
+.constructor-hero .eyebrow{display:block;margin-bottom:22px}
+.constructor-hero h1{font-size:clamp(72px,13vw,190px);line-height:.88;letter-spacing:-.035em;max-width:1200px}
+.constructor-hero h1 i{font-size:.58em;margin-left:.06em}
+.constructor-hero p{font-size:18px;margin:28px 0 0;color:#62625c}
+.constructor-layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(280px,.65fr);gap:7%;padding:35px 6% 90px;align-items:start}
+.constructor-groups{min-width:0}
+.constructor-group{padding:34px 0 38px;border-bottom:1px solid var(--line)}
+.constructor-group:first-child{border-top:1px solid var(--line)}
+.constructor-group-title{display:flex;align-items:baseline;gap:24px;margin-bottom:22px}
+.constructor-group-title>span{font-family:Georgia,serif;font-style:italic;font-size:20px;color:#8a8a82}
+.constructor-group-title h2{font-family:Arial,Helvetica,sans-serif;font-size:clamp(28px,4vw,52px);letter-spacing:-.04em}
+.constructor-options{display:flex;flex-wrap:wrap;gap:10px}
+.constructor-options button{background:transparent;border:1px solid #bdbcb5;padding:13px 16px;display:flex;gap:18px;align-items:center;font-size:14px;transition:background .2s,border-color .2s,transform .2s var(--ease)}
+.constructor-options button span{opacity:.35}
+.constructor-options button:hover{border-color:var(--ink);transform:translateY(-1px)}
+.constructor-options button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.constructor-options button[aria-pressed=true] span{opacity:1}
+.constructor-hint{font-size:12px;color:#77776f;margin:14px 0 0;max-width:470px}
+.constructor-idea{padding:38px 0 0}
+.constructor-idea label{font-size:12px;letter-spacing:.07em;display:flex;justify-content:space-between;gap:20px}
+.constructor-idea label span{color:#85857e}
+.constructor-idea textarea{margin-top:16px;min-height:115px;font-size:18px}
+.constructor-summary{position:sticky;top:115px;border:1px solid var(--ink);padding:28px;background:#f7f6f2}
+.constructor-summary>.eyebrow{display:block;margin-bottom:22px}
+.constructor-summary-list{border-top:1px solid var(--line);margin-bottom:25px}
+.constructor-summary-list>div{display:flex;align-items:center;gap:15px;padding:15px 0;border-bottom:1px solid var(--line)}
+.constructor-summary-list small{font-size:10px;color:#8b8b82;width:24px}
+.constructor-summary-list span{font-size:15px}
+.constructor-summary>.button{width:100%;justify-content:space-between}
+.constructor-summary>p{font-size:12px;color:#77776f;margin:14px 0 0}
+.constructor-summary .constructor-error{color:#9b3d30}
+.constructor-result{margin:20px 6% 0;padding:60px 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:.8fr 1.2fr;gap:9%;align-items:center}
+.constructor-result-copy h2{font-size:clamp(58px,8vw,120px);line-height:.9;margin:25px 0 28px}
+.constructor-result-copy h2 i{font-size:.55em}
+.constructor-result-copy>p{font-size:14px;color:#6f6f67}
+.constructor-result-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.constructor-result-image{background:#dddcd5;min-height:520px;display:grid;place-items:center;overflow:hidden}
+.constructor-result-image img{width:100%;height:auto;max-height:82svh;object-fit:contain;background:#ebeae5}
+@media(max-width:1120px){.desktop-nav a[href*="/constructor"]{display:none}.constructor-layout{grid-template-columns:minmax(0,1.5fr) 300px;gap:4%}}
+@media(max-width:760px){.constructor-page{padding-bottom:65px}.constructor-hero{padding:45px 5% 38px}.constructor-hero h1{font-size:18vw;line-height:.9}.constructor-hero p{font-size:15px;margin-top:22px}.constructor-layout{display:block;padding:15px 5% 55px}.constructor-group{padding:27px 0 30px}.constructor-group-title{gap:14px;margin-bottom:18px}.constructor-group-title>span{font-size:16px}.constructor-group-title h2{font-size:36px}.constructor-options{gap:8px}.constructor-options button{padding:12px 13px;font-size:13px;gap:12px}.constructor-idea{padding-top:28px}.constructor-idea textarea{font-size:16px}.constructor-summary{position:relative;top:auto;margin-top:34px;padding:22px}.constructor-result{margin:0 5%;padding-top:45px;display:flex;flex-direction:column-reverse;gap:35px;align-items:stretch}.constructor-result-image{min-height:0}.constructor-result-image img{max-height:72svh}.constructor-result-copy h2{font-size:17vw}.constructor-result-actions{display:grid;grid-template-columns:1fr}.constructor-result-actions .button{width:100%;justify-content:space-between}}
