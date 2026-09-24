@@ -20,4 +20,4 @@ export const flashSketches=[
 {number:'09',title:'ДОМ ЛЕТУЧИХ МЫШЕЙ',image:'flash-09.webp'}
 ];
 export const links={telegram:'https://t.me/Sveta_orel09',channel:'https://t.me/orlica_tatt',vk:'https://vk.ru/sveta_orel_tattoo',map:'https://2gis.ru/blagoveshensk/firm/70000001090509314'};
-export const pages=[['/works','РАБОТЫ'],['/flash','ЭСКИЗЫ'],['/constructor','КОНСТРУКТОР'],['/prices','ЦЕНЫ'],['/about','ОБО МНЕ'],['/process','ПРОЦЕСС'],['/faq','ВОПРОСЫ'],['/booking','ЗАПИСЬ']];
+export const pages=[['/works','РАБОТЫ'],['/flash','ЭСКИЗЫ'],['/lab','MALABAR LAB'],['/constructor','КОНСТРУКТОР'],['/prices','ЦЕНЫ'],['/about','ОБО МНЕ'],['/process','ПРОЦЕСС'],['/faq','ВОПРОСЫ'],['/booking','ЗАПИСЬ']];
