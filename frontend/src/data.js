@@ -6,7 +6,7 @@ export const works=[
 {slug:'rose',title:'ПОЧТИ ШЁПОТОМ',category:'Миниатюры',image:'rose.webp',number:'05',source:77,description:'Лёгкая ботаническая линия у ключицы. Немного воздуха, немного нежности — и свой смысл.'},
 {slug:'moon',title:'ЛИЧНАЯ ОРБИТА',category:'Графика',image:'moon.webp',number:'06',source:71,description:'Луна, звёзды и маленький персонаж. Лаконичная графическая история, которая всегда рядом.'},
 {slug:'tribal',title:'СИЛА ФОРМЫ',category:'Орнамент',image:'tribal.webp',number:'07',source:68,description:'Смелые чёрные линии подчёркивают плечи. Крупный орнамент и выразительный ритм.'},
-{slug:'stars',title:'ПОД НОГАМИ — ЗВЁЗДЫ',category:'Миниатюры',image:'stars.webp',number:'08',source:72,description:'Маленькие звёзды на стопах. Работа, которой Света порадовала саму себя.'}
+{slug:'stars',title:'ПОД НОГАМИ — ЗВЁЗДЫ',category:'Миниатюры',image:'stars.webp',number:'08',source:72,description:'Маленькие звёзды на стопах. Работа, которую я сделала для себя.'}
 ];
 export const links={telegram:'https://t.me/Sveta_orel09',channel:'https://t.me/orlica_tatt',vk:'https://vk.ru/sveta_orel_tattoo',map:'https://2gis.ru/blagoveshensk/firm/70000001090509314'};
-export const pages=[['/works','РАБОТЫ'],['/prices','ЦЕНЫ'],['/about','СВЕТА'],['/process','ПРОЦЕСС'],['/faq','ВОПРОСЫ'],['/booking','ЗАПИСЬ']];
+export const pages=[['/works','РАБОТЫ'],['/prices','ЦЕНЫ'],['/about','ОБО МНЕ'],['/process','ПРОЦЕСС'],['/faq','ВОПРОСЫ'],['/booking','ЗАПИСЬ']];
